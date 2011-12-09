@@ -1,0 +1,30 @@
+#! /bin/sh
+
+. ${srcdir}/test.lib.sh
+
+setup () {
+        DEB_HOST_ARCH_BITS=128
+        export DEB_HOST_ARCH_BITS
+        unset unset_variable
+}
+
+do_subst () {
+        (cat <<EOF
+DEB_HOST_MULTIARCH = \${DEB_HOST_MULTIARCH}
+DEB_HOST_ARCH_BITS = \${DEB_HOST_ARCH_BITS}
+unset_variable     = \${unset_variable}
+EOF
+        ) | ${top_builddir}/src/dh_subst
+}
+
+setup
+
+tl_plan 3
+
+do_subst | tl_expect "Multiarch is set" "DEB_HOST_MULTIARCH = $(dpkg-architecture -qDEB_HOST_MULTIARCH)"
+tl_next
+do_subst | tl_expect "ARCH_BITS uses env. var" "DEB_HOST_ARCH_BITS = 128"
+tl_next
+unset DEB_HOST_ARCH_BITS
+do_subst | tl_expect "ARCH_BITS falls back to dpkg-architecture" "DEB_HOST_ARCH_BITS = $(dpkg-architecture -qDEB_HOST_ARCH_BITS)"
+tl_next

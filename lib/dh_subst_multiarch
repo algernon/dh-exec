@@ -1,0 +1,6 @@
+#! /usr/bin/perl -wnp
+##
+## Akin to dh_subst_env, this one will try to expand variables within
+## its input, but only certain ones, and will fall back to querying
+## dpkg-architecture first, before finally giving up.
+s#(\$\{(DEB_(HOST|BUILD)_[^\}]+)\})#`dpkg-architecture -q$2 2>/dev/null` || $1#eg;

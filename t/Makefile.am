@@ -2,7 +2,7 @@ AUTOMAKE_OPTIONS	= foreign
 
 EXTRA_DIST		= test.lib.sh ${TESTCASES}
 
-TESTCASES		= test_env
+TESTCASES		= test_env test_multiarch
 TESTS_ENVIRONMENT	= DH_SUBST_LIBDIR="${top_srcdir}/lib" top_builddir="${top_builddir}" \
 			srcdir="${srcdir}"
 

@@ -29,6 +29,15 @@ its input. It does not do any kind of filtering: whatever is available
 in the environment, will be available for substitution, however unsafe
 that may be.
 
+.TP
+.B dh_subst_multiarch
+Attempts to expand any of the variables known to
+\fIdpkg\-architecture\fR(1), mostly useful for multi\-arch support.
+
+The command will query \fIdpkg\-architecture\fR(1) directly, and does
+not rely on environment variables set (as the called program will
+prefer already set environment variables anyway).
+
 .SH "ENVIRONMENT"
 .PP
 \fIDH_SUBST_LIBDIR\fR
