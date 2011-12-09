@@ -1,0 +1,6 @@
+#! /usr/bin/perl -wnp
+##
+## This does nothing else, but substitute ${...} with the
+## corresponding environment variable, or the original ${...} if the
+## env. var does not exist.
+s/(\$\{([^\}]+)\})/$ENV{$2} || $1/eg;

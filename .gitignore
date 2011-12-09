@@ -1,0 +1,17 @@
+*~
+*.o
+Makefile
+*.log
+*.status
+*.in
+/aclocal.m4
+/config.h
+/configure
+/depcomp
+/install-sh
+/missing
+/stamp-h1
+/autom4te.cache/
+.deps/
+/src/dh_subst
+core

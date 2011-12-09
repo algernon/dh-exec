@@ -1,0 +1,26 @@
+#! /bin/sh
+
+. ${srcdir}/test.lib.sh
+
+setup () {
+        dh_subst_test_var="foo"
+        unset dh_subst_test_novar
+        export dh_subst_test_var
+}
+
+do_subst () {
+        (cat <<EOF
+dh_subst_test_var   = \${dh_subst_test_var}
+dh_subst_test_novar = \${dh_subst_test_novar}
+EOF
+        ) | ${top_builddir}/src/dh_subst
+}
+
+setup
+
+tl_plan 2
+
+do_subst | tl_expect "Defined environment variable" 'dh_subst_test_var   = foo'
+tl_next
+do_subst | tl_expect "Undefined environment variable" 'dh_subst_test_novar = ${dh_subst_test_novar}'
+tl_next
