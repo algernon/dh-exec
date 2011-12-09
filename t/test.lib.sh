@@ -10,7 +10,7 @@ tl_expect () {
         desc="$1"
         expect="$2"
 
-        if grep -q "${expect}"; then
+        if grep -q "^${expect}$"; then
                 echo "ok ${test_lib_cnt}"
         else
                 echo "not ok ${test_lib_cnt} - ${desc}"
