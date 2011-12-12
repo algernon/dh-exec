@@ -6,8 +6,8 @@
 ## and echo back the original contents for all files that do not need
 ## one (ie, the destination ends with /).
 ##
-## TODO: Use the same logic to find files and destinations as what
-## dh_install uses.
+## As a special case, if a source file is not found, it will be
+## checked under debian/tmp too.
 
 while read SRC DEST; do
         case "${SRC}" in
@@ -19,6 +19,9 @@ while read SRC DEST; do
                 (*/)
                         ;;
                 (*)
+                        if [ ! -e "${SRC}" ] && [ -e "debian/tmp/${SRC}" ]; then
+                                SRC="debian/tmp/${SRC}"
+                        fi
                         cp -- "${SRC}" "${DEST}"
                         continue
                         ;;

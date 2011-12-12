@@ -2,7 +2,7 @@
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 3
+tl_plan 5
 
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
@@ -42,4 +42,29 @@ chmod +x "${t}"
                          "${td}/"
 rm -f "${t}"
 rm -rf "${td}"
+tl_next
+
+# Check copying from debian/tmp
+t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
+td=$(mktemp -d --tmpdir=. tmpXXXXX)
+
+install -d "debian/tmp"
+
+echo "foobar" >"debian/tmp/foo.test"
+
+cat >"${t}" <<EOF
+#! ${top_builddir}/src/dh-exec-install
+foo.test ${td}/test-output
+EOF
+
+chmod +x "${t}"
+"${t}" | tl_forbid "Copying from debian/tmp works" "test-output"
+tl_next
+
+# ...and it even copies the file
+cat "${td}/test-output" | tl_expect "Copying did happen" "foobar"
+rm -f "${t}"
+rm -rf "${td}"
+rm -f debian/tmp/foo.test
+
 tl_next
