@@ -1,0 +1,31 @@
+.TH "DH\-EXEC\-INSTALL" "1" "2011-12-12" "" "dh-exec"
+.ad l
+.nh
+.SH "NAME"
+dh\-exec\-install \- Install (and possibly rename) files.
+.SH "SYNOPSIS"
+\fB#! /usr/bin/dh\-exec\-install\fR
+.br
+debian/default.conf /etc/my\-package/start.conf
+.br
+usr/bin/*
+
+.SH "DESCRIPTION"
+dh\-exec\-install is a simple program, meant to be used as the
+interpreter for executable debhelper config files, in particular, for
+\fIdh_install\fR(1) files. It will refuse to work with any other file.
+
+The purpose of the program is to extend \fIdh_install\fR(1)'s
+functionality, by allowing to specify a destination filename. If
+\fIdh\-exec\-install\fR encounters a destination that does not end
+with a slash, it will assume it is a filename, and attempt to copy the
+file itself.
+
+Otherwise it will echo back the results, and let \fIdh_install\fR deal
+with it as usual.
+
+.SH "SEE ALSO"
+debhelper(1)
+
+.SH "AUTHOR"
+dh\-exec\-install is copyright \(c 2011 by Gergely Nagy <algernon@madhouse\-project.org>.
