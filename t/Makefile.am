@@ -13,4 +13,4 @@ TESTS_ENVIRONMENT	= DH_EXEC_LIBDIR="${top_srcdir}/lib" top_builddir="${top_build
 			srcdir="${srcdir}"
 
 check: ${TESTS}
-	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o $(addprefix ./,${TESTCASES})
+	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o $(addprefix ${srcdir}/,${TESTCASES})
