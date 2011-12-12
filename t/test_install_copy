@@ -1,0 +1,45 @@
+#! /bin/sh
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 3
+
+# Calling as a she-bang works
+t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
+td=$(mktemp -d --tmpdir=. tmpXXXXX)
+
+cat >"${t}" <<EOF
+#! ${top_builddir}/src/dh-exec-install
+$(basename ${t}) ${td}/test-output
+# This is an empty line:
+
+
+EOF
+
+chmod +x "${t}"
+"${t}" | tl_forbid "Calling as a she-bang works" "test-output"
+tl_next
+
+# ...and it even copies the file
+find "${td}" -name 'test-output' | \
+        tl_expect_match "Copying did happen" "test-output"
+rm -f "${t}"
+rm -rf "${td}"
+
+tl_next
+
+# Check copying without rename
+t=$(mktemp --tmpdir tmpXXXXXX.install)
+td=$(mktemp -d tmpXXXXXX)
+
+cat >"${t}" <<EOF
+#! ${top_builddir}/src/dh-exec-install
+$(basename ${t})* ${td}/
+EOF
+
+chmod +x "${t}"
+"${t}" | tl_expect_match "Copying to a dir should echo the contents back" \
+                         "${td}/"
+rm -f "${t}"
+rm -rf "${td}"
+tl_next

@@ -1,0 +1,28 @@
+#! /bin/sh
+## This part of the magic was borrowed from Goswin von Brederlow
+## <goswin-v-b@web.de>, from a post of his to debian-devel@.
+##
+## The purpose of the script is to copy all files that need a rename,
+## and echo back the original contents for all files that do not need
+## one (ie, the destination ends with /).
+##
+## TODO: Use the same logic to find files and destinations as what
+## dh_install uses.
+
+while read SRC DEST; do
+        case "${SRC}" in
+                (\#*|"")
+                        continue
+                        ;;
+        esac
+        case "${DEST}" in
+                (*/)
+                        ;;
+                (*)
+                        cp -- "${SRC}" "${DEST}"
+                        continue
+                        ;;
+                
+        esac;
+        printf -- "%s %s\n" "${SRC}" "${DEST}"
+done

@@ -6,17 +6,37 @@ tl_plan () {
         echo "1..$1"
 }
 
-tl_expect_match () {
+tl_grep () {
         desc="$1"
-        expect="$2"
+        pattern="$2"
+        flag=$3
+        msg="$4"
+        found=0
 
-        if grep -q "${expect}"; then
-                echo "ok ${test_lib_cnt}"
+        if grep -q "${pattern}"; then
+                found=1
         else
-                echo "not ok ${test_lib_cnt} - ${desc}"
-                echo "#   Failed test in : $0"
-                echo "#          expected: ${expect}"
+                found=-1
         fi
+
+        case $(expr ${found} \* ${flag}) in
+                1)
+                        echo "ok ${test_lib_cnt}"
+                        ;;
+                -1)
+                        echo "not ok ${test_lib_cnt} - ${desc}"
+                        echo "#   Failed test in: $0"
+                        echo "#   ${msg}: ${pattern}"
+                        ;;
+        esac
+}
+
+tl_expect_match () {
+        tl_grep "$1" "$2" 1 "expected"
+}
+
+tl_forbid () {
+        tl_grep "$1" "$2" -1 "not allowed"
 }
 
 tl_expect () {

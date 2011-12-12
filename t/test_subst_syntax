@@ -10,7 +10,7 @@ echo | ${top_builddir}/src/dh-exec-subst | \
 tl_next
 
 # Calling as a she-bang works
-t=$(tempfile)
+t=$(mktemp)
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-subst
