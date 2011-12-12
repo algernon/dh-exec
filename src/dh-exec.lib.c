@@ -29,6 +29,7 @@
 #include "dh-exec.lib.h"
 
 #define DH_EXEC_LIBDIR "/usr/share/dh-exec"
+#define DH_EXEC_BINDIR "/usr/bin"
 
 const char *
 dh_exec_libdir (void)
@@ -41,12 +42,23 @@ dh_exec_libdir (void)
   return DH_EXEC_LIBDIR;
 }
 
+const char *
+dh_exec_bindir (void)
+{
+  char *e;
+
+  e = getenv ("DH_EXEC_BINDIR");
+  if (e)
+    return e;
+  return DH_EXEC_BINDIR;
+}
+
 char *
-dh_exec_cmd_path (const char *cmd)
+dh_exec_cmd_path (const char *dir, const char *cmd)
 {
   char *path;
 
-  if (asprintf (&path, "%s/%s", dh_exec_libdir (), cmd) <= 0)
+  if (asprintf (&path, "%s/%s", dir, cmd) <= 0)
     {
       perror ("asprintf");
       exit (1);
@@ -65,7 +77,7 @@ dh_exec_cmd_filter (const struct dirent *entry)
                strlen (DH_EXEC_CMD_PREFIX)) != 0)
     return 0;
 
-  path = dh_exec_cmd_path (entry->d_name);
+  path = dh_exec_cmd_path (dh_exec_libdir (), entry->d_name);
   r = access (path, X_OK);
   free (path);
 
@@ -104,7 +116,7 @@ dh_exec_main (int argc, char *argv[])
 
   while (n--)
     {
-      char *cmd = dh_exec_cmd_path (cmdlist[n]->d_name);
+      char *cmd = dh_exec_cmd_path (dh_exec_libdir (), cmdlist[n]->d_name);
       pipeline_command_args (p, cmd, NULL);
       free (cmd);
     }

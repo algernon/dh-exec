@@ -13,6 +13,7 @@ Makefile
 /stamp-h1
 /autom4te.cache/
 .deps/
+/src/dh-exec
 /src/dh-exec-subst
 /src/dh-exec-install
 core

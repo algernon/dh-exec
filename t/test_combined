@@ -1,0 +1,46 @@
+#! /bin/sh
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 4
+
+install -d debian/tmp
+pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
+pkgfile="${pkgdir}.install"
+
+install -d "${pkgdir}/var/lib/dh-exec"
+install -d "${pkgdir}/usr/lib/dh-exec/${DEB_HOST_MULTIARCH}"
+
+cat >${pkgfile} <<EOF
+#! ${top_builddir}/src/dh-exec
+${pkgfile} /var/lib/dh-exec/
+${pkgfile} /var/lib/dh-exec/new-file
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/
+# The following is NOT supported:
+# ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+# Check that ${src} ${dest}/ gets passed through
+cat ${pkgfile}.output | tl_expect "Copying to dir gets passed on, no expansions" \
+        "${pkgfile} /var/lib/dh-exec/"
+tl_next
+
+# Check that ${src} ${dest}/new-file gets acted on
+find ${pkgdir}/var/lib/dh-exec/new-file -type f | \
+        tl_expect "Copying a file with a rename gets acted upon" \
+        "${pkgdir}/var/lib/dh-exec/new-file"
+tl_next
+
+# Check that multiarch gets expanded
+cat ${pkgfile}.output | \
+        tl_expect "Multi-arch variable gets expanded, and copied" \
+        "${pkgfile} /usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/"
+tl_next
+
+# Check that the file contains no more lines
+wc -l <${pkgfile}.output | tl_expect "The output contains no more lines" "2"
+
+rm -rf debian
