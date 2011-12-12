@@ -1,4 +1,4 @@
-/* dh-exec.c -- Wrapper around dh-exec-* commands.
+/* dh-exec.lib.c -- Wrapper around dh-exec-* commands.
  * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#include "dh-exec.h"
+#include "dh-exec.lib.h"
 
 #define DH_EXEC_LIBDIR "/usr/share/dh-exec"
 

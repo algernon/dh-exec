@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dh-exec.h"
+#include "dh-exec.lib.h"
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-subst-";
 

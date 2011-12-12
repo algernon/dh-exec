@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "dh-exec.h"
+#include "dh-exec.lib.h"
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-install-";
 
