@@ -13,5 +13,5 @@ Makefile
 /stamp-h1
 /autom4te.cache/
 .deps/
-/src/dh_subst
+/src/dh-exec-subst
 core

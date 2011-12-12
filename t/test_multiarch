@@ -14,7 +14,7 @@ DEB_HOST_MULTIARCH = \${DEB_HOST_MULTIARCH}
 DEB_HOST_ARCH_BITS = \${DEB_HOST_ARCH_BITS}
 unset_variable     = \${unset_variable}
 EOF
-        ) | ${top_builddir}/src/dh_subst
+        ) | ${top_builddir}/src/dh-exec-subst
 }
 
 setup

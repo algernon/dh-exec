@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS	= foreign
 
-bin_PROGRAMS		= dh_subst
+bin_PROGRAMS		= dh-exec-subst
 
-dh_subst_SOURCES	= dh_subst.c
-dh_subst_CFLAGS		= @LIBPIPELINE_CFLAGS@
-dh_subst_LDADD		= @LIBPIPELINE_LIBS@
+dh_exec_subst_SOURCES	= dh-exec-subst.c
+dh_exec_subst_CFLAGS	= @LIBPIPELINE_CFLAGS@
+dh_exec_subst_LDADD	= @LIBPIPELINE_LIBS@

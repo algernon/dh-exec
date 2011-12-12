@@ -1,16 +1,16 @@
-.TH "DH_SUBST" "1" "2011-12-09"
+.TH "DH\-EXEC\-SUBST" "1" "2011-12-12"
 .ad l
 .nh
 .SH "NAME"
-dh_subst \- Debhelper executable file substition helpers
+dh\-exec\-subst \- Debhelper executable file substition helpers
 .SH "SYNOPSIS"
-\fB#! /usr/bin/dh_subst\fR
+\fB#! /usr/bin/dh\-exec\-subst\fR
 .br
-src/libfoo-p.so.* debian/libfoo-p/usr/lib/libfoo/${DEB_HOST_MULTIARCH}/
+src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
 
 .SH "DESCRIPTION"
-dh_subst is a simple program, meant to be used as the interpreter for
-executable debhelper config files.
+dh\-exec\-subst is a simple program, meant to be used as the
+interpreter for executable debhelper config files.
 
 It is a wrapper around the various other substitution helpers, and
 will pipe the input file through all the available substitution
@@ -23,14 +23,14 @@ expanded by another program.
 .SH "HELPERS"
 
 .TP
-.B dh_subst_env
+.B dh\-exec\-subst\-env
 Substitutes any of the available, exported environment variables into
 its input. It does not do any kind of filtering: whatever is available
 in the environment, will be available for substitution, however unsafe
 that may be.
 
 .TP
-.B dh_subst_multiarch
+.B dh\-exec\-subst\-multiarch
 Attempts to expand any of the variables known to
 \fIdpkg\-architecture\fR(1), mostly useful for multi\-arch support.
 
@@ -44,12 +44,12 @@ prefer already set environment variables anyway).
 .RS 4
 Indicates which directory the substitution helpers should be sought
 for. If not specified, helpers will be searched for in
-\fI/usr/lib/dh-subst/\fR.
+\fI/usr/lib/dh\-exec/\fR.
 .RE
 
 .SH "FILES"
 .PP
-\fI$DH_SUBST_LIBDIR/dh_subst_*\fR
+\fI$DH_SUBST_LIBDIR/dh\-exec\-subst\-*\fR
 .RS 4
 The various substitution helpers.
 .RE
@@ -58,4 +58,4 @@ The various substitution helpers.
 debhelper(1)
 
 .SH "AUTHOR"
-dh_subst is copyright \(c 2011 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec\-subst is copyright \(c 2011 by Gergely Nagy <algernon@madhouse\-project.org>.

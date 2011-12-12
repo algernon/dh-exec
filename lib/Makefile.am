@@ -1,3 +1,3 @@
 AUTOMAKE_OPTIONS	= foreign
 
-pkglib_SCRIPTS		= dh_subst_env dh_subst_multiarch
+pkglib_SCRIPTS		= dh-exec-subst-env dh-exec-subst-multiarch

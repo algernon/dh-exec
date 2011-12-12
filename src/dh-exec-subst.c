@@ -26,8 +26,8 @@
 #include <dirent.h>
 #include <unistd.h>
 
-#define DH_SUBST_LIBDIR "/usr/lib/dh-subst"
-#define DH_CMD_PREFIX "dh_subst_"
+#define DH_SUBST_LIBDIR "/usr/lib/dh-exec"
+#define DH_CMD_PREFIX "dh-exec-subst-"
 
 const char *
 dh_subst_libdir (void)
