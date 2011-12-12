@@ -16,3 +16,8 @@ Makefile
 /src/dh-exec-subst
 /src/dh-exec-install
 core
+/debian/autoreconf.*
+/debian/*substvars
+/debian/*.debhelper
+/debian/dh-exec/
+/debian/files
