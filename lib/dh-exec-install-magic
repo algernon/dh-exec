@@ -22,7 +22,8 @@ while read SRC DEST; do
                         if [ ! -e "${SRC}" ] && [ -e "debian/tmp/${SRC}" ]; then
                                 SRC="debian/tmp/${SRC}"
                         fi
-                        cp -- "${SRC}" "${DEST}"
+                        PKG=$(basename -- "${DH_EXEC_SOURCE}" ".install")
+                        cp -- "${SRC}" "debian/${PKG}/${DEST}"
                         continue
                         ;;
                 

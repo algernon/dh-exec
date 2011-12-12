@@ -7,10 +7,13 @@ tl_plan 5
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
 td=$(mktemp -d --tmpdir=. tmpXXXXX)
+dd="debian/$(basename -- ${t} .install)"
+
+install -d "${dd}/var/lib/dh-exec"
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-$(basename ${t}) ${td}/test-output
+$(basename ${t}) /var/lib/dh-exec/test-output
 # This is an empty line:
 
 
@@ -21,40 +24,42 @@ chmod +x "${t}"
 tl_next
 
 # ...and it even copies the file
-find "${td}" -name 'test-output' | \
+find "${dd}" -name 'test-output' | \
         tl_expect_match "Copying did happen" "test-output"
 rm -f "${t}"
-rm -rf "${td}"
+rm -rf "${td}" "${dd}"
 
 tl_next
 
 # Check copying without rename
 t=$(mktemp --tmpdir tmpXXXXXX.install)
-td=$(mktemp -d tmpXXXXXX)
+td=$(mktemp --tmpdir -d tmpXXXXXX)
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-$(basename ${t})* ${td}/
+$(basename ${t})* /var/lib/dh-exec/
 EOF
 
 chmod +x "${t}"
 "${t}" | tl_expect_match "Copying to a dir should echo the contents back" \
-                         "${td}/"
+                         "/var/lib/dh-exec"
 rm -f "${t}"
 rm -rf "${td}"
 tl_next
 
 # Check copying from debian/tmp
-t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
-td=$(mktemp -d --tmpdir=. tmpXXXXX)
+t=$(mktemp --tmpdir tmpXXXXXXXX.install)
+td=$(mktemp --tmpdir -d tmpXXXXX)
+dd="debian/$(basename -- ${t} .install)"
 
 install -d "debian/tmp"
+install -d "${dd}/var/lib/dh-exec"
 
 echo "foobar" >"debian/tmp/foo.test"
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-foo.test ${td}/test-output
+foo.test /var/lib/dh-exec/test-output
 EOF
 
 chmod +x "${t}"
@@ -62,9 +67,9 @@ chmod +x "${t}"
 tl_next
 
 # ...and it even copies the file
-cat "${td}/test-output" | tl_expect "Copying did happen" "foobar"
+cat "${dd}/var/lib/dh-exec/test-output" | tl_expect "Copying did happen" "foobar"
 rm -f "${t}"
-rm -rf "${td}"
 rm -f debian/tmp/foo.test
+rm -rf "${td}" "${dd}"
 
 tl_next

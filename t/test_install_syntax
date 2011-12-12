@@ -13,10 +13,13 @@ tl_next
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
 td=$(mktemp -d --tmpdir=. tmpXXXXX)
+dd="debian/$(basename -- ${t} .install)"
+
+install -d "${dd}/var/lib/dh-exec"
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-$(basename ${t}) ${td}/test-output
+$(basename ${t}) /var/lib/dh-exec/test-output
 # This is an empty line:
 
 
@@ -26,6 +29,7 @@ chmod +x "${t}"
 "${t}" | tl_forbid "Calling as a she-bang works" "test-output"
 rm -f "${t}"
 rm -rf "${td}"
+rm -rf "${dd}"
 
 tl_next
 
