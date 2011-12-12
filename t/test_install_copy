@@ -69,7 +69,6 @@ tl_next
 # ...and it even copies the file
 cat "${dd}/var/lib/dh-exec/test-output" | tl_expect "Copying did happen" "foobar"
 rm -f "${t}"
-rm -f debian/tmp/foo.test
-rm -rf "${td}" "${dd}"
+rm -rf "${td}" "${dd}" "${srcdir}/debian/"
 
 tl_next
