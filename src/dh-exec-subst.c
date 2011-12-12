@@ -15,17 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _GNU_SOURCE
-
-#include <pipeline.h>
-
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <dirent.h>
-#include <unistd.h>
-
 #include "dh-exec.h"
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-subst-";
