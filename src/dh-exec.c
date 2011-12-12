@@ -28,7 +28,7 @@
 
 #include "dh-exec.h"
 
-#define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
+#define DH_EXEC_LIBDIR "/usr/share/dh-exec"
 
 const char *
 dh_exec_libdir (void)
