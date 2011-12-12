@@ -1,0 +1,18 @@
+#+STARTUP: indent showall                       -*- org -*-
+
+* dh_exec
+** Support running dh-exec-install last
+If we want variable substitution in .install files, then we must run
+dh-exec-subst first. But dh-exec-install can't read from stdin, as it
+wants to double-check the filename.
+
+The solution here is to check the filename, if it exists, or use
+DH_EXEC_SOURCE, and export the latter from dh-exec.
+
+** Documentation!
+The command needs a manpage.
+
+* Examples
+As a kind of documentation, I'd like to add a couple of examples, with
+suitable amounts of documentation to showcase how the dh-exec tools
+shall be used.
