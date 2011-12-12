@@ -14,11 +14,11 @@ t=$(mktemp)
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-subst
-nothing
+nothing = \${DH_EXEC_SOURCE}
 EOF
 
 chmod +x "${t}"
-"${t}" | tl_expect "Calling as a she-bang works" "nothing"
+"${t}" | tl_expect "Calling as a she-bang works" "nothing = ${t}"
 rm -f "${t}"
 
 tl_next

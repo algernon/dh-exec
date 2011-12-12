@@ -97,7 +97,10 @@ dh_exec_main (int argc, char *argv[])
 
   p = pipeline_new ();
   if (argc == 2)
-    pipeline_want_infile (p, argv[1]);
+    {
+      setenv ("DH_EXEC_SOURCE", argv[1], 1);
+      pipeline_want_infile (p, argv[1]);
+    }
 
   while (n--)
     {
