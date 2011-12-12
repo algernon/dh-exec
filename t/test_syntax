@@ -1,0 +1,36 @@
+#! /bin/sh
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 4
+
+# Calling without arguments is valid
+echo | ${top_builddir}/src/dh-exec-subst | \
+        tl_expect "Calling without arguments is valid" ""
+tl_next
+
+# Calling as a she-bang works
+t=$(tempfile)
+
+cat >"${t}" <<EOF
+#! ${top_builddir}/src/dh-exec-subst
+nothing
+EOF
+
+chmod +x "${t}"
+"${t}" | tl_expect "Calling as a she-bang works" "nothing"
+rm -f "${t}"
+
+tl_next
+
+# Calling with too many arguments does NOT work
+(${top_builddir}/src/dh-exec-subst too many arguments 2>&1 || true) | \
+        tl_expect_match "Calling with too many arguments does NOT work" \
+                        "no argument at all"
+tl_next
+
+# Calling with a non-existing file does NOT work, either.
+(${top_builddir}/src/dh-exec-subst --invalid-file-- 2>&1 || true) | \
+        tl_expect_match "Calling with a non-existing file does NOT work" \
+                        "can't open --invalid-file--"
+tl_next

@@ -79,9 +79,11 @@ dh_exec_main (int argc, char *argv[])
   int status, n;
   struct dirent **cmdlist;
 
-  if (argc != 2)
+  if (argc < 1 || argc > 2)
     {
-      fprintf (stderr, "%s: Need an input file argument!\n", argv[0]);
+      fprintf (stderr,
+               "%s: Need an input file argument, or no argument at all!\n",
+               argv[0]);
       exit (1);
     }
 
@@ -94,7 +96,8 @@ dh_exec_main (int argc, char *argv[])
     }
 
   p = pipeline_new ();
-  pipeline_want_infile (p, argv[1]);
+  if (argc == 2)
+    pipeline_want_infile (p, argv[1]);
 
   while (n--)
     {
