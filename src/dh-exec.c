@@ -79,10 +79,16 @@ dh_exec_main (int argc, char *argv[])
   int status, n;
   struct dirent **cmdlist;
 
+  if (argc != 2)
+    {
+      fprintf (stderr, "%s: Need an input file argument!\n", argv[0]);
+      exit (1);
+    }
+
   n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
   if (n < 0)
     {
-      fprintf (stderr, "scandir(\"%s\"): %s\n", dh_exec_libdir(),
+      fprintf (stderr, "%s: scandir(\"%s\"): %s\n", argv[0], dh_exec_libdir(),
                strerror (errno));
       exit (1);
     }
