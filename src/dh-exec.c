@@ -1,4 +1,4 @@
-/* dh-exec-subst.c -- Wrapper around dh-exec-subst-* commands.
+/* dh-exec.c -- Wrapper around dh-exec-* commands.
  * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,38 +28,46 @@
 
 #include "dh-exec.h"
 
-const char *DH_EXEC_CMD_PREFIX = "dh-exec-subst-";
+#define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
 
-int
-main (int argc, char *argv[])
+const char *
+dh_exec_libdir (void)
 {
-  pipeline *p;
-  int status, n;
-  struct dirent **cmdlist;
+  char *e;
 
-  n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
-  if (n < 0)
+  e = getenv ("DH_EXEC_LIBDIR");
+  if (e)
+    return e;
+  return DH_EXEC_LIBDIR;
+}
+
+char *
+dh_exec_cmd_path (const char *cmd)
+{
+  char *path;
+
+  if (asprintf (&path, "%s/%s", dh_exec_libdir (), cmd) <= 0)
     {
-      fprintf (stderr, "scandir(\"%s\"): %s\n", dh_exec_libdir(),
-               strerror (errno));
+      perror ("asprintf");
       exit (1);
     }
 
-  p = pipeline_new ();
-  pipeline_want_infile (p, argv[1]);
+  return path;
+}
 
-  while (n--)
-    {
-      char *cmd = dh_exec_cmd_path (cmdlist[n]->d_name);
-      pipeline_command_args (p, cmd, NULL);
-      free (cmd);
-    }
-  free (cmdlist);
+int
+dh_exec_cmd_filter (const struct dirent *entry)
+{
+  char *path;
+  int r;
 
-  pipeline_start (p);
+  if (strncmp (entry->d_name, DH_EXEC_CMD_PREFIX,
+               strlen (DH_EXEC_CMD_PREFIX)) != 0)
+    return 0;
 
-  status = pipeline_wait (p);
-  pipeline_free (p);
+  path = dh_exec_cmd_path (entry->d_name);
+  r = access (path, X_OK);
+  free (path);
 
-  return status;
+  return !r;
 }
