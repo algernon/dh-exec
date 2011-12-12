@@ -33,33 +33,5 @@ const char *DH_EXEC_CMD_PREFIX = "dh-exec-subst-";
 int
 main (int argc, char *argv[])
 {
-  pipeline *p;
-  int status, n;
-  struct dirent **cmdlist;
-
-  n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
-  if (n < 0)
-    {
-      fprintf (stderr, "scandir(\"%s\"): %s\n", dh_exec_libdir(),
-               strerror (errno));
-      exit (1);
-    }
-
-  p = pipeline_new ();
-  pipeline_want_infile (p, argv[1]);
-
-  while (n--)
-    {
-      char *cmd = dh_exec_cmd_path (cmdlist[n]->d_name);
-      pipeline_command_args (p, cmd, NULL);
-      free (cmd);
-    }
-  free (cmdlist);
-
-  pipeline_start (p);
-
-  status = pipeline_wait (p);
-  pipeline_free (p);
-
-  return status;
+  return dh_exec_main (argc, argv);
 }

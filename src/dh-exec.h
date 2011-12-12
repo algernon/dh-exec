@@ -20,10 +20,11 @@
 
 #include <dirent.h>
 
+extern const char *DH_EXEC_CMD_PREFIX;
+
 const char *dh_exec_libdir (void);
 char *dh_exec_cmd_path (const char *cmd);
 int dh_exec_cmd_filter (const struct dirent *entry);
-
-extern const char *DH_EXEC_CMD_PREFIX;
+int dh_exec_main (int argc, char *argv[]);
 
 #endif
