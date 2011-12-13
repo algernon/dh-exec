@@ -3,6 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: Gergely Nagy <algernon@madhouse-project.org>
 Build-Depends: debhelper (>= 8.9.13~), dh-autoreconf,
+               fakeroot,
                libpipeline-dev, pkg-config,
                perl
 Standards-Version: 3.9.2
