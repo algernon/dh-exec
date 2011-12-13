@@ -13,6 +13,7 @@ Package: dh-exec
 Multi-Arch: foreign
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${perl:Depends}
+Recommends: debhelper (>= 8.9.13~)
 Description: Scripts to help with executable debhelper files
  Debhelper (in compat level 9 and above) allows its config files to be
  executable, and uses the output of suchs scripts as if it was the
