@@ -21,6 +21,4 @@ Description: Scripts to help with executable debhelper files
  a few utilities to help constructing such executable scripts:
  .
   * dh-exec-subst: To ease variable substitution, from environment
-    variables or dpkg-buildflags.
-  * dh-exec-install: An extension to dh_install, with the ability to
-    rename files.
+    variables or dpkg-architecture.

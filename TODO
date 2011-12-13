@@ -4,13 +4,6 @@
 ** Documentation!
 The command needs a manpage.
 
-* dh_exec_install
-This needs some rethinking. The syntax is bad, and the way it works
-will break various dh_install assumptions (-X, --sourcedir, --tmpdir
-and the like).
-
-Leave the code in the tree, but disable it for now.
-
 * Examples
 As a kind of documentation, I'd like to add a couple of examples, with
 suitable amounts of documentation to showcase how the dh-exec tools

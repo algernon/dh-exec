@@ -1,6 +1,7 @@
 AUTOMAKE_OPTIONS	= foreign
 
-bin_PROGRAMS		= dh-exec-subst dh-exec-install dh-exec
+bin_PROGRAMS		= dh-exec-subst dh-exec
+noinst_PROGRAMS		= dh-exec-install
 
 dh_exec_SOURCES		= dh-exec.c dh-exec.lib.c dh-exec.lib.h
 dh_exec_CFLAGS		= @LIBPIPELINE_CFLAGS@

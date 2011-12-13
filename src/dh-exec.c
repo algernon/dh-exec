@@ -50,7 +50,6 @@ main (int argc, char *argv[])
   setenv ("DH_EXEC_SOURCE", src, 1);
 
   dh_exec_pipeline_add (p, "dh-exec-subst");
-  dh_exec_pipeline_add (p, "dh-exec-install");
 
   pipeline_start (p);
   status = pipeline_wait (p);
