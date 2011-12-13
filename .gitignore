@@ -18,7 +18,10 @@ Makefile
 /src/dh-exec-install
 core
 /debian/autoreconf.*
-/debian/*substvars
+*.substvars
 /debian/*.debhelper
 /debian/dh-exec/
 /debian/files
+/t/pkg-test_*
+/t/pkg-test/debian/pkg-test/
+/t/pkg-test/debian/files

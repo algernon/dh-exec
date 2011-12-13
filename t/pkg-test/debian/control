@@ -1,0 +1,13 @@
+Source: pkg-test
+Section: devel
+Priority: extra
+Maintainer: Gergely Nagy <algernon@madhouse-project.org>
+Build-Depends: debhelper (>= 8.9.13~), dh-exec
+Standards-Version: 3.9.2
+
+Package: pkg-test
+Architecture: all
+Description: A test package, for dh-exec testing.
+ This package has no use at all, does nothing, contains random files,
+ and the single purpose of its existence is to test the behaviour of
+ dh-exec.
