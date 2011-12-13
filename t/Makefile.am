@@ -18,4 +18,4 @@ TESTS_ENVIRONMENT	= DH_EXEC_LIBDIR="${top_srcdir}/lib" \
 			srcdir="${srcdir}"
 
 check: ${TESTS}
-	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o $(addprefix ${srcdir}/,${TESTCASES})
+	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o ${PROVE_OPTIONS} $(addprefix ${srcdir}/,${TESTCASES})
