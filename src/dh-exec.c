@@ -18,6 +18,7 @@
 #define _GNU_SOURCE
 
 #include <pipeline.h>
+#include <stdlib.h>
 
 #include "dh-exec.lib.h"
 
