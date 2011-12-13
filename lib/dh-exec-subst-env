@@ -3,4 +3,5 @@
 ## This does nothing else, but substitute ${...} with the
 ## corresponding environment variable, or the original ${...} if the
 ## env. var does not exist.
+$_ = "" if /^#/;
 s/(\$\{([^\}]+)\})/$ENV{$2} || $1/eg;
