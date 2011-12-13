@@ -8,7 +8,10 @@ TESTCASES_SUBST		= test_subst_syntax test_subst_env \
 
 TESTCASES_INSTALL	= test_install_syntax test_install_copy
 
-TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL}
+TESTCASES_DH		= test_dh
+
+TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
+			${TESTCASES_DH}
 
 disabled_TESTCASES	= test_combined
 
