@@ -53,6 +53,14 @@ dh_exec_bindir (void)
   return DH_EXEC_BINDIR;
 }
 
+const char *
+dh_exec_source (int argc, char *argv[])
+{
+  if (argc >= 2)
+    return argv[1];
+  return getenv ("DH_EXEC_SOURCE");
+}
+
 char *
 dh_exec_cmd_path (const char *dir, const char *cmd)
 {

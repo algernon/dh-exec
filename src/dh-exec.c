@@ -24,10 +24,10 @@
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-";
 
 static void
-dh_exec_pipeline_add (pipeline *p, const char *cmd, const char *src)
+dh_exec_pipeline_add (pipeline *p, const char *cmd)
 {
   char *path = dh_exec_cmd_path (dh_exec_bindir (), cmd);
-  pipeline_command_args (p, path, src, NULL);
+  pipeline_command_args (p, path, NULL);
   free (path);
 }
 
@@ -36,14 +36,21 @@ main (int argc, char *argv[])
 {
   pipeline *p;
   int status;
-  char *src = NULL, *cmd;
+  const char *src = dh_exec_source (argc, argv);
 
-  if (argc >= 2)
-    src = argv[1];
+  if (!src)
+    {
+      fprintf (stderr, "%s: Need a filename specified!\n", argv[0]);
+      exit (1);
+    }
 
   p = pipeline_new ();
-  dh_exec_pipeline_add (p, "dh-exec-install", src);
-  dh_exec_pipeline_add (p, "dh-exec-subst", NULL);
+
+  pipeline_want_infile (p, src);
+  setenv ("DH_EXEC_SOURCE", src, 1);
+
+  dh_exec_pipeline_add (p, "dh-exec-subst");
+  dh_exec_pipeline_add (p, "dh-exec-install");
 
   pipeline_start (p);
   status = pipeline_wait (p);

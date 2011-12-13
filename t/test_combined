@@ -9,15 +9,14 @@ pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
 pkgfile="${pkgdir}.install"
 
 install -d "${pkgdir}/var/lib/dh-exec"
-install -d "${pkgdir}/usr/lib/dh-exec/${DEB_HOST_MULTIARCH}"
+install -d "${pkgdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
 
 cat >${pkgfile} <<EOF
 #! ${top_builddir}/src/dh-exec
 ${pkgfile} /var/lib/dh-exec/
 ${pkgfile} /var/lib/dh-exec/new-file
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/
-# The following is NOT supported:
-# ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
 EOF
 
 chmod +x ${pkgfile}

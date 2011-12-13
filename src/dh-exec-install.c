@@ -29,7 +29,9 @@ const char *DH_EXEC_CMD_PREFIX = "dh-exec-install-";
 int
 main (int argc, char *argv[])
 {
-  if (argc != 2)
+  const char *src = dh_exec_source (argc, argv);
+
+  if (!src)
     {
       fprintf (stderr,
                "%s: Need an input file argument, stdin not acceptable!\n",
@@ -37,11 +39,11 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  if (fnmatch ("*.install", argv[1], 0) != 0)
+  if (fnmatch ("*.install", src, 0) != 0)
     {
       fprintf (stderr,
                "%s: Only .install filename extensions are allowed: %s\n",
-               argv[0], argv[1]);
+               argv[0], src);
       exit (1);
     }
 
