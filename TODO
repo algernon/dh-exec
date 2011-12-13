@@ -1,6 +1,6 @@
 #+STARTUP: indent showall                       -*- org -*-
 
-* dh_exec
+* dh-exec
 ** Documentation!
 The command needs a manpage.
 
