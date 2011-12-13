@@ -8,7 +8,7 @@ the content of the config file.
 This is a collection of scripts and programs to help creating
 such scripts in a standardised and easy to understand fashion.
 
-This collection provides the helpers for the following tasks:
+This collection provides helpers for the following tasks:
 
 * Expanding variables in various [debhelper][1] files (either from the
 environment, or variables known to dpkg-architecture - including
