@@ -18,7 +18,7 @@ cd ${srcdir}/pkg-test
 check_pkg () {
         arch=${1:+-a$1}
 
-        DEB_HOST_MULTIARCH=$(dpkg-architecture ${arch} -qDEB_HOST_MULTIARCH 2>/dev/null)
+        DEB_HOST_MULTIARCH=$(dpkg-architecture ${arch} -f -qDEB_HOST_MULTIARCH 2>/dev/null)
 
         PATH=${BINDIR}:${PATH} DH_EXEC_BINDIR=${BINDIR} DH_EXEC_LIBDIR=${LIBDIR} \
                 dpkg-buildpackage -us -uc -rfakeroot -b -d ${arch} 2>/dev/null
