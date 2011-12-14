@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-SUBST" "1" "2011-12-12" "" "dh-exec"
+.TH "DH\-EXEC\-SUBST" "1" "2011-12-14" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -19,6 +19,11 @@ helpers. It is up to these scripts to do the actual work.
 When a helper fails to expand a variable within its input, it will
 leave it as-is, so that later in the pipeline it can perhaps be
 expanded by another program.
+
+.SH "NOTE"
+
+Even though this program can be used directly, it is strongly
+recommended to use it through \fIdh\-exec\fR(1) instead.
 
 .SH "HELPERS"
 
@@ -55,7 +60,7 @@ The various substitution helpers.
 .RE
 
 .SH "SEE ALSO"
-debhelper(1)
+\fIdebhelper\fR(1), \fIdh\-exec\fR(1)
 
 .SH "AUTHOR"
 dh\-exec\-subst is copyright \(co 2011 by Gergely Nagy <algernon@madhouse\-project.org>.

@@ -1,5 +1,5 @@
 #+STARTUP: indent showall                       -*- org -*-
 
-* dh-exec
-** Documentation!
-The command needs a manpage.
+* dh-exec-install
+The syntax needs to be rethought, so that the tool can be enabled
+again.
