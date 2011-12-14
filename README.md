@@ -16,6 +16,16 @@ multi-arch ones)
 
  [1]: http://kitenet.net/~joey/code/debhelper/
 
+Usage
+=====
+
+The recommended way to use dh-exec is through the **dh-exec**(1)
+wrapper, which will bind all the other tools together - although the
+others can be used on their own aswell.
+
+That is, when adding a she-bang line to an executable debhelper config
+file, use /usr/bin/dh-exec.
+
 Hacking
 =======
 
