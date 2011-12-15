@@ -3,3 +3,24 @@
 * dh-exec-install
 The syntax needs to be rethought, so that the tool can be enabled
 again.
+
+Perhaps something like:
+
+#! /usr/bin/dh-exec-install
+usr/lib/libblah.so.*
+usr/lib/libblah-plugin-*.so /usr/lib/blah/${UPSTREAM_VERSION}/
+etc/whatever.txt => /etc/blah/sample.conf
+
+Or using markup:
+
+#! /usr/bin/dh-exec-install
+etc/whatever.txt /etc/blah/sample.conf # +mv
+
+It could perhaps go to the previous line:
+
+#! /usr/bin/dh-exec-install
+# +mv
+etc/whatever.txt /etc/blah/sample.conf
+
+But this is not easy to glance at and understand, the former two look
+more reasonable.
