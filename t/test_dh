@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 9
+tl_plan 12
 
 cd ${DH_EXEC_BINDIR}
 BINDIR=$(pwd)
@@ -32,6 +32,9 @@ check_pkg () {
         tl_next
         dpkg-deb -c ../pkg-test_0_all.deb | \
                 tl_expect_match "multi-arch path works" "./usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/plugin-multiarch"
+        tl_next
+        dpkg-deb -c ../pkg-test_0_all.deb | \
+                tl_expect_match "multi-arch path works" "./usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/another-plugin\$"
         tl_next
 }
 
