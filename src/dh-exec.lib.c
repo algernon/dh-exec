@@ -137,3 +137,21 @@ dh_exec_main (int argc, char *argv[])
 
   return status;
 }
+
+int
+dh_exec_ignore (const char *src)
+{
+  pipeline *p;
+  int status;
+
+  p = pipeline_new ();
+  if (src)
+    pipeline_want_infile (p, src);
+  pipeline_command_args (p, "cat", NULL);
+
+  pipeline_start (p);
+  status = pipeline_wait (p);
+  pipeline_free (p);
+
+  return status;
+}

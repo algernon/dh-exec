@@ -21,14 +21,17 @@ install -d "${dd}/var/lib/dh-exec"
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-$(basename ${t}) /var/lib/dh-exec/test-output
+$(basename ${t}) => /var/lib/dh-exec/test-output
+foo/bar /tmp/foo
+baz/quux
 # This is an empty line:
 
 
 EOF
 
 chmod +x "${t}"
-"${t}" | tl_forbid "Calling as a she-bang works" "test-output"
+
+"${t}" | tl_expect_match "Calling as a she-bang works" "debian/tmp/dh-exec\."
 rm -f "${t}"
 rm -rf "${td}"
 rm -rf "${dd}"

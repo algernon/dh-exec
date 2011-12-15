@@ -39,12 +39,21 @@ main (int argc, char *argv[])
       exit (1);
     }
 
+  /* Handle cases where the source is not an .install file */
   if (fnmatch ("*.install", src, 0) != 0)
     {
-      fprintf (stderr,
-               "%s: Only .install filename extensions are allowed: %s\n",
-               argv[0], src);
-      exit (1);
+      /* Source is stdin, we're piped, ignore it. */
+      if (argc < 2)
+        return dh_exec_ignore (NULL);
+      else
+        {
+          /* Source is from the command-line directly, raise an
+             error. */
+          fprintf (stderr,
+                   "%s: Only .install filename extensions are allowed: %s\n",
+                   argv[0], src);
+          exit (1);
+        }
     }
 
   return dh_exec_main (argc, argv);

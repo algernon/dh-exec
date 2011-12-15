@@ -4,73 +4,65 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 5
+tl_plan 4
 
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
 td=$(mktemp -d --tmpdir=. tmpXXXXX)
 dd="debian/$(basename -- ${t} .install)"
+to=$(mktemp)
 
 install -d "${dd}/var/lib/dh-exec"
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-$(basename ${t}) /var/lib/dh-exec/test-output
+$(basename ${t}) => /var/lib/dh-exec/test-output
 # This is an empty line:
 
 
 EOF
 
 chmod +x "${t}"
-"${t}" | tl_forbid "Calling as a she-bang works" "test-output"
+"${t}" >"${to}"
+cat "${to}" | tl_expect_match "Calling as a she-bang works" "debian/tmp/dh-exec\."
 tl_next
+
+dtmpdir=$(sed -n 's#\(debian/tmp/dh-exec\.[^/]*\).*#\1#gp' "${to}")
 
 # ...and it even copies the file
-find "${dd}" -name 'test-output' | \
+find "${dtmpdir}" -name 'test-output' | \
         tl_expect_match "Copying did happen" "test-output"
-rm -f "${t}"
-rm -rf "${td}" "${dd}"
+rm -f "${t}" "${to}"
+rm -rf "${td}" "${dd}" "debian"
 
-tl_next
-
-# Check copying without rename
-t=$(mktemp --tmpdir tmpXXXXXX.install)
-td=$(mktemp --tmpdir -d tmpXXXXXX)
-
-cat >"${t}" <<EOF
-#! ${top_builddir}/src/dh-exec-install
-$(basename ${t})* /var/lib/dh-exec/
-EOF
-
-chmod +x "${t}"
-"${t}" | tl_expect_match "Copying to a dir should echo the contents back" \
-                         "/var/lib/dh-exec"
-rm -f "${t}"
-rm -rf "${td}"
 tl_next
 
 # Check copying from debian/tmp
-t=$(mktemp --tmpdir tmpXXXXXXXX.install)
-td=$(mktemp --tmpdir -d tmpXXXXX)
+t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
+td=$(mktemp -d --tmpdir=. tmpXXXXX)
 dd="debian/$(basename -- ${t} .install)"
+to=$(mktemp)
 
-install -d "debian/tmp"
-install -d "${dd}/var/lib/dh-exec"
+install -d "${dd}/var/lib/dh-exec" "debian/tmp"
 
-echo "foobar" >"debian/tmp/foo.test"
+echo "foobar" >debian/tmp/foo.test
 
 cat >"${t}" <<EOF
 #! ${top_builddir}/src/dh-exec-install
-foo.test /var/lib/dh-exec/test-output
+foo.test => /var/lib/dh-exec/test-output
 EOF
 
 chmod +x "${t}"
-"${t}" | tl_forbid "Copying from debian/tmp works" "test-output"
+"${t}" >"${to}"
+cat "${to}" | tl_expect_match "Calling as a she-bang works" "debian/tmp/dh-exec\."
 tl_next
 
+dtmpdir=$(sed -n 's#\(debian/tmp/dh-exec\.[^/]*\).*#\1#gp' "${to}")
+
 # ...and it even copies the file
-cat "${dd}/var/lib/dh-exec/test-output" | tl_expect "Copying did happen" "foobar"
-rm -f "${t}"
-rm -rf "${td}" "${dd}" "debian/"
+find "${dtmpdir}" -name 'test-output' | \
+        tl_expect_match "Copying did happen" "test-output"
+rm -f "${t}" "${to}"
+rm -rf "${td}" "${dd}" "debian"
 
 tl_next

@@ -1,0 +1,34 @@
+#! /usr/bin/perl -wnp
+##
+## This script looks for SOURCE => DEST lines in its input, and copies
+## SOURCE to a temporary directory under debian/tmp, with the desired
+## DEST name. It will create directories appropriately.
+##
+## It is done this way, so that we leave the boring work to
+## dh_install, and all of its options will continue to work. And we
+## put this under debian/tmp, because that gets cleaned up by dh_prep.
+BEGIN {
+        use File::Spec;
+        use File::Temp qw/tempdir/;
+        use File::Copy;
+
+        system ("install", "-d", "debian/tmp");
+        our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
+}
+
+$_ = "" if /^\#|^$/;
+
+if (/(.*)\s+=>\s+(.*)/) {
+        my ($src, $dst) = ($1, $2);
+        my (undef, $srcpath, undef) = File::Spec->splitpath ($src);
+        my (undef, $dstpath, $dstfile) = File::Spec->splitpath ($dst);
+        my $debpath = File::Spec->catdir ($tempdir, $dstpath);
+
+        system ("install", "-d", $debpath);
+
+        copy ($src, File::Spec->catfile ($debpath, $dstfile)) or
+                copy (File::Spec->catfile ("debian/tmp", $src),
+                      File::Spec->catfile ($debpath, $dstfile)) or
+                                die "Copy failed: $!";
+        $_ = File::Spec->catfile ($debpath, $dstfile) . " " . $dstpath . "\n";
+}
