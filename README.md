@@ -13,6 +13,8 @@ This collection provides helpers for the following tasks:
 * Expanding variables in various [debhelper][1] files (either from the
 environment, or variables known to dpkg-architecture - including
 multi-arch ones)
+* An extension to dh_install, that supports renaming files during the
+copy process, using an extended syntax.
 
  [1]: http://kitenet.net/~joey/code/debhelper/
 
