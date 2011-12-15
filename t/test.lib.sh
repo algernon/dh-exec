@@ -1,5 +1,7 @@
 # -*- sh -*-
 
+set -e
+
 test_lib_cnt=1
 
 tl_plan () {
