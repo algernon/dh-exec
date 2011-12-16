@@ -27,7 +27,7 @@ if (/(.*)\s+=>\s+(.*)/) {
         system ("install", "-d", $debpath);
 
         copy ($src, File::Spec->catfile ($debpath, $dstfile)) or
-                copy (File::Spec->catfile ("debian/tmp", $src),
+                move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
                                 die "Copy failed: $!";
         $_ = File::Spec->catfile ($debpath, $dstfile) . " " . $dstpath . "\n";
