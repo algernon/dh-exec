@@ -43,4 +43,4 @@ check_pkg
 check_pkg linux-powerpc
 check_pkg kfreebsd-i386
 
-rm -f pkg-test*.deb pkg-test*.changes
+rm -f ../pkg-test*.deb ../pkg-test*.changes
