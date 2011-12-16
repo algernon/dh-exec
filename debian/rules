@@ -1,4 +1,6 @@
 #! /usr/bin/make -f
 
+export DH_OPTIONS += -O-Bdebian/build-tree
+
 %:
 	dh $@ --with autoreconf
