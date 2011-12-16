@@ -3,5 +3,14 @@
 ## Akin to dh_subst_env, this one will try to expand variables within
 ## its input, but only certain ones, and will fall back to querying
 ## dpkg-architecture first, before finally giving up.
+
+BEGIN {
+        sub qarch {
+                my $arch = `dpkg-architecture -q$_[0] 2>/dev/null`;
+                chomp ($arch);
+                return $arch;
+        }
+}
+
 $_ = "" if /^#/;
-s#(\$\{(DEB_(HOST|BUILD)_[^\}]+)\})#`dpkg-architecture -q$2 2>/dev/null | tr -d "\n"` || $1#eg;
+s#(\$\{(DEB_(HOST|BUILD)_[^\}]+)\})#qarch($2) || $1#eg;
