@@ -23,6 +23,7 @@ check_pkg () {
 
         PATH=${BINDIR}:${PATH} DH_EXEC_BINDIR=${BINDIR} DH_EXEC_LIBDIR=${LIBDIR} \
                 dpkg-buildpackage -us -uc -rfakeroot -b -d ${arch} 2>/dev/null
+        debian/rules clean
 
         dpkg-deb -c ../pkg-test_0_all.deb | \
                 tl_expect_match "usr/bin/bin-foo installed" "./usr/bin/bin-foo"
