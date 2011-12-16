@@ -16,13 +16,14 @@ install -d "${pkgdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
 cat >${pkgfile} <<EOF
 #! ${top_builddir}/src/dh-exec
 ${pkgfile} /var/lib/dh-exec/
-${pkgfile} /var/lib/dh-exec/new-file
+${pkgfile} => /var/lib/dh-exec/new-file
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/
-${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
+${pkgfile} => /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
 EOF
 
 chmod +x ${pkgfile}
 ${pkgfile} >${pkgfile}.output
+dtmpdir=$(sed -n 's#\(debian/tmp/dh-exec\.[^/]*\).*#\1#gp' "${pkgfile}.output")
 
 # Check that ${src} ${dest}/ gets passed through
 cat ${pkgfile}.output | tl_expect "Copying to dir gets passed on, no expansions" \
@@ -30,9 +31,9 @@ cat ${pkgfile}.output | tl_expect "Copying to dir gets passed on, no expansions"
 tl_next
 
 # Check that ${src} ${dest}/new-file gets acted on
-find ${pkgdir}/var/lib/dh-exec/new-file -type f | \
+find ${dtmpdir}/var/lib/dh-exec/new-file -type f | \
         tl_expect "Copying a file with a rename gets acted upon" \
-        "${pkgdir}/var/lib/dh-exec/new-file"
+        "${dtmpdir}/var/lib/dh-exec/new-file"
 tl_next
 
 # Check that multiarch gets expanded
@@ -41,7 +42,10 @@ cat ${pkgfile}.output | \
         "${pkgfile} /usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/"
 tl_next
 
-# Check that the file contains no more lines
-wc -l <${pkgfile}.output | tl_expect "The output contains no more lines" "2"
+# Check that multiarch gets expanded before copying
+find ${dtmpdir}/usr/lib/dh-exec/ -type f -name 'new-file' | \
+        tl_expect "Copying a file with a rename gets acted upon" \
+        "${dtmpdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/new-file"
+tl_next
 
 rm -rf debian

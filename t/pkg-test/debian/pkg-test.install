@@ -2,3 +2,4 @@
 data/bin-arch /usr/bin
 data/bin-foo /usr/bin
 data/plugin-multiarch /usr/lib/pkg-test/${DEB_HOST_MULTIARCH}
+data/plugin-multiarch => /usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/another-plugin
