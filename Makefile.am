@@ -1,3 +1,3 @@
 AUTOMAKE_OPTIONS	= foreign
-SUBDIRS			= doc src lib t
+SUBDIRS			= src lib t
 EXTRA_DIST		= README.md TODO

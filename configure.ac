@@ -16,7 +16,6 @@ AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 AC_CHECK_FUNCS([strerror])
 
 AC_CONFIG_FILES([Makefile
-                 doc/Makefile
                  lib/Makefile
                  src/Makefile
                  t/Makefile])
