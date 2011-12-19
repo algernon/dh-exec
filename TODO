@@ -3,10 +3,6 @@
 * dh-exec
 More documentation, a HOWTO in the manpage.
 
-** Move the individual tools to /usr/lib/dh-exec
-The individual dh-exec-* tools need not be on the path, move them to
-/usr/lib/dh-exec instead.
-
 ** Allow explicitly enabling/disabling various tools
 Add a --with= and a --without= option to dh-exec, so that we can turn
 tools on and off.

@@ -27,7 +27,7 @@ const char *DH_EXEC_CMD_PREFIX = "dh-exec-";
 static void
 dh_exec_pipeline_add (pipeline *p, const char *cmd)
 {
-  char *path = dh_exec_cmd_path (dh_exec_bindir (), cmd);
+  char *path = dh_exec_cmd_path (dh_exec_libdir (), cmd);
   pipeline_command_args (p, path, NULL);
   free (path);
 }

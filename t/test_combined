@@ -14,7 +14,7 @@ install -d "${pkgdir}/var/lib/dh-exec"
 install -d "${pkgdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
 
 cat >${pkgfile} <<EOF
-#! ${top_builddir}/src/dh-exec
+#! ${DH_EXEC_BINDIR}/dh-exec
 ${pkgfile} /var/lib/dh-exec/
 ${pkgfile} => /var/lib/dh-exec/new-file
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/

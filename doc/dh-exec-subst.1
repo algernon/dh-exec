@@ -1,10 +1,10 @@
-.TH "DH\-EXEC\-SUBST" "1" "2011-12-14" "" "dh-exec"
+.TH "DH\-EXEC\-SUBST" "1" "2011-12-19" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
 dh\-exec\-subst \- Debhelper executable file substition helpers
 .SH "SYNOPSIS"
-\fB#! /usr/bin/dh\-exec\-subst\fR
+\fB#! /usr/bin/dh\-exec\fR
 .br
 src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
 
@@ -19,11 +19,6 @@ helpers. It is up to these scripts to do the actual work.
 When a helper fails to expand a variable within its input, it will
 leave it as-is, so that later in the pipeline it can perhaps be
 expanded by another program.
-
-.SH "NOTE"
-
-Even though this program can be used directly, it is strongly
-recommended to use it through \fIdh\-exec\fR(1) instead.
 
 .SH "HELPERS"
 
@@ -45,18 +40,18 @@ prefer already set environment variables anyway).
 
 .SH "ENVIRONMENT"
 .PP
-\fIDH_EXEC_LIBDIR\fR
+\fIDH_EXEC_SCRIPTDIR\fR
 .RS 4
-Indicates which directory the substitution helpers should be sought
-for. If not specified, helpers will be searched for in
+Indicates which directory the command\-specific helpers should be
+sought for. If not specified, helpers will be searched for in
 \fI/usr/share/dh\-exec/\fR.
 .RE
 
 .SH "FILES"
 .PP
-\fI$DH_EXEC_LIBDIR/dh\-exec\-subst\-*\fR
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-subst\-*\fR
 .RS 4
-The various substitution helpers.
+The various helpers for the higher\-level program.
 .RE
 
 .SH "SEE ALSO"
