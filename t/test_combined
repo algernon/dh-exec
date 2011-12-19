@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 6
+tl_plan 8
 
 install -d debian/tmp
 pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
@@ -75,6 +75,36 @@ ${pkgfile} >${pkgfile}.output
 cat ${pkgfile}.output | \
         tl_expect_match "dh_exec --with works" \
         "\${DEB_HOST_MULTIARCH}"
+
+tl_next
+
+# Check that an empty list works too
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --without=subst,install
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --with works" \
+        "\${DEB_HOST_MULTIARCH}"
+
+tl_next
+
+# Check that a program list works
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --with=subst,install
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --with works" \
+        "$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
 
 tl_next
 
