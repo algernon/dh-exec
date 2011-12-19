@@ -28,8 +28,19 @@
 
 #include "dh-exec.lib.h"
 
-#define DH_EXEC_LIBDIR "/usr/share/dh-exec"
-#define DH_EXEC_BINDIR "/usr/bin"
+#define DH_EXEC_SCRIPTDIR "/usr/share/dh-exec"
+#define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
+
+const char *
+dh_exec_scriptdir (void)
+{
+  char *e;
+
+  e = getenv ("DH_EXEC_SCRIPTDIR");
+  if (e)
+    return e;
+  return DH_EXEC_SCRIPTDIR;
+}
 
 const char *
 dh_exec_libdir (void)
@@ -43,21 +54,10 @@ dh_exec_libdir (void)
 }
 
 const char *
-dh_exec_bindir (void)
+dh_exec_source (int argc, int optind, char *argv[])
 {
-  char *e;
-
-  e = getenv ("DH_EXEC_BINDIR");
-  if (e)
-    return e;
-  return DH_EXEC_BINDIR;
-}
-
-const char *
-dh_exec_source (int argc, char *argv[])
-{
-  if (argc >= 2)
-    return argv[1];
+  if (argc - optind >= 1)
+    return argv[optind];
   return getenv ("DH_EXEC_SOURCE");
 }
 
@@ -85,7 +85,7 @@ dh_exec_cmd_filter (const struct dirent *entry)
                strlen (DH_EXEC_CMD_PREFIX)) != 0)
     return 0;
 
-  path = dh_exec_cmd_path (dh_exec_libdir (), entry->d_name);
+  path = dh_exec_cmd_path (dh_exec_scriptdir (), entry->d_name);
   r = access (path, X_OK);
   free (path);
 
@@ -107,11 +107,11 @@ dh_exec_main (int argc, char *argv[])
       exit (1);
     }
 
-  n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
+  n = scandir (dh_exec_scriptdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
   if (n < 0)
     {
-      fprintf (stderr, "%s: scandir(\"%s\"): %s\n", argv[0], dh_exec_libdir(),
-               strerror (errno));
+      fprintf (stderr, "%s: scandir(\"%s\"): %s\n", argv[0],
+               dh_exec_scriptdir(), strerror (errno));
       exit (1);
     }
 
@@ -124,7 +124,7 @@ dh_exec_main (int argc, char *argv[])
 
   while (n--)
     {
-      char *cmd = dh_exec_cmd_path (dh_exec_libdir (), cmdlist[n]->d_name);
+      char *cmd = dh_exec_cmd_path (dh_exec_scriptdir (), cmdlist[n]->d_name);
       pipeline_command_args (p, cmd, NULL);
       free (cmd);
     }

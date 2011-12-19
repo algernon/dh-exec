@@ -22,11 +22,9 @@ Usage
 =====
 
 The recommended way to use dh-exec is through the **dh-exec**(1)
-wrapper, which will bind all the other tools together - although the
-others can be used on their own aswell.
-
-That is, when adding a she-bang line to an executable debhelper config
-file, use /usr/bin/dh-exec.
+wrapper, which will bind all the other tools together. That is, when
+adding a she-bang line to an executable debhelper config file, use
+/usr/bin/dh-exec.
 
 Hacking
 =======
@@ -56,7 +54,7 @@ result to stdout. The only guaranteed variable set in the environment
 is *DH\_EXEC\_SOURCE*.
 
 Another environment variable we must care about - in the top-level
-commands' implementations - is *DH\_EXEC\_LIBDIR*, which is the
+commands' implementations - is *DH\_EXEC\_SCRIPTDIR*, which is the
 directory under which the sub-commands will be searched. It need not
 be specified, as the default is what it should be. But for the
 testsuite to work, it needs to be overridable.

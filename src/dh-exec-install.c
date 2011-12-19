@@ -29,7 +29,7 @@ const char *DH_EXEC_CMD_PREFIX = "dh-exec-install-";
 int
 main (int argc, char *argv[])
 {
-  const char *src = dh_exec_source (argc, argv);
+  const char *src = dh_exec_source (argc, 1, argv);
 
   if (!src)
     {

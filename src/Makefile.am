@@ -1,6 +1,11 @@
 AUTOMAKE_OPTIONS	= foreign
 
-bin_PROGRAMS		= dh-exec-subst dh-exec dh-exec-install
+bin_PROGRAMS		= dh-exec
+pkglib_PROGRAMS		= dh-exec-subst dh-exec-install
+
+man1_MANS		= dh-exec-subst.1 dh-exec.1 dh-exec-install.1
+
+EXTRA_DIST		= ${man1_MANS}
 
 dh_exec_SOURCES		= dh-exec.c dh-exec.lib.c dh-exec.lib.h
 dh_exec_CFLAGS		= @LIBPIPELINE_CFLAGS@

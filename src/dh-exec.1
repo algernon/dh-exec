@@ -1,4 +1,4 @@
-.TH "DH\-EXEC" "1" "2011-12-15" "" "dh-exec"
+.TH "DH\-EXEC" "1" "2011-12-19" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -22,6 +22,26 @@ The order as of now is \fIdh\-exec\-subst\fR gets run first, followed
 by \fIdh\-exec\-install\fR, so that variable expansion happens before
 files need to be copied.
 
+.SH "OPTIONS"
+
+.IP "\fB\-\-with\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
+Replace the list of helpers to run the input through with a custom
+list (where entries are separated by whitespace or commas). This
+option will always replace the existing list with whatever is
+specified.
+
+This can be used to explicitly set which helpers to use.
+
+The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
+
+Defaults to \fIsubst,install\fR.
+
+.IP "\fB\-\-without\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
+Inversely to the option above, this lists all the helpers which should
+not be used.
+
+The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
+
 .SH "HELPERS"
 
 .TP
@@ -37,15 +57,15 @@ during the copy process, using a special syntax.
 .SH "ENVIRONMENT"
 
 .PP
-\fIDH_EXEC_BINDIR\fR
+\fIDH_EXEC_LIBDIR\fR
 .RS 4
 The directory in which the wrapped helpers reside. Defaults to
-\fI/usr/bin/\fR.
+\fI/usr/lib/dh\-exec/\fR.
 .RE
 
 .SH "FILES"
 .PP
-\fI$DH_EXEC_BINDIR/dh\-exec\-*\fR
+\fI$DH_EXEC_LIBDIR/dh\-exec\-*\fR
 .RS 4
 The various helpers.
 .RE

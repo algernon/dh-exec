@@ -2,5 +2,8 @@
 
 export DH_OPTIONS += -O-Bdebian/build-tree
 
+override_dh_auto_configure:
+	dh_auto_configure -- --libdir=/usr/lib
+
 %:
 	dh $@ --with autoreconf

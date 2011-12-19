@@ -19,6 +19,8 @@
 
 #include <pipeline.h>
 #include <stdlib.h>
+#include <string.h>
+#include <getopt.h>
 
 #include "dh-exec.lib.h"
 
@@ -27,31 +29,164 @@ const char *DH_EXEC_CMD_PREFIX = "dh-exec-";
 static void
 dh_exec_pipeline_add (pipeline *p, const char *cmd)
 {
-  char *path = dh_exec_cmd_path (dh_exec_bindir (), cmd);
+  char *path = dh_exec_cmd_path (dh_exec_libdir (), cmd);
   pipeline_command_args (p, path, NULL);
   free (path);
+}
+
+static void
+dh_exec_cmdlist_free (char **cmdlist)
+{
+  int i = 0;
+
+  if (!cmdlist)
+    return;
+
+  while (cmdlist[i])
+    {
+      free (cmdlist[i]);
+      i++;
+    }
+  free (cmdlist);
+}
+
+static char **
+dh_exec_with (char **cmdlist, const char *prglist)
+{
+  int i = 0;
+  char *t, *orig, *curr;
+
+  orig = strdup (prglist);
+  t = orig;
+  while (strsep (&t, ",; \t"))
+    i++;
+  free (orig);
+
+  orig = strdup (prglist);
+  t = orig;
+
+  dh_exec_cmdlist_free (cmdlist);
+
+  cmdlist = (char **)calloc (i + 1, sizeof (char *));
+  i = 0;
+
+  while ((curr = strsep (&t, ",; \t")) != NULL)
+    cmdlist[i++] = strdup (curr);
+  free (orig);
+
+  cmdlist[i] = NULL;
+  return cmdlist;
+}
+
+static char **
+dh_exec_without (char **cmdlist, const char *prglist)
+{
+  char *t, *orig, *prg;
+
+  orig = strdup (prglist);
+  t = orig;
+
+  while ((prg = strsep (&t, ",; \t")) != NULL)
+    {
+      int i = 0;
+
+      while (cmdlist[i])
+        {
+          if (strcmp (cmdlist[i], prg) == 0)
+            {
+              free (cmdlist[i]);
+              cmdlist[i] = strdup ("");
+            }
+          i++;
+        }
+    }
+  free (orig);
+
+  return cmdlist;
+}
+
+static int
+dh_exec_help (void)
+{
+  return EXIT_SUCCESS;
 }
 
 int
 main (int argc, char *argv[])
 {
   pipeline *p;
-  int status;
-  const char *src = dh_exec_source (argc, argv);
+  int status, n = 0;
+  const char *src;
 
-  if (!src)
+  char **dhe_commands;
+  static struct option dhe_options[] = {
+    {"with",    required_argument, NULL, 'I'},
+    {"without", required_argument, NULL, 'X'},
+    {"help",    no_argument      , NULL, '?'},
+    {NULL,      0                , NULL,  0 },
+  };
+
+  dhe_commands = dh_exec_with (NULL, "subst,install");
+
+  while (1)
     {
-      fprintf (stderr, "%s: Need a filename specified!\n", argv[0]);
-      exit (1);
+      int option_index, c;
+
+      c = getopt_long (argc, argv, "?", dhe_options, &option_index);
+      if (c == -1)
+        break;
+
+      switch (c)
+        {
+        case 'I':
+          dhe_commands = dh_exec_with (dhe_commands, optarg);
+          break;
+        case 'X':
+          dhe_commands = dh_exec_without (dhe_commands, optarg);
+          break;
+        case '?':
+          return dh_exec_help ();
+        default:
+          fprintf (stderr, "Unknown option code: %x\n", c);
+          dh_exec_help ();
+          return (EXIT_FAILURE);
+        }
     }
+
+  src = dh_exec_source (argc, optind, argv);
 
   p = pipeline_new ();
 
-  pipeline_want_infile (p, src);
-  setenv ("DH_EXEC_SOURCE", src, 1);
+  if (src)
+    {
+      pipeline_want_infile (p, src);
+      setenv ("DH_EXEC_SOURCE", src, 1);
+    }
 
-  dh_exec_pipeline_add (p, "dh-exec-subst");
-  dh_exec_pipeline_add (p, "dh-exec-install");
+  while (dhe_commands[n])
+    {
+      char *cmd;
+
+      if (dhe_commands[n][0] == '\0')
+        {
+          n++;
+          continue;
+        }
+
+      if (asprintf (&cmd, "%s%s", DH_EXEC_CMD_PREFIX, dhe_commands[n]) <= 0)
+        {
+          perror ("asprintf");
+          exit (EXIT_FAILURE);
+        }
+
+      dh_exec_pipeline_add (p, cmd);
+      free (cmd);
+
+      n++;
+    }
+
+  if (pipeline_get_ncommands (p) == 0)
+    pipeline_command_args (p, "cat", NULL);
 
   pipeline_start (p);
   status = pipeline_wait (p);

@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 4
+tl_plan 8
 
 install -d debian/tmp
 pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
@@ -14,7 +14,7 @@ install -d "${pkgdir}/var/lib/dh-exec"
 install -d "${pkgdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
 
 cat >${pkgfile} <<EOF
-#! ${top_builddir}/src/dh-exec
+#! ${DH_EXEC_BINDIR}/dh-exec
 ${pkgfile} /var/lib/dh-exec/
 ${pkgfile} => /var/lib/dh-exec/new-file
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/
@@ -46,6 +46,66 @@ tl_next
 find ${dtmpdir}/usr/lib/dh-exec/ -type f -name 'new-file' | \
         tl_expect "Copying a file with a rename gets acted upon" \
         "${dtmpdir}/usr/lib/dh-exec/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/new-file"
+tl_next
+
+# Check that --without works
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --without=subst
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --without works" \
+        "\${DEB_HOST_MULTIARCH}"
+
+tl_next
+
+# Check that --with works too
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --with=install
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --with works" \
+        "\${DEB_HOST_MULTIARCH}"
+
+tl_next
+
+# Check that an empty list works too
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --without=subst,install
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --with works" \
+        "\${DEB_HOST_MULTIARCH}"
+
+tl_next
+
+# Check that a program list works
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --with=subst,install
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}
+EOF
+
+chmod +x ${pkgfile}
+${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh_exec --with works" \
+        "$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
+
 tl_next
 
 rm -rf debian

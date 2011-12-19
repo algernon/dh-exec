@@ -1,10 +1,10 @@
-.TH "DH\-EXEC\-INSTALL" "1" "2011-12-16" "" "dh-exec"
+.TH "DH\-EXEC\-INSTALL" "1" "2011-12-19" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
 dh\-exec\-install \- Install (and possibly rename) files.
 .SH "SYNOPSIS"
-\fB#! /usr/bin/dh\-exec\-install\fR
+\fB#! /usr/bin/dh\-exec\fR
 .br
 debian/default.conf => /etc/my\-package/start.conf
 .br
@@ -52,10 +52,21 @@ be cleaned by \fIdh_prep\fR(1) when the \fBclean\fR target gets to
 run. Thus, no extra code is needed anywhere to clean up the renamed
 files.
 
-.SH "NOTE"
+.SH "ENVIRONMENT"
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+Indicates which directory the command\-specific helpers should be
+sought for. If not specified, helpers will be searched for in
+\fI/usr/share/dh\-exec/\fR.
+.RE
 
-Even though this program can be used directly, it is strongly
-recommended to use it through \fIdh\-exec\fR(1) instead.
+.SH "FILES"
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-install\-*\fR
+.RS 4
+The various helpers for the higher\-level program.
+.RE
 
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1), \fIdh_install\fR(1)

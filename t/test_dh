@@ -10,6 +10,10 @@ cd ${DH_EXEC_BINDIR}
 BINDIR=$(pwd)
 cd - >/dev/null
 
+cd ${DH_EXEC_SCRIPTDIR}
+SCRIPTDIR=$(pwd)
+cd - >/dev/null
+
 cd ${DH_EXEC_LIBDIR}
 LIBDIR=$(pwd)
 cd - >/dev/null
@@ -21,7 +25,7 @@ check_pkg () {
 
         DEB_HOST_MULTIARCH=$(dpkg-architecture ${arch} -f -qDEB_HOST_MULTIARCH 2>/dev/null)
 
-        PATH=${BINDIR}:${PATH} DH_EXEC_BINDIR=${BINDIR} DH_EXEC_LIBDIR=${LIBDIR} \
+        PATH=${BINDIR}:${PATH} DH_EXEC_SCRIPTDIR=${SCRIPTDIR} DH_EXEC_LIBDIR=${LIBDIR} \
                 dpkg-buildpackage -us -uc -rfakeroot -b -d ${arch} 2>/dev/null
         debian/rules clean
 

@@ -14,7 +14,8 @@ TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			test_combined \
 			${TESTCASES_DH}
 
-TESTS_ENVIRONMENT	= DH_EXEC_LIBDIR="${top_srcdir}/lib" \
+TESTS_ENVIRONMENT	= DH_EXEC_SCRIPTDIR="${top_srcdir}/lib" \
+			DH_EXEC_LIBDIR="${top_builddir}/src" \
 			DH_EXEC_BINDIR="${top_builddir}/src" \
 			top_builddir="${top_builddir}" \
 			srcdir="${srcdir}"
