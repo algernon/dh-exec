@@ -1,0 +1,19 @@
+#! /bin/sh
+
+set -e
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 2
+
+# Test that calling --help works
+${top_builddir}/src/dh-exec --help | \
+        tl_expect_match "dh-exec --help works" \
+                         "Scripts to help with executable debhelper files"
+tl_next
+
+# Test that calling --version works
+${top_builddir}/src/dh-exec --version | \
+        tl_expect_match "dh-exec --version works" \
+                        "This is free software"
+tl_next

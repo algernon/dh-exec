@@ -22,6 +22,7 @@
 #include <string.h>
 #include <getopt.h>
 
+#include "config.h"
 #include "dh-exec.lib.h"
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-";
@@ -108,6 +109,31 @@ dh_exec_without (char **cmdlist, const char *prglist)
 static int
 dh_exec_help (void)
 {
+  printf ("dh-exec - Scripts to help with executable debhelper files.\n"
+          "\n"
+          "Usage: dh-exec [OPTION...] [FILE]\n"
+          "\n"
+          "  --with=[helper,...]        Run with the specified helpers only.\n"
+          "  --without=[helper,...]     Run without the specified helpers.\n"
+          "  --help                     Display this help screen.\n"
+          "  --version                  Output version information and exit.\n"
+          "\n"
+          "When listing helpers, the list needs to be comma separated.\n"
+          "\n"
+          "For complete documentation, see the dh-exec(1) manual page.\n");
+  return EXIT_SUCCESS;
+}
+
+static int
+dh_exec_version (void)
+{
+  printf ("dh-exec " PACKAGE_VERSION "\n"
+          "\n"
+          "Copyright (C) 2011 Gergely Nagy <algernon@debian.org>\n"
+          "This is free software; see the source for copying conditions.  There is NO\n"
+          "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+          "\n"
+          "Written by Gergely Nagy <algernon@debian.org>\n");
   return EXIT_SUCCESS;
 }
 
@@ -123,6 +149,7 @@ main (int argc, char *argv[])
     {"with",    required_argument, NULL, 'I'},
     {"without", required_argument, NULL, 'X'},
     {"help",    no_argument      , NULL, '?'},
+    {"version", no_argument      , NULL, 'v'},
     {NULL,      0                , NULL,  0 },
   };
 
@@ -146,6 +173,8 @@ main (int argc, char *argv[])
           break;
         case '?':
           return dh_exec_help ();
+        case 'v':
+          return dh_exec_version ();
         default:
           fprintf (stderr, "Unknown option code: %x\n", c);
           dh_exec_help ();
