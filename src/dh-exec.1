@@ -22,6 +22,26 @@ The order as of now is \fIdh\-exec\-subst\fR gets run first, followed
 by \fIdh\-exec\-install\fR, so that variable expansion happens before
 files need to be copied.
 
+.SH "OPTIONS"
+
+.IP "\fB\-\-with\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
+Replace the list of helpers to run the input through with a custom
+list (where entries are separated by whitespace or commas). This
+option will always replace the existing list with whatever is
+specified.
+
+This can be used to explicitly set which helpers to use.
+
+The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
+
+Defaults to \fIsubst,install\fR.
+
+.IP "\fB\-\-without\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
+Inversely to the option above, this lists all the helpers which should
+not be used.
+
+The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
+
 .SH "HELPERS"
 
 .TP

@@ -54,10 +54,10 @@ dh_exec_libdir (void)
 }
 
 const char *
-dh_exec_source (int argc, char *argv[])
+dh_exec_source (int argc, int optind, char *argv[])
 {
-  if (argc >= 2)
-    return argv[1];
+  if (argc - optind >= 1)
+    return argv[optind];
   return getenv ("DH_EXEC_SOURCE");
 }
 

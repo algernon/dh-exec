@@ -2,7 +2,3 @@
 
 * dh-exec
 More documentation, a HOWTO in the manpage.
-
-** Allow explicitly enabling/disabling various tools
-Add a --with= and a --without= option to dh-exec, so that we can turn
-tools on and off.

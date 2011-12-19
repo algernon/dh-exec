@@ -24,7 +24,7 @@ extern const char *DH_EXEC_CMD_PREFIX;
 
 const char *dh_exec_scriptdir (void);
 const char *dh_exec_libdir (void);
-const char *dh_exec_source (int argc, char *argv[]);
+const char *dh_exec_source (int argc, int optind, char *argv[]);
 
 char *dh_exec_cmd_path (const char *dir, const char *cmd);
 int dh_exec_cmd_filter (const struct dirent *entry);
