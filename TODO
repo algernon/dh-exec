@@ -1,4 +1,4 @@
 #+STARTUP: indent showall                       -*- org -*-
 
-* dh-exec-install
-Test more throughly, find critics, merge to mainline.
+* dh-exec
+More documentation, a HOWTO in the manpage.
