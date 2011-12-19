@@ -20,7 +20,8 @@ Description: Scripts to help with executable debhelper files
  content of the config file.
  .
  To ease and standardize the most common tasks, this package provides
- a few utilities to help constructing such executable scripts:
+ a few solutions to help constructing such executable scripts:
  .
-  * dh-exec-subst: To ease variable substitution, from environment
-    variables or dpkg-architecture.
+  * A way to ease variable substitution, from environment variables or
+    dpkg-architecture.
+  * An extension to dh_install, with the ability to rename files.
