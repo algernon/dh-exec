@@ -117,6 +117,7 @@ dh_exec_help (void)
           "\n"
           "  --with=[helper,...]        Run with the specified helpers only.\n"
           "  --without=[helper,...]     Run without the specified helpers.\n"
+          "  --no-act                   Do not run, just print the pipeline.\n"
           "  --help                     Display this help screen.\n"
           "  --version                  Output version information and exit.\n"
           "\n"
@@ -143,7 +144,7 @@ int
 main (int argc, char *argv[])
 {
   pipeline *p;
-  int status, n = 0;
+  int status, n = 0, no_act = 0;
   const char *src;
 
   char **dhe_commands;
@@ -152,6 +153,7 @@ main (int argc, char *argv[])
     {"without", required_argument, NULL, 'X'},
     {"help",    no_argument      , NULL, '?'},
     {"version", no_argument      , NULL, 'v'},
+    {"no-act",  no_argument      , NULL, 'n'},
     {NULL,      0                , NULL,  0 },
   };
 
@@ -177,6 +179,9 @@ main (int argc, char *argv[])
           return dh_exec_help ();
         case 'v':
           return dh_exec_version ();
+        case 'n':
+          no_act = 1;
+          break;
         default:
           fprintf (stderr, "Unknown option code: %x\n", c);
           dh_exec_help ();
@@ -218,6 +223,13 @@ main (int argc, char *argv[])
 
   if (pipeline_get_ncommands (p) == 0)
     pipeline_command_args (p, "cat", NULL);
+
+  if (no_act)
+    {
+      pipeline_dump (p, stdout);
+      pipeline_free (p);
+      return EXIT_SUCCESS;
+    }
 
   pipeline_start (p);
   status = pipeline_wait (p);

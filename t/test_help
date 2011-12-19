@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 2
+tl_plan 3
 
 # Test that calling --help works
 ${top_builddir}/src/dh-exec --help | \
@@ -16,4 +16,10 @@ tl_next
 ${top_builddir}/src/dh-exec --version | \
         tl_expect_match "dh-exec --version works" \
                         "This is free software"
+tl_next
+
+# Test that --no-act works
+${top_builddir}/src/dh-exec --no-act random.install | \
+        tl_expect_match "dh-exec --no-act works" \
+                        "^[^\|]*/dh-exec-subst | [^\|]*/dh-exec-install \[input: {0, random.install}, output: {0, NULL}\]\$"
 tl_next
