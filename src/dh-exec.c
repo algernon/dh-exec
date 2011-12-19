@@ -27,6 +27,8 @@
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-";
 
+#define DH_EXEC_CMD_SEPARATORS ",; \t"
+
 static void
 dh_exec_pipeline_add (pipeline *p, const char *cmd)
 {
@@ -71,7 +73,7 @@ dh_exec_with (char **cmdlist, const char *prglist)
   cmdlist = (char **)calloc (i + 1, sizeof (char *));
   i = 0;
 
-  while ((curr = strsep (&t, ",; \t")) != NULL)
+  while ((curr = strsep (&t, DH_EXEC_CMD_SEPARATORS)) != NULL)
     cmdlist[i++] = strdup (curr);
   free (orig);
 
@@ -87,7 +89,7 @@ dh_exec_without (char **cmdlist, const char *prglist)
   orig = strdup (prglist);
   t = orig;
 
-  while ((prg = strsep (&t, ",; \t")) != NULL)
+  while ((prg = strsep (&t, DH_EXEC_CMD_SEPARATORS)) != NULL)
     {
       int i = 0;
 
