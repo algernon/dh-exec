@@ -1,0 +1,45 @@
+#! /usr/bin/perl -w
+use strict;
+use Data::Dumper;
+
+# The first line is the she-bang, always ignore it.
+<>;
+
+my $files = {};
+my $last_file;
+
+while (<>) {
+        next unless /[\`']/;
+
+        # Find `...' constructs. The first is always the source, the
+        # second is the destination.
+        while (/\`([^']+)'/) {
+                if ($last_file) {
+                        $files->{$last_file} = $1;
+                        $last_file = undef;
+                } else {
+                        $last_file = $1;
+                }
+                s/\`([^']+)'//;
+        }
+
+        # Once done, find the '...' constructs, which is always a
+        # directory, no second stuff.
+        while (/'([^' ]+)'/) {
+                $files->{$1} = 1;
+                s/'([^' ]+)'//;
+        }
+};
+
+# Great, we got the stuff extracted, now turn it into something
+# illiterate.
+
+foreach (keys (%$files)) {
+        if ($files->{$_} eq 1) {
+                print $_ . "\n";
+        } elsif ($files->{$_} =~ /\/$/) {
+                print $_ . " " . $files->{$_} . "\n";
+        } else {
+                print $_ . " => " . $files->{$_} . "\n";
+        }
+}

@@ -1,0 +1,92 @@
+.de Vb \" Begin verbatim text
+.ft CW
+.nf
+.ne \\$1
+..
+.de Ve \" End verbatim text
+.ft R
+.fi
+..
+
+.TH "DH\-EXEC\-ILLITERATE" "1" "2011-12-20" "" "dh-exec"
+.ad l
+.nh
+.SH "NAME"
+dh\-exec\-illiterate \- Write literate debhelper config files!
+.SH "SYNOPSIS
+.Vb 3
+\fB#! /usr/bin/dh\-exec \-\-with=illiterate,subst,install\fR
+Greetings, my dear reader, and welcome to the awesome world of
+literate programming!
+
+Today, we're going to explore how to write a debhelper install file in
+a literate manner. Trust me, it's going to be lots and lots of fun!
+
+So, what exactly are we trying to accomplish? We're going to try
+installing a file from `src/this\-file' in the source tree, to a
+multi\-arched path in the binary file. Lets say, to
+`/usr/lib/foo/${DEB_HOST_MULTIARCH}/'.
+
+Of course, ${DEB_HOST_MULTIARCH} is a variable, and will be expanded
+later in the dh\-exec pipeline. It'll be something like
+x86_64\-linux\-gnu.
+
+Furthermore, we want to install all files from the 'usr/lib' directory
+under debian/tmp. If we were writing an illiteral install file, we'd
+write this rule as:
+
+    usr/lib
+
+But the above description is much easier to understand, isn't it?
+
+We're almost finished! One thing left to do, is to install a script
+named \`rename\-me', to \`/usr/share/foo/new\-name' \- we renamed it
+in the process!
+.Ve
+
+.SH "DESCRIPTION"
+The dh\-exec\-illiterate helper, unlike the others, does not serve any
+particular case, except to serve as a warning to all, that things can
+be taken to an extreme, even with dh\-exec.
+
+It is a program that will translate its input from pretty much
+free-form text into something that resembles an install file. At
+least, that's the only supported output format for now.
+
+Everything that's not recognised, will be ignored, and not
+printed. The recognised constructs are:
+
+.IP "\fB`source'\fR \fI...\fR \fB`destination'\fR"
+The first string between a backtick and a single quote will be treated
+as the source file, the next such string will be the destination. If
+the destination ends with a slash, dh\-exec\-illiterate will consider
+it a directory, otherwise it will output a construct that
+dh\-exec\-install can recognise as a rename operation.
+
+.IP "\fB'source'\fR"
+A string, without whitespace, between two single quotes is treated as
+a source, whose destination is unspecified, and is left up to
+\fIdh_install\fR(1) to figure out.
+
+.SH "ENVIRONMENT"
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+Indicates which directory the command\-specific helpers should be
+sought for. If not specified, helpers will be searched for in
+\fI/usr/share/dh\-exec/\fR.
+.RE
+
+.SH "FILES"
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-illiterate\-*\fR
+.RS 4
+The various helpers for the higher\-level program.
+.RE
+
+.SH "SEE ALSO"
+\fIdebhelper\fR(1), \fIdh\-exec\fR(1)
+
+.SH "AUTHOR"
+dh\-exec\-illiterate is copyright \(co 2011 by Gergely Nagy
+<algernon@madhouse\-project.org>.

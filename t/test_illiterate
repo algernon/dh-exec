@@ -1,0 +1,63 @@
+#! /bin/sh
+
+set -e
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 4
+
+t=$(mktemp)
+
+cat >${t} <<EOF
+#! ${top_builddir}/src/dh-exec-illiterate
+Greetings, my dear reader, and welcome to the awesome world of literate programming!
+
+Today, we're going to explore how to write a debhelper install file in
+a literate manner. Trust me, it's going to be lots and lots of fun!
+
+So, what exactly are we trying to accomplish? We're going to try
+installing a file from \`src/this-file' in the source tree, to a
+multi-arched path in the binary file. Lets say, to
+\`/usr/lib/foo/\${DEB_HOST_MULTIARCH}/'.
+
+Of course, \${DEB_HOST_MULTIARCH} is a variable, and will be expanded
+later in the dh-exec pipeline. It'll be something like
+x86_64-linux-gnu.
+
+Furthermore, we want to install all files from the 'usr/lib' directory
+under debian/tmp. If we were writing an illiteral install file, we'd
+write this rule as:
+
+    usr/lib
+
+But the above description is much easier to understand, isn't it?
+
+We're almost finished! One thing left to do, is to install a script
+named \`rename-me', to \`/usr/share/foo/new-name' - we renamed it in
+the process!
+EOF
+
+chmod +x "${t}"
+"${t}" >"${t}.output"
+
+# The literate text gets removed
+cat "${t}.output" | \
+        tl_forbid "Literate text gets removed" "Greetings, my dear reader"
+tl_next
+
+# The good stuff is left in
+cat "${t}.output" | \
+        tl_expect "usr/lib found in output" "usr/lib"
+tl_next
+
+cat "${t}.output" | \
+        tl_expect "rename construct found in output" \
+                  "rename-me => /usr/share/foo/new-name"
+tl_next
+
+cat "${t}.output" | \
+        tl_expect "normal file copy found in output" \
+                  "src/this-file /usr/lib/foo/\${DEB_HOST_MULTIARCH}/"
+tl_next
+
+rm -f "${t}" "${t}.output"
