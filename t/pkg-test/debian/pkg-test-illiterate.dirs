@@ -1,0 +1,8 @@
+#! ./dh-exec --with=illiterate,subst
+
+Dear $DEITY, who art in heaven, please hear our prayer, and create the
+'usr/bin' and 'usr/lib/pkg-test/${DEB_HOST_MULTIARCH}' directories,
+where ${DEB_HOST_MULTIARCH} shall be queried from dpkg-architecture,
+and the return value substituted.
+
+Amen.

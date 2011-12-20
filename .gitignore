@@ -25,5 +25,6 @@ core
 /debian/files
 /t/pkg-test_*
 /t/pkg-test/debian/pkg-test/
+/t/pkg-test/debian/pkg-test-illiterate/
 /t/pkg-test/debian/files
 /debian/build-tree/

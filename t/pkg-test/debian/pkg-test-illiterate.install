@@ -1,0 +1,30 @@
+#! dh-exec --with=illiterate,subst,install
+Ladies and gentlemen!
+
+I present you, the first - and hopefully only - debhelper config file
+written in a literate manner. there is no code examples here, as we
+have no code to run at all. We just want to install a few files from
+here and there.
+
+For example, we want to install everyting from `data/bin-*' to
+`/usr/bin/' - so lets just do that, ok?
+
+But alas, that's not enough. We need more stuff in the package,
+because it's modern, multi-archified and all that buzz. Unfortunately,
+upstream is, well.. not the top of his game, if you get the drift. He
+can't write Makefiles.
+
+Therefore, we need to install the `data/plugin-multiarch' plugin,
+which is essential for our program, to a multi-archified private
+library directory, `/usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/'.
+
+And while I could prepare another plugin to test whether renaming
+works, I'm way too lazy - so apologies, but this example will install
+the same `data/plugin-multiarch' to
+`/usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/another-plugin'.
+
+Such is life. And this pretty much marks the end of the literate
+script, there is nothing left to do. We can write all kinds of clever
+stuff here, but none of that matters now.
+
+It's the end of the world as we know it.

@@ -11,3 +11,13 @@ Description: A test package, for dh-exec testing.
  This package has no use at all, does nothing, contains random files,
  and the single purpose of its existence is to test the behaviour of
  dh-exec.
+
+Package: pkg-test-illiterate
+Architecture: all
+Description: A test package, for dh-exec testing (illiterate)
+ This package has no use at all, does nothing, contains random files,
+ and the single purpose of its existence is to test the behaviour of
+ dh-exec-illiterate.
+ .
+ The illiterate tool is a solution to allow one to write debhelper
+ config files in a literate manner.
