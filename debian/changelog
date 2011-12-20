@@ -2,4 +2,4 @@ dh-exec (0.1) unstable; urgency=low
 
   * Initial release. (Closes: #651393)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 12 Dec 2011 15:59:36 +0100
+ -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 21 Dec 2011 00:51:28 +0100
