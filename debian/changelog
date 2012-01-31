@@ -1,3 +1,10 @@
+dh-exec (0.2) unstable; urgency=low
+
+  * Disable pkgbinarymangler for tests, to fix FTBFS on Ubuntu.
+    Patch from Felix Geyer <debfx-pkg@fobos.de>. (Closes: #657966)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Tue, 31 Jan 2012 14:55:31 +0100
+
 dh-exec (0.1) unstable; urgency=low
 
   * Initial release. (Closes: #651393)

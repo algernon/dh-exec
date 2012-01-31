@@ -18,7 +18,8 @@ TESTS_ENVIRONMENT	= DH_EXEC_SCRIPTDIR="${top_srcdir}/lib" \
 			DH_EXEC_LIBDIR="${top_builddir}/src" \
 			DH_EXEC_BINDIR="${top_builddir}/src" \
 			top_builddir="${top_builddir}" \
-			srcdir="${srcdir}"
+			srcdir="${srcdir}" \
+			NO_PKG_MANGLE=1
 
 check: ${TESTS}
 	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o ${PROVE_OPTIONS} $(addprefix ${srcdir}/,${TESTCASES})
