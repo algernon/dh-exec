@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS	= foreign
 
 bin_PROGRAMS		= dh-exec
-pkglib_PROGRAMS		= dh-exec-subst dh-exec-install dh-exec-illiterate
+pkglibexec_PROGRAMS	= dh-exec-subst dh-exec-install dh-exec-illiterate
 
 man1_MANS		= dh-exec-subst.1 dh-exec.1 dh-exec-install.1 \
 			dh-exec-illiterate.1
