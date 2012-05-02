@@ -3,8 +3,10 @@ dh-exec (0.3) unstable; urgency=low
   * Implement a --with-scripts= option for dh-exec, to allow the user to
     limit what scripts get run. Thanks to Wookey for the suggestion!
   * Bump Standards-Version to 3.9.3 (no changes required).
+  * Add a rationale explaining the advantages of dh-exec and a few
+    examples to the README. (Closes: #664698)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 May 2012 00:44:37 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 May 2012 01:43:28 +0200
 
 dh-exec (0.2) unstable; urgency=low
 
