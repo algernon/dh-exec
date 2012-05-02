@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
+#include <unistd.h>
 
 #include "config.h"
 #include "dh-exec.lib.h"
@@ -147,9 +148,10 @@ main (int argc, char *argv[])
   int status, n = 0, no_act = 0;
   const char *src;
 
-  char **dhe_commands;
+  char **dhe_commands, **dhe_scripts = NULL;
   static struct option dhe_options[] = {
     {"with",    required_argument, NULL, 'I'},
+    {"with-scripts", required_argument, NULL, 'i'},
     {"without", required_argument, NULL, 'X'},
     {"help",    no_argument      , NULL, '?'},
     {"version", no_argument      , NULL, 'v'},
@@ -175,6 +177,9 @@ main (int argc, char *argv[])
         case 'X':
           dhe_commands = dh_exec_without (dhe_commands, optarg);
           break;
+        case 'i':
+          dhe_scripts = dh_exec_with (dhe_scripts, optarg);
+          break;
         case '?':
           return dh_exec_help ();
         case 'v':
@@ -197,6 +202,53 @@ main (int argc, char *argv[])
     {
       pipeline_want_infile (p, src);
       setenv ("DH_EXEC_SOURCE", src, 1);
+    }
+
+  if (dhe_scripts)
+    {
+      int i = 0;
+      int size = 0, pos = 0;
+      char *env;
+
+      while (dhe_scripts[i])
+        {
+          size += strlen (dhe_scripts[i]) + 1;
+          i++;
+        }
+
+      env = (char *)malloc (size + 1);
+      i = 0;
+
+      while (dhe_scripts[i])
+        {
+          char *path;
+
+          if (asprintf (&path, "%s/dh-exec-%s", dh_exec_scriptdir (),
+                        dhe_scripts[i]) <= 0)
+            {
+              perror ("asprintf");
+              exit (1);
+            }
+
+          if (access (path, R_OK | X_OK) != 0)
+            {
+              fprintf (stderr, "%s: script '%s' is not valid!\n", argv[0],
+                       dhe_scripts[i]);
+              exit (1);
+            }
+          free (path);
+
+          memcpy (env + pos, dhe_scripts[i], strlen (dhe_scripts[i]));
+          pos += strlen (dhe_scripts[i]);
+          env[pos++] = '|';
+          i++;
+        }
+      env[pos] = '\0';
+
+      setenv ("DH_EXEC_SCRIPTS", env, 1);
+
+      free (env);
+      dh_exec_cmdlist_free (dhe_scripts);
     }
 
   while (dhe_commands[n])

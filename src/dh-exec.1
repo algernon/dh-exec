@@ -1,4 +1,4 @@
-.TH "DH\-EXEC" "1" "2011-12-19" "" "dh-exec"
+.TH "DH\-EXEC" "1" "2012-05-03" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -42,6 +42,20 @@ not be used.
 
 The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
 
+.IP "\fB\-\-with\-scripts=\fIscript\fR[\fB,\fR\fIscript\fR ...]" 4
+Replace the list of helper scripts to run the input through with a
+custom list (where entries are separated by whitespace or
+commas). This  option will always replace the existing list with
+whatever is specified.
+
+This can be used to explicitly specify which scripts to use, limiting
+even beyond what the \fB\-\-with\fR option is capable of.
+
+The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
+
+By default it is empty, meaning there is no filtering done, and
+whatever scripts the helpers find, will be run.
+
 .IP "\fB\-\-no\-act" 4
 Do not really do anything, but print the pipeline that would have been
 run instead.
@@ -83,4 +97,4 @@ The various helpers.
 \fIdh\-exec\-install\fR(1)
 
 .SH "AUTHOR"
-dh\-exec is copyright \(co 2011 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.

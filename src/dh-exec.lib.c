@@ -75,6 +75,32 @@ dh_exec_cmd_path (const char *dir, const char *cmd)
   return path;
 }
 
+static int
+dh_exec_script_allowed (const char *fn)
+{
+  char *e;
+  char *needle;
+
+  e = getenv ("DH_EXEC_SCRIPTS");
+  if (!e)
+    return 0;
+
+  if (asprintf (&needle, "%s|", fn + strlen ("dh-exec-")) <= 0)
+    {
+      perror ("asprintf");
+      exit (1);
+    }
+
+  if (strstr (e, needle) == NULL)
+    {
+      free (needle);
+      return 1;
+    }
+
+  free (needle);
+  return 0;
+}
+
 int
 dh_exec_cmd_filter (const struct dirent *entry)
 {
@@ -83,6 +109,8 @@ dh_exec_cmd_filter (const struct dirent *entry)
 
   if (strncmp (entry->d_name, DH_EXEC_CMD_PREFIX,
                strlen (DH_EXEC_CMD_PREFIX)) != 0)
+    return 0;
+  if (dh_exec_script_allowed (entry->d_name) != 0)
     return 0;
 
   path = dh_exec_cmd_path (dh_exec_scriptdir (), entry->d_name);

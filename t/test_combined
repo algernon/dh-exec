@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 8
+tl_plan 9
 
 install -d debian/tmp
 pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
@@ -105,6 +105,21 @@ ${pkgfile} >${pkgfile}.output
 cat ${pkgfile}.output | \
         tl_expect_match "dh_exec --with works" \
         "$(dpkg-architecture -qDEB_HOST_MULTIARCH)"
+
+tl_next
+
+# Check that a script list works
+cat >${pkgfile} <<EOF
+#! ${DH_EXEC_BINDIR}/dh-exec --with-scripts=subst-multiarch
+${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/\${dh_subst_test_var}
+EOF
+
+chmod +x ${pkgfile}
+dh_subst_test_var=1 ${pkgfile} >${pkgfile}.output
+
+cat ${pkgfile}.output | \
+        tl_expect_match "dh-exec --with-scripts works" \
+        "$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\${dh_subst_test_var}"
 
 tl_next
 

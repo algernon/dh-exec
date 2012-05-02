@@ -1,3 +1,10 @@
+dh-exec (0.3) unstable; urgency=low
+
+  * Implement a --with-scripts= option for dh-exec, to allow the user to
+    limit what scripts get run. Thanks to Wookey for the suggestion!
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 May 2012 00:34:31 +0200
+
 dh-exec (0.2) unstable; urgency=low
 
   * Disable pkgbinarymangler for tests, to fix FTBFS on Ubuntu.
