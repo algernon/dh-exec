@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 8.9.13~), dh-autoreconf,
                fakeroot,
                libpipeline-dev, pkg-config,
                perl
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: https://github.com/algernon/dh-exec
 
 Package: dh-exec
