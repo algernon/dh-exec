@@ -4,6 +4,15 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
+case $(dpkg-query -f '${Version}' --show debhelper) in
+        9*)
+                ;;
+        *)
+                tl_plan "0 # SKIP: Debhelper too old"
+                exit 0
+                ;;
+esac
+
 tl_plan 24
 
 cd ${DH_EXEC_BINDIR}
