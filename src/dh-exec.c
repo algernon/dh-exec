@@ -62,7 +62,7 @@ dh_exec_with (char **cmdlist, const char *prglist)
 
   orig = strdup (prglist);
   t = orig;
-  while (strsep (&t, ",; \t"))
+  while (strsep (&t, DH_EXEC_CMD_SEPARATORS))
     i++;
   free (orig);
 
