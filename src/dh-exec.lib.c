@@ -1,5 +1,5 @@
 /* dh-exec.lib.c -- Wrapper around dh-exec-* commands.
- * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011-2012  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,6 +129,9 @@ dh_exec_main (int argc, char *argv[])
       free (cmd);
     }
   free (cmdlist);
+
+  if (pipeline_get_ncommands (p) == 0)
+    pipeline_command_args (p, "cat", NULL);
 
   pipeline_start (p);
 
