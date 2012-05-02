@@ -28,5 +28,101 @@ wrapper, which will bind all the other tools together. That is, when
 adding a she-bang line to an executable debhelper config file, use
 /usr/bin/dh-exec.
 
+Using dh-exec means one will need to use debhelper compat level 9 or
+above and executable debhelper config files: there is no extra support
+needed in debian/rules or elsewhere, just an executable file with an
+appropriate she-bang line.
+
+Advantages
+==========
+
+One may of course question the existence of a seemingly complicated
+tool, all for achieving some variable substitution, something one
+could do with a here-doc and a shell script. However, one would be
+gravely mistaken thinking that it's all dh-exec does and what it is
+good for.
+
+A few major advantages dh-exec has over custom here-doc or sed magic
+tricks:
+
+* Compared to using sed or similar to generate debhelper control
+  files, dh-exec does not require any changes in debian/rules, nor
+  anywhere else but the scripts themselves.
+
+  In most cases, it only needs a she-bang and an executable bit, and
+  the former input file becomes a valid debhelper control file.
+
+  This in turn, makes the packaging simpler, as there is no
+  package-specific magic involved anymore.
+
+* Compared to the here-doc method, dh-exec provides consistency and
+  safety.
+
+  The most useful part of dh-exec (apart from adding rename support to
+  .install files) is probably its support for expanding multiarch
+  variables.
+
+  dh-exec does this so that even if said variables are not set in the
+  environment, it will query dpkg-architecture(1), so one can test the
+  scripts without further setup.
+
+  Of course, that is also doable with here-docs, but using variables
+  seems more natural.
+
+  dh-exec can also be asked to only substitute multiarch variables,
+  not every environment variable, which makes it somewhat safer. It
+  can't execute random shell commands either, which is another safety
+  guard.
+
+* dh-exec is one controlled tool in one place, as opposed to any
+  number of diverse, package-specific hacks.
+
+  Even if one does not need much from what dh-exec provides, using it
+  instead of inveting one's own still has the advantage of being
+  consistent accross packages.
+
+  While it may be less powerful than a complete shell at ones command,
+  it is also safer, and being a separate solution, not a
+  package-specific hack, it does help overall, archive-wide
+  consistency: if one knows what to expect from dh-exec, one will
+  understand all dh-exec using packages. Package-specific hacks will
+  always need a little bit extra work to understand and verify, while
+  one only needs to understand dh-exec once.
+
+Examples
+========
+
+One of the most simple cases is expanding multi-arch variables in an
+install file:
+
+    #! /usr/bin/dh-exec
+    debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+
+Of course, this has the disadvantage of running all dh-exec scripts,
+so it will also try to expand any environment variables too. For
+safety, one can turn that off, and explicitly request that only
+multi-arch expansion shall be done:
+
+    #! /usr/bin/dh-exec --with-scripts=subst-multiarch
+    debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+    debian/tmp/usr/share/doc/my-package/${HOME}-sweet-home
+
+In this second case, the *${HOME}* variable will not be expanded, even
+if such an environment variable is present when dh-exec runs.
+
+But variable expansion is not all that dh-exec is able to perform!
+Suppose we want to install a file, under a different name: with
+dh-exec, that is also possible:
+
+    #! /usr/bin/dh-exec --with=install
+    debian/default.conf => /etc/my-package/start.conf
+
+These can, of course, be combined. One can even limit scripts to
+multiarch substitution and install-time renaming only, skipping
+everything else dh-exec might try:
+
+    #! /usr/bin/dh-exec --with-scripts=subst-multiarch,install-rename
+    configs/config-${DEB_HOST_GNU_TYPE}.h => /usr/include/${DEB_HOST_MULTIARCH}/package/config.h
+
 -- 
 Gergely Nagy <algernon@debian.org>
