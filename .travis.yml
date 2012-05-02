@@ -1,0 +1,8 @@
+language: c
+install: sudo apt-get install debhelper fakeroot libpipeline-dev pkg-config perl
+before_script:
+  - autoreconf -i
+script:
+  - ./configure
+  - make
+  - make check
