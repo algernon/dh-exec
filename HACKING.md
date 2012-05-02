@@ -32,11 +32,12 @@ be specified, as the default is what it should be. But for the
 testsuite to work, it needs to be overridable.
 
 There is one final environment variable the various sub-commands (but
-not the actual helper scripts) must care about: DH_EXEC_SCRIPTS. When
-this variable is set, it contaisn a list of scripts to run (without
-the *dh-exec-* prefix), and the sub-commands must check that from the
-set of scripts they would run, only those get run that are in the
-list. This allows users to limit exactly which scripts end up running.
+not the actual helper scripts) must care about:
+*DH\_EXEC\_SCRIPTS*. When this variable is set, it contaisn a list of
+scripts to run (without the *dh-exec-* prefix), and the sub-commands
+must check that from the set of scripts they would run, only those get
+run that are in the list. This allows users to limit exactly which
+scripts end up running.
 
 In case a sub-command finds that it would not run anything, it should
 run cat instead, to not loose its stdin.
