@@ -165,7 +165,7 @@ main (int argc, char *argv[])
     {
       int option_index, c;
 
-      c = getopt_long (argc, argv, "?", dhe_options, &option_index);
+      c = getopt_long (argc, argv, "?I:i:X:vn", dhe_options, &option_index);
       if (c == -1)
         break;
 
