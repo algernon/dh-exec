@@ -193,11 +193,16 @@ dh_exec_list (char *argv[])
         {
           if (strncmp (scriptlist[sn]->d_name, cmdlist[n]->d_name,
                        strlen (cmdlist[n]->d_name)) != 0)
-            continue;
+            {
+              free (scriptlist[sn]);
+              continue;
+            }
 
           printf (" \t%s\n", scriptlist[sn]->d_name + cplen);
+          free (scriptlist[sn]);
         }
 
+      free (cmdlist[n]);
       free (scriptlist);
     }
 
@@ -264,7 +269,11 @@ main (int argc, char *argv[])
     }
 
   if (do_list)
-    return dh_exec_list (argv);
+    {
+      dh_exec_cmdlist_free (dhe_commands);
+      dh_exec_cmdlist_free (dhe_scripts);
+      return dh_exec_list (argv);
+    }
 
   src = dh_exec_source (argc, optind, argv);
 

@@ -155,6 +155,7 @@ dh_exec_main (int argc, char *argv[])
       char *cmd = dh_exec_cmd_path (dh_exec_scriptdir (), cmdlist[n]->d_name);
       pipeline_command_args (p, cmd, NULL);
       free (cmd);
+      free (cmdlist[n]);
     }
   free (cmdlist);
 
