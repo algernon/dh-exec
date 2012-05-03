@@ -5,8 +5,10 @@ dh-exec (0.3) unstable; urgency=low
   * Bump Standards-Version to 3.9.3 (no changes required).
   * Add a rationale explaining the advantages of dh-exec and a few
     examples to the README. (Closes: #664698)
+  * Add a --list option to dh-exec, to list the available sub-commands and
+    scripts.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 May 2012 01:43:28 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 May 2012 12:51:32 +0200
 
 dh-exec (0.2) unstable; urgency=low
 

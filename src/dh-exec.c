@@ -22,6 +22,8 @@
 #include <string.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <errno.h>
 
 #include "config.h"
 #include "dh-exec.lib.h"
@@ -120,6 +122,7 @@ dh_exec_help (void)
           "  --without=[command,...]     Run without the specified sub-commands.\n"
           "  --with-scripts=[script,...] Run with the specified scripts only.\n"
           "  --no-act                    Do not run, just print the pipeline.\n"
+          "  --list                      List the available sub-commands and scripts.\n"
           "  --help                      Display this help screen.\n"
           "  --version                   Output version information and exit.\n"
           "\n"
@@ -142,11 +145,72 @@ dh_exec_version (void)
   return EXIT_SUCCESS;
 }
 
+static int
+dh_exec_list_filter (const struct dirent *entry)
+{
+  if (strncmp (entry->d_name, DH_EXEC_CMD_PREFIX,
+               strlen (DH_EXEC_CMD_PREFIX)) != 0)
+    return 0;
+  return 1;
+}
+
+static int
+dh_exec_list (char *argv[])
+{
+  struct dirent **cmdlist;
+  int n;
+  int cplen = strlen (DH_EXEC_CMD_PREFIX);
+
+  printf ("dh-exec - Available sub-commands and scripts\n"
+          "\n");
+
+  n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_list_filter, alphasort);
+  if (n < 0)
+    {
+      fprintf (stderr, "%s: scandir(\"%s\"):%s", argv[0],
+               dh_exec_libdir (), strerror (errno));
+      return 1;
+    }
+
+  while (n--)
+    {
+      struct dirent **scriptlist;
+      int sn;
+
+      printf (" %s:\n", cmdlist[n]->d_name + cplen);
+
+      sn = scandir (dh_exec_scriptdir (), &scriptlist, dh_exec_list_filter,
+                    alphasort);
+      if (n < 0)
+        {
+          fprintf (stderr, "%s: scandir(\"%s\"):%s", argv[0],
+                   dh_exec_scriptdir (), strerror (errno));
+          free (cmdlist);
+          return 1;
+        }
+
+      while (sn--)
+        {
+          if (strncmp (scriptlist[sn]->d_name, cmdlist[n]->d_name,
+                       strlen (cmdlist[n]->d_name)) != 0)
+            continue;
+
+          printf (" \t%s\n", scriptlist[sn]->d_name + cplen);
+        }
+
+      free (scriptlist);
+    }
+
+  free (cmdlist);
+
+  return 0;
+}
+
 int
 main (int argc, char *argv[])
 {
   pipeline *p;
-  int status, n = 0, no_act = 0;
+  int status, n = 0, no_act = 0, do_list = 0;
   const char *src;
 
   char **dhe_commands, **dhe_scripts = NULL;
@@ -157,6 +221,7 @@ main (int argc, char *argv[])
     {"help",    no_argument      , NULL, '?'},
     {"version", no_argument      , NULL, 'v'},
     {"no-act",  no_argument      , NULL, 'n'},
+    {"list",    no_argument      , NULL, 'l'},
     {NULL,      0                , NULL,  0 },
   };
 
@@ -166,7 +231,7 @@ main (int argc, char *argv[])
     {
       int option_index, c;
 
-      c = getopt_long (argc, argv, "?I:i:X:vn", dhe_options, &option_index);
+      c = getopt_long (argc, argv, "?I:i:X:vnl", dhe_options, &option_index);
       if (c == -1)
         break;
 
@@ -188,12 +253,18 @@ main (int argc, char *argv[])
         case 'n':
           no_act = 1;
           break;
+        case 'l':
+          do_list = 1;
+          break;
         default:
           fprintf (stderr, "Unknown option code: %x\n", c);
           dh_exec_help ();
           return (EXIT_FAILURE);
         }
     }
+
+  if (do_list)
+    return dh_exec_list (argv);
 
   src = dh_exec_source (argc, optind, argv);
 
