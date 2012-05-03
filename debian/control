@@ -8,6 +8,8 @@ Build-Depends: debhelper (>= 8.9.13~), dh-autoreconf,
                perl
 Standards-Version: 3.9.3
 Homepage: https://github.com/algernon/dh-exec
+Vcs-Git: git://github.com/algernon/dh-exec.git
+Vcs-Browser: https://github.com/algernon/dh-exec
 
 Package: dh-exec
 Multi-Arch: foreign
