@@ -78,7 +78,7 @@ tricks:
   number of diverse, package-specific hacks.
 
   Even if one does not need much from what dh-exec provides, using it
-  instead of inveting one's own still has the advantage of being
+  instead of inventing one's own still has the advantage of being
   consistent accross packages.
 
   While it may be less powerful than a complete shell at ones command,
