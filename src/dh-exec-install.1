@@ -12,7 +12,9 @@ usr/bin/*
 
 .SH "DESCRIPTION"
 Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
-ran directly, but through \fIdh\-exec\fR.
+ran directly, but through \fIdh\-exec\fR, which automatically runs all
+available sub\-commands if run bare; or explicitly with \fBdh\-exec
+\-\-with=install\fR.
 
 It is meant to be used for \fIdh_install\fR(1) files, and those
 alone. If it finds that its input is not such a file, it will do

@@ -10,7 +10,9 @@ src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
 
 .SH "DESCRIPTION"
 Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
-ran directly, but through \fIdh\-exec\fR.
+ran directly, but through \fIdh\-exec\fR, which automatically runs all
+available sub\-commands if run bare; or explicitly with \fBdh\-exec
+\-\-with=subst\fR.
 
 It is a wrapper around the various other substitution helpers, and
 will pipe the input file through all the available substitution

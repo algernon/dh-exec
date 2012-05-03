@@ -49,7 +49,9 @@ The dh\-exec\-illiterate sub\-command, unlike the others, does not
 serve any particular case, except to serve as a warning to all, that
 things can be taken to an extreme, even with dh\-exec. On the other
 hand, it is just like the other sub\-commands in that it must not be
-called directly, but through \fIdh\-exec\fR(1).
+called directly, but through \fIdh\-exec\fR(1), which automatically
+runs all available sub\-commands if run bare; or explicitly with
+\fBdh\-exec \-\-with=illiterate\fR.
 
 It is a program that will translate its input from pretty much
 free-form text into something that resembles an install file. At
