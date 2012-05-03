@@ -14,39 +14,56 @@ etc/example.conf => debian/foo/etc/foo/foo.conf
 dh\-exec is a simple program, meant to be used as the interpreter for
 executable debhelper config files.
 
-It is a wrapper around the various other helpers (see below), and will
-pipe the input file through all of them in turn, using an ordering
-that makes most sense in the vast majority of cases.
+It is a wrapper around the various other sub\-commands (see below),
+and will pipe the input file through all of them in turn, using an
+ordering that makes most sense in the vast majority of cases.
 
 The order as of now is \fIdh\-exec\-subst\fR gets run first, followed
 by \fIdh\-exec\-install\fR, so that variable expansion happens before
 files need to be copied.
 
+.SH "ARCHITECTURE"
+
+dh\-exec is built up from three layers: there is the \fBdh-exec\fR
+utility, its single entry point, the only thing one will need to call.
+
+Below that, there are the various \fIsub\-commands\fR, such as
+\fIdh\-exec\-subst\fR, \fIdh\-exec\-installs\fR and
+\fIdh\-exec\-illiterate\fR, which are thin wrappers around the various
+dh\-exec scripts, that make sure they only run those that need to be
+run.
+
+And the lowest layer are the various scripts that do the actual work.
+
+One can control which sub\-commands to run, or if even more
+granularity is desired, one can limit which scripts shall be run,
+too. See below for the options!
+
 .SH "OPTIONS"
 
-.IP "\fB\-\-with\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
-Replace the list of helpers to run the input through with a custom
-list (where entries are separated by whitespace or commas). This
-option will always replace the existing list with whatever is
-specified.
+.IP "\fB\-\-with\fR=\fIcommand\fR[\fB,\fR\fIcommand\fR ...]" 4
+Replace the list of sub\-commands to run the input through with a
+custom list (where entries are separated by whitespace or
+commas). This option will always replace the existing list with
+whatever is specified.
 
-This can be used to explicitly set which helpers to use.
+This can be used to explicitly set which sub\-commands to use.
 
 The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
 
 Defaults to \fIsubst,install\fR.
 
-.IP "\fB\-\-without\fR=\fIhelper\fR[\fB,\fR\fIhelper\fR ...]" 4
-Inversely to the option above, this lists all the helpers which should
-not be used.
+.IP "\fB\-\-without\fR=\fIcommand\fR[\fB,\fR\fIcommand\fR ...]" 4
+Inversely to the option above, this lists all the sub\-commands which
+should not be used.
 
 The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
 
 .IP "\fB\-\-with\-scripts=\fIscript\fR[\fB,\fR\fIscript\fR ...]" 4
-Replace the list of helper scripts to run the input through with a
-custom list (where entries are separated by whitespace or
-commas). This  option will always replace the existing list with
-whatever is specified.
+Replace the list of scripts to run the input through with a custom
+list (where entries are separated by whitespace or commas). This
+option will always replace the existing list with whatever is
+specified.
 
 This can be used to explicitly specify which scripts to use, limiting
 even beyond what the \fB\-\-with\fR option is capable of.
@@ -54,7 +71,7 @@ even beyond what the \fB\-\-with\fR option is capable of.
 The list \fBmust not\fR include the \fIdh\-exec\-\fR prefix.
 
 By default it is empty, meaning there is no filtering done, and
-whatever scripts the helpers find, will be run.
+whatever scripts the sub\-commands find, will be run.
 
 .IP "\fB\-\-no\-act" 4
 Do not really do anything, but print the pipeline that would have been
@@ -63,7 +80,7 @@ run instead.
 .IP "\fB\-\-help\fR, \fB\-\-version\fR" 4
 Display a short help or the package version, respectively.
 
-.SH "HELPERS"
+.SH "SUB\-COMMANDS"
 
 .TP
 .B dh\-exec\-subst
@@ -80,15 +97,29 @@ during the copy process, using a special syntax.
 .PP
 \fIDH_EXEC_LIBDIR\fR
 .RS 4
-The directory in which the wrapped helpers reside. Defaults to
+The directory in which the wrapped sub\-commands reside. Defaults to
 \fI/usr/lib/dh\-exec/\fR.
 .RE
 
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+The directory in which the scripts that do the heavy work
+live. Defaults to \fI/usr/share/dh\-exec/\fR.
+.RE
+
 .SH "FILES"
+
 .PP
 \fI$DH_EXEC_LIBDIR/dh\-exec\-*\fR
 .RS 4
-The various helpers.
+The various sub\-commands.
+.RE
+
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-*\fR
+.RS 4
+The various scripts ran by the sub\-commands.
 .RE
 
 .SH "SEE ALSO"

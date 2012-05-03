@@ -1,16 +1,16 @@
-.TH "DH\-EXEC\-SUBST" "1" "2011-12-19" "" "dh-exec"
+.TH "DH\-EXEC\-SUBST" "1" "2012-05-03" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
-dh\-exec\-subst \- Debhelper executable file substition helpers
+dh\-exec\-subst \- Debhelper executable file substition scripts
 .SH "SYNOPSIS"
 \fB#! /usr/bin/dh\-exec\fR
 .br
 src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
 
 .SH "DESCRIPTION"
-dh\-exec\-subst is a simple program, meant to be used as the
-interpreter for executable debhelper config files.
+Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
+ran directly, but through \fIdh\-exec\fR.
 
 It is a wrapper around the various other substitution helpers, and
 will pipe the input file through all the available substitution
@@ -20,7 +20,7 @@ When a helper fails to expand a variable within its input, it will
 leave it as-is, so that later in the pipeline it can perhaps be
 expanded by another program.
 
-.SH "HELPERS"
+.SH "SCRIPTS"
 
 .TP
 .B dh\-exec\-subst\-env
@@ -42,8 +42,8 @@ prefer already set environment variables anyway).
 .PP
 \fIDH_EXEC_SCRIPTDIR\fR
 .RS 4
-Indicates which directory the command\-specific helpers should be
-sought for. If not specified, helpers will be searched for in
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
 \fI/usr/share/dh\-exec/\fR.
 .RE
 
@@ -51,11 +51,11 @@ sought for. If not specified, helpers will be searched for in
 .PP
 \fI$DH_EXEC_SCRIPTDIR/dh\-exec\-subst\-*\fR
 .RS 4
-The various helpers for the higher\-level program.
+The various scripts for the higher\-level program.
 .RE
 
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1)
 
 .SH "AUTHOR"
-dh\-exec\-subst is copyright \(co 2011 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec\-subst is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.

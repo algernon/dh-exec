@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-INSTALL" "1" "2011-12-19" "" "dh-exec"
+.TH "DH\-EXEC\-INSTALL" "1" "2012-05-03" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -11,12 +11,12 @@ debian/default.conf => /etc/my\-package/start.conf
 usr/bin/*
 
 .SH "DESCRIPTION"
-dh\-exec\-install is a simple program, meant to be used as the
-interpreter for executable debhelper config files, in particular, for
-\fIdh_install\fR(1) files. It will refuse to work with any other file:
-when used as part of \fIdh\-exec\fR, it will echo its input back if
-the input file is not suitable. When ran stand\-alone, it will raise
-an error.
+Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
+ran directly, but through \fIdh\-exec\fR.
+
+It is meant to be used for \fIdh_install\fR(1) files, and those
+alone. If it finds that its input is not such a file, it will do
+nothing, but echo back the contents.
 
 The purpose of the program is to extend \fIdh_install\fR(1)'s
 functionality, by allowing to specify a destination filename.
@@ -56,8 +56,8 @@ files.
 .PP
 \fIDH_EXEC_SCRIPTDIR\fR
 .RS 4
-Indicates which directory the command\-specific helpers should be
-sought for. If not specified, helpers will be searched for in
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
 \fI/usr/share/dh\-exec/\fR.
 .RE
 
@@ -65,11 +65,11 @@ sought for. If not specified, helpers will be searched for in
 .PP
 \fI$DH_EXEC_SCRIPTDIR/dh\-exec\-install\-*\fR
 .RS 4
-The various helpers for the higher\-level program.
+The various scripts for the higher\-level program.
 .RE
 
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1), \fIdh_install\fR(1)
 
 .SH "AUTHOR"
-dh\-exec\-install is copyright \(co 2011 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec\-install is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.

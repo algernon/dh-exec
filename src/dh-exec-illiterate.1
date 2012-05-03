@@ -8,7 +8,7 @@
 .fi
 ..
 
-.TH "DH\-EXEC\-ILLITERATE" "1" "2011-12-20" "" "dh-exec"
+.TH "DH\-EXEC\-ILLITERATE" "1" "2012-05-03" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -45,9 +45,11 @@ in the process!
 .Ve
 
 .SH "DESCRIPTION"
-The dh\-exec\-illiterate helper, unlike the others, does not serve any
-particular case, except to serve as a warning to all, that things can
-be taken to an extreme, even with dh\-exec.
+The dh\-exec\-illiterate sub\-command, unlike the others, does not
+serve any particular case, except to serve as a warning to all, that
+things can be taken to an extreme, even with dh\-exec. On the other
+hand, it is just like the other sub\-commands in that it must not be
+called directly, but through \fIdh\-exec\fR(1).
 
 It is a program that will translate its input from pretty much
 free-form text into something that resembles an install file. At
@@ -72,8 +74,8 @@ a source, whose destination is unspecified, and is left up to
 .PP
 \fIDH_EXEC_SCRIPTDIR\fR
 .RS 4
-Indicates which directory the command\-specific helpers should be
-sought for. If not specified, helpers will be searched for in
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
 \fI/usr/share/dh\-exec/\fR.
 .RE
 
@@ -81,12 +83,12 @@ sought for. If not specified, helpers will be searched for in
 .PP
 \fI$DH_EXEC_SCRIPTDIR/dh\-exec\-illiterate\-*\fR
 .RS 4
-The various helpers for the higher\-level program.
+The various scripts for the higher\-level program.
 .RE
 
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1)
 
 .SH "AUTHOR"
-dh\-exec\-illiterate is copyright \(co 2011 by Gergely Nagy
+dh\-exec\-illiterate is copyright \(co 2011-2012 by Gergely Nagy
 <algernon@madhouse\-project.org>.
