@@ -1,2 +1,0 @@
-# Using experimental debhelper compat level 9 (with debhelper >= 8.1.13~)
-dh-exec source: package-needs-versioned-debhelper-build-depends 9
