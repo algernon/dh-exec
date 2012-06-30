@@ -1,4 +1,4 @@
-dh-exec (0.4) UNRELEASED; urgency=low
+dh-exec (0.4) unstable; urgency=low
 
   * Add Vcs-* fields, thanks Wookey for the report!
   * Improved the sub-command man pages based on Wookey's suggestions.
