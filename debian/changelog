@@ -1,3 +1,10 @@
+dh-exec (0.5) unstable; urgency=low
+
+  * Drop the AC_PREREQ from configure.ac, to make backporting
+    easier. (Closes: #696199)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 21 Dec 2012 12:46:40 +0100
+
 dh-exec (0.4) unstable; urgency=low
 
   * Add Vcs-* fields, thanks Wookey for the report!
