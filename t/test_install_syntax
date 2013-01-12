@@ -47,13 +47,13 @@ rm -f "${t}"
 tl_next
 
 # Calling with too many arguments does NOT work
-(${top_builddir}/src/dh-exec-subst too many arguments 2>&1 || true) | \
+(${top_builddir}/src/dh-exec-install too.install many.install arguments.install 2>&1 || true) | \
         tl_expect_match "Calling with too many arguments does NOT work" \
                         "no argument at all"
 tl_next
 
 # Calling with a non-existing file does NOT work, either.
-(${top_builddir}/src/dh-exec-subst --invalid-file-- 2>&1 || true) | \
+(${top_builddir}/src/dh-exec-install --invalid-file--.install 2>&1 || true) | \
         tl_expect_match "Calling with a non-existing file does NOT work" \
                         "can't open --invalid-file--"
 tl_next
