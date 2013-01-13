@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([dh-exec], [0.5], [algernon@debian.org])
+AC_INIT([dh-exec], [0.6], [algernon@debian.org])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/dh-exec-subst.c])
 AC_CONFIG_HEADERS([config.h])
