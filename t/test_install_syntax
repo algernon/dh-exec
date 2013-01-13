@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 5
+tl_plan 7
 
 # Calling without arguments is invalid
 (${top_builddir}/src/dh-exec-install 2>&1 || true) | \
@@ -36,6 +36,17 @@ rm -f "${t}"
 rm -rf "${td}"
 rm -rf "${dd}"
 
+tl_next
+
+# Using a bare, unqualified install file works too
+(${top_builddir}/src/dh-exec-install debian/install 2>&1 || true) | \
+        tl_expect_match "Calling with an unqualified debian/install works" \
+                        "No such file or directory"
+tl_next
+
+(${top_builddir}/src/dh-exec-install install 2>&1 || true) | \
+        tl_expect_match "Calling with an unqualified install works" \
+                        "No such file or directory"
 tl_next
 
 # Using an invalid filename should fail, even if the file exists

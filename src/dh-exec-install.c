@@ -40,7 +40,8 @@ main (int argc, char *argv[])
     }
 
   /* Handle cases where the source is not an .install file */
-  if (fnmatch ("*.install", src, 0) != 0)
+  if (strcmp (src, "install") != 0 &&
+      fnmatch ("*[./]install", src, 0) != 0)
     {
       /* Source is stdin, we're piped, ignore it. */
       if (argc < 2)
