@@ -1,5 +1,5 @@
 /* dh-exec-install.c -- Wrapper around dh-exec-install-magic.
- * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011, 2013  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
