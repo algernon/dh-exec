@@ -1,3 +1,10 @@
+dh-exec (0.6) unstable; urgency=low
+
+  * Make dh-exec-install work on bare debian/install files, without the
+    package name. Thanks, Axel Beckert for the report! (Closes: #698017).
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 13 Jan 2013 01:08:02 +0100
+
 dh-exec (0.5) unstable; urgency=low
 
   * Drop the AC_PREREQ from configure.ac, to make backporting
