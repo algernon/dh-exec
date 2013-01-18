@@ -11,8 +11,9 @@ BEGIN {
         use File::Spec;
         use File::Temp qw/tempdir/;
         use File::Copy;
+        use File::Path qw/make_path/;
 
-        system ("install", "-d", "debian/tmp");
+        make_path("debian/tmp");
         our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
 }
 
@@ -24,7 +25,7 @@ if (/(.*)\s+=>\s+(.*)/) {
         my (undef, $dstpath, $dstfile) = File::Spec->splitpath ($dst);
         my $debpath = File::Spec->catdir ($tempdir, $dstpath);
 
-        system ("install", "-d", $debpath);
+        make_path($debpath);
 
         copy ($src, File::Spec->catfile ($debpath, $dstfile)) or
                 move (File::Spec->catfile ("debian/tmp", $src),
