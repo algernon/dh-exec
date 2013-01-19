@@ -1,5 +1,3 @@
-AUTOMAKE_OPTIONS	= foreign
-
 EXTRA_DIST		= test.lib.sh ${TESTCASES} \
 			${disabled_TESTCASES}
 

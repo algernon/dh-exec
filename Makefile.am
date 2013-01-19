@@ -1,3 +1,2 @@
-AUTOMAKE_OPTIONS	= foreign
 SUBDIRS			= src lib t
 EXTRA_DIST		= README.md HACKING.md

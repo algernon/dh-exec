@@ -1,5 +1,3 @@
-AUTOMAKE_OPTIONS	= foreign
-
 bin_PROGRAMS		= dh-exec
 pkglibexec_PROGRAMS	= dh-exec-subst dh-exec-install dh-exec-illiterate
 
