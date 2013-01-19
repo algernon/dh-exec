@@ -27,7 +27,11 @@ cd ${DH_EXEC_LIBDIR}
 LIBDIR=$(pwd)
 cd - >/dev/null
 
-cd ${srcdir}/pkg-test
+td=$(mktemp -d --tmpdir=. tmpXXXXXX)
+tar -C ${srcdir} -c pkg-test | tar -C ${td} -x
+
+chmod -R ugo+rX,u+w ${td}
+cd ${td}/pkg-test
 
 check_pkg () {
         arch=${1:+-a$1}
@@ -66,11 +70,11 @@ check_pkg () {
         dpkg-deb -c ../pkg-test-illiterate_0_all.deb | \
                 tl_expect_match "multi-arch path works" "./usr/lib/pkg-test/${DEB_HOST_MULTIARCH}/another-plugin\$"
         tl_next
-
 }
 
 check_pkg
 check_pkg linux-powerpc
 check_pkg kfreebsd-i386
 
-rm -f ../pkg-test*.deb ../pkg-test*.changes
+cd ../..
+rm -rf ${td}
