@@ -10,14 +10,14 @@ dh_exec_SOURCES		= dh-exec.c dh-exec.lib.c dh-exec.lib.h
 dh_exec_CFLAGS		= @LIBPIPELINE_CFLAGS@
 dh_exec_LDADD		= @LIBPIPELINE_LIBS@
 
-dh_exec_subst_SOURCES	= dh-exec-subst.c dh-exec.lib.c dh-exec.lib.h
-dh_exec_subst_CFLAGS	= @LIBPIPELINE_CFLAGS@
+dh_exec_subst_SOURCES	= dh-exec.simple.c dh-exec.lib.c dh-exec.lib.h
+dh_exec_subst_CFLAGS	= @LIBPIPELINE_CFLAGS@ -DDH_EXEC_CMD=\"subst\"
 dh_exec_subst_LDADD	= @LIBPIPELINE_LIBS@
 
 dh_exec_install_SOURCES	= dh-exec-install.c dh-exec.lib.c dh-exec.lib.h
-dh_exec_install_CFLAGS	= @LIBPIPELINE_CFLAGS@
+dh_exec_install_CFLAGS	= @LIBPIPELINE_CFLAGS@ -DDH_EXEC_CMD=\"install\"
 dh_exec_install_LDADD	= @LIBPIPELINE_LIBS@
 
-dh_exec_illiterate_SOURCES = dh-exec-illiterate.c dh-exec.lib.c dh-exec.lib.h
-dh_exec_illiterate_CFLAGS  = @LIBPIPELINE_CFLAGS@
+dh_exec_illiterate_SOURCES = dh-exec.simple.c dh-exec.lib.c dh-exec.lib.h
+dh_exec_illiterate_CFLAGS  = @LIBPIPELINE_CFLAGS@ -DDH_EXEC_CMD=\"illiterate\"
 dh_exec_illiterate_LDADD   = @LIBPIPELINE_LIBS@

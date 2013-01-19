@@ -25,10 +25,8 @@
 
 #include "dh-exec.lib.h"
 
-const char *DH_EXEC_CMD_PREFIX = "dh-exec-install-";
-
-int
-main (int argc, char *argv[])
+static int
+preamble(int argc, char *argv[])
 {
   const char *src = dh_exec_source (argc, 1, argv);
 
@@ -46,7 +44,7 @@ main (int argc, char *argv[])
     {
       /* Source is stdin, we're piped, ignore it. */
       if (argc < 2)
-        return dh_exec_ignore (NULL);
+        exit (dh_exec_ignore (NULL));
       else
         {
           /* Source is from the command-line directly, raise an
@@ -58,5 +56,9 @@ main (int argc, char *argv[])
         }
     }
 
-  return dh_exec_main (argc, argv);
+  return 0;
 }
+
+#define dh_exec_simple_preamble preamble
+
+#include "dh-exec.simple.c"

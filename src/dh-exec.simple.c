@@ -1,5 +1,5 @@
-/* dh-exec-subst.c -- Wrapper around dh-exec-subst-* commands.
- * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
+/* dh-exec.simple.c -- Simple wrapper around dh-exec-* commands.
+ * Copyright (C) 2011, 2013  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,17 @@
 
 #include "dh-exec.lib.h"
 
-const char *DH_EXEC_CMD_PREFIX = "dh-exec-subst-";
+#ifndef dh_exec_simple_preamble
+#define dh_exec_simple_preamble(argc,argv) 0
+#endif
 
 int
 main (int argc, char *argv[])
 {
-  return dh_exec_main (argc, argv);
+  int r;
+
+  if ((r = dh_exec_simple_preamble (argc, argv)) != 0)
+    return r;
+
+  return dh_exec_main ("dh-exec-" DH_EXEC_CMD "-", argc, argv);
 }

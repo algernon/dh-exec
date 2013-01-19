@@ -1,5 +1,5 @@
 /* dh-exec.lib.c -- Wrapper around dh-exec-* commands.
- * Copyright (C) 2011-2012  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011-2013  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,8 @@
 
 #define DH_EXEC_SCRIPTDIR "/usr/share/dh-exec"
 #define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
+
+static const char *DH_EXEC_CMD_PREFIX;
 
 const char *
 dh_exec_scriptdir (void)
@@ -121,7 +123,7 @@ dh_exec_cmd_filter (const struct dirent *entry)
 }
 
 int
-dh_exec_main (int argc, char *argv[])
+dh_exec_main (const char *cmd_prefix, int argc, char *argv[])
 {
   pipeline *p;
   int status, n;
@@ -134,6 +136,8 @@ dh_exec_main (int argc, char *argv[])
                argv[0]);
       exit (1);
     }
+
+  DH_EXEC_CMD_PREFIX = cmd_prefix;
 
   n = scandir (dh_exec_scriptdir (), &cmdlist, dh_exec_cmd_filter, alphasort);
   if (n < 0)

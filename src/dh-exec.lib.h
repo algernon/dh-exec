@@ -1,5 +1,5 @@
 /* dh-exec.lib.h -- Wrapper around dh-exec-* commands.
- * Copyright (C) 2011  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011, 2013  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +20,13 @@
 
 #include <dirent.h>
 
-extern const char *DH_EXEC_CMD_PREFIX;
-
 const char *dh_exec_scriptdir (void);
 const char *dh_exec_libdir (void);
 const char *dh_exec_source (int argc, int optind, char *argv[]);
 
 char *dh_exec_cmd_path (const char *dir, const char *cmd);
 int dh_exec_cmd_filter (const struct dirent *entry);
-int dh_exec_main (int argc, char *argv[]);
+int dh_exec_main (const char *cmd_prefix, int argc, char *argv[]);
 int dh_exec_ignore (const char *src);
 
 #endif

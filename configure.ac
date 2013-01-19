@@ -5,7 +5,7 @@ AC_INIT([dh-exec], [0.6], [algernon@debian.org])
 AM_INIT_AUTOMAKE([foreign])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([no])])
 
-AC_CONFIG_SRCDIR([src/dh-exec-subst.c])
+AC_CONFIG_SRCDIR([src/dh-exec.simple.c])
 AC_CONFIG_HEADERS([config.h])
 
 AC_PROG_CC
