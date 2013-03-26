@@ -96,7 +96,7 @@ One of the most simple cases is expanding multi-arch variables in an
 install file:
 
     #! /usr/bin/dh-exec
-    debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+    usr/lib/*.so.* /usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
 
 Of course, this has the disadvantage of running all dh-exec scripts,
 so it will also try to expand any environment variables too. For
@@ -104,11 +104,24 @@ safety, one can turn that off, and explicitly request that only
 multi-arch expansion shall be done:
 
     #! /usr/bin/dh-exec --with-scripts=subst-multiarch
-    debian/tmp/usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
-    debian/tmp/usr/share/doc/my-package/${HOME}-sweet-home
+    usr/lib/*.so.* /usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+    /usr/share/doc/my-package/${HOME}-sweet-home
 
 In this second case, the *${HOME}* variable will not be expanded, even
 if such an environment variable is present when dh-exec runs.
+
+Do note that dh-exec is not required at all if all you want to do is
+mark a multi-arch path as belonging to a package: debhelper itself
+supports wildcards! So if your install script would look like the
+following:
+
+    #! /usr/bin/dh-exec
+    /usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+
+Then most likely, you do not need dh-exec, and you can replace the
+above with this simple line:
+
+    /usr/lib/*/libsomething.so.*
 
 But variable expansion is not all that dh-exec is able to perform!
 Suppose we want to install a file, under a different name: with
