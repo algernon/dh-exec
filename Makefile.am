@@ -15,8 +15,9 @@ pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 
 # --- Sources & flags ---
 AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}
-AM_LDFLAGS		= ${LIBPIPELINE_LIBS}
 AM_MAKEFLAGS		= --no-print-directory
+
+LDADD			= ${LIBPIPELINE_LIBS}
 
 src_dh_exec_SOURCES		= \
 			src/dh-exec.c \
