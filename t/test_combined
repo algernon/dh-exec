@@ -6,6 +6,9 @@ set -e
 
 tl_plan 9
 
+td=$(mktemp -d --tmpdir=. tmpXXXXXX)
+cd "${td}"
+
 install -d debian/tmp
 pkgdir=$(mktemp -d --tmpdir=debian pkg-dh-exec-XXXXXX)
 pkgfile="${pkgdir}.install"
@@ -124,3 +127,5 @@ cat ${pkgfile}.output | \
 tl_next
 
 rm -rf debian
+cd ..
+rm -rf "${td}"

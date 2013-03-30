@@ -4,6 +4,7 @@ Makefile
 *.log
 *.status
 *.in
+.dirstamp
 /aclocal.m4
 /config.h
 /configure
@@ -28,3 +29,4 @@ core
 /t/pkg-test/debian/pkg-test-illiterate/
 /t/pkg-test/debian/files
 /debian/build-tree/
+/t/tmp*/

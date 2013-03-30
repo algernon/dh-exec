@@ -2,6 +2,25 @@
 
 set -e
 
+cd ${srcdir}
+SRCDIR=$(pwd)
+
+cd ${DH_EXEC_BINDIR}
+BINDIR=$(pwd)
+cd - >/dev/null
+
+cd ${DH_EXEC_SCRIPTDIR}
+SCRIPTDIR=$(pwd)
+cd - >/dev/null
+
+cd ${DH_EXEC_LIBDIR}
+LIBDIR=$(pwd)
+cd - >/dev/null
+
+export DH_EXEC_BINDIR="${BINDIR}"
+export DH_EXEC_SCRIPTDIR="${SCRIPTDIR}"
+export DH_EXEC_LIBDIR="${LIBDIR}"
+
 test_lib_cnt=1
 
 tl_plan () {
@@ -46,4 +65,3 @@ tl_expect () {
 }
 
 alias tl_next='test_lib_cnt=$(expr ${test_lib_cnt} + 1)'
-

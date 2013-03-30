@@ -15,23 +15,13 @@ esac
 
 tl_plan 24
 
-cd ${DH_EXEC_BINDIR}
-BINDIR=$(pwd)
-cd - >/dev/null
-
-cd ${DH_EXEC_SCRIPTDIR}
-SCRIPTDIR=$(pwd)
-cd - >/dev/null
-
-cd ${DH_EXEC_LIBDIR}
-LIBDIR=$(pwd)
-cd - >/dev/null
-
-td=$(mktemp -d --tmpdir=. tmpXXXXXX)
-tar -C ${srcdir} -c pkg-test | tar -C ${td} -x
+td=$(mktemp -d --tmpdir=$(pwd) tmpXXXXXX)
+tar -C ${SRCDIR} -c pkg-test | tar -C ${td} -x
 
 chmod -R ugo+rX,u+w ${td}
 cd ${td}/pkg-test
+
+unset MAKEFLAGS MFLAGS
 
 check_pkg () {
         arch=${1:+-a$1}
@@ -40,7 +30,7 @@ check_pkg () {
         
         DEB_HOST_MULTIARCH=$(dpkg-architecture ${arch} -f -qDEB_HOST_MULTIARCH 2>/dev/null)
 
-        PATH=${BINDIR}:${PATH} DH_EXEC_SCRIPTDIR=${SCRIPTDIR} DH_EXEC_LIBDIR=${LIBDIR} \
+        PATH=${BINDIR}:${PATH} \
                 dpkg-buildpackage -us -uc -b -d ${arch} 2>/dev/null
         debian/rules clean
         rm -f dh-exec
