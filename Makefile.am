@@ -80,7 +80,7 @@ pkgtest_FILES		= t/pkg-test/data/bin-arch \
 			t/pkg-test/debian/source/format \
 			t/pkg-test/GNUMakefile
 
-check: ${TESTS}
+check: all ${TESTS}
 	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o ${PROVE_OPTIONS} $(addprefix ${srcdir}/t/,${TESTCASES})
 
 # --- Extra files to distribute ---
