@@ -29,4 +29,4 @@ core
 /t/pkg-test/debian/pkg-test-illiterate/
 /t/pkg-test/debian/files
 /debian/build-tree/
-/t/tmp*/
+/t/tmp*
