@@ -5,7 +5,7 @@ install:
 before_script:
   - autoreconf -i
 script:
-  - ./configure --enable-silent-rules
+  - ./configure --enable-silent-rules --disable-dependency-tracking
   - make all check -j4 PROVE_OPTIONS=-j4
 compiler:
   - gcc
