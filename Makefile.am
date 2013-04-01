@@ -58,10 +58,10 @@ TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \
 			${TESTCASES_ILLITERATE}
 
-TESTS_ENVIRONMENT	= DH_EXEC_SCRIPTDIR="${top_srcdir}/../lib" \
-			DH_EXEC_LIBDIR="${top_builddir}/../src" \
-			DH_EXEC_BINDIR="${top_builddir}/../src" \
-			top_builddir="${top_builddir}/../" \
+TESTS_ENVIRONMENT	= DH_EXEC_SCRIPTDIR="${top_srcdir}/lib" \
+			DH_EXEC_LIBDIR="${top_builddir}/src" \
+			DH_EXEC_BINDIR="${top_builddir}/src" \
+			top_builddir="${top_builddir}/" \
 			srcdir="${srcdir}/t" \
 			NO_PKG_MANGLE=1
 

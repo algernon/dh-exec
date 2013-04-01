@@ -4,6 +4,7 @@ set -e
 
 cd ${srcdir}
 SRCDIR=$(pwd)
+cd - >/dev/null
 
 cd ${DH_EXEC_BINDIR}
 BINDIR=$(pwd)
@@ -17,9 +18,17 @@ cd ${DH_EXEC_LIBDIR}
 LIBDIR=$(pwd)
 cd - >/dev/null
 
+cd ${top_builddir}
+top_builddir=$(pwd)
+cd - >/dev/null
+
+export top_builddir
 export DH_EXEC_BINDIR="${BINDIR}"
 export DH_EXEC_SCRIPTDIR="${SCRIPTDIR}"
 export DH_EXEC_LIBDIR="${LIBDIR}"
+
+install -d t
+cd t
 
 test_lib_cnt=1
 
