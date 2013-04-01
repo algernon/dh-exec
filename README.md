@@ -13,10 +13,10 @@ such scripts in a standardised and easy to understand fashion.
 This collection provides solutions for the following tasks:
 
 * Expanding variables in various [debhelper][1] files (either from the
-environment, or variables known to dpkg-architecture - including
-multi-arch ones)
+  environment, or variables known to **dpkg-architecture**(1) -
+  including multi-arch ones)
 * An extension to dh_install, that supports renaming files during the
-copy process, using an extended syntax.
+  copy process, using an extended syntax.
 
  [1]: http://kitenet.net/~joey/code/debhelper/
 
@@ -26,11 +26,11 @@ Usage
 The recommended way to use dh-exec is through the **dh-exec**(1)
 wrapper, which will bind all the other tools together. That is, when
 adding a she-bang line to an executable debhelper config file, use
-/usr/bin/dh-exec.
+`/usr/bin/dh-exec`.
 
 Using dh-exec means one will need to use debhelper compat level 9 or
 above and executable debhelper config files: there is no extra support
-needed in debian/rules or elsewhere, just an executable file with an
+needed in `debian/rules` or elsewhere, just an executable file with an
 appropriate she-bang line.
 
 Advantages
@@ -46,7 +46,7 @@ A few major advantages dh-exec has over custom here-doc or sed magic
 tricks:
 
 * Compared to using sed or similar to generate debhelper control
-  files, dh-exec does not require any changes in debian/rules, nor
+  files, dh-exec does not require any changes in `debian/rules`, nor
   anywhere else but the scripts themselves.
 
   In most cases, it only needs a she-bang and an executable bit, and
@@ -63,8 +63,8 @@ tricks:
   variables.
 
   dh-exec does this so that even if said variables are not set in the
-  environment, it will query dpkg-architecture(1), so one can test the
-  scripts without further setup.
+  environment, it will query **dpkg-architecture**(1), so one can test
+  the scripts without further setup.
 
   Of course, that is also doable with here-docs, but using variables
   seems more natural.
