@@ -1,0 +1,3 @@
+version=3
+opts=uversionmangle=s/_/./g \
+https://github.com/algernon/dh-exec/tags .*/(?:|dh-exec-)(\d.*)\.(?:tar\.gz)
