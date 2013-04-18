@@ -4,14 +4,14 @@ Hacking
 Adding functionality to dh-exec can be done in two ways: either by
 adding a completely new **dh-exec-_$foo_** sub-command, or extending
 an already existing one, by adding a new **dh-exec-$foo-_$magic_**
-script under libs/.
+script under `libs/`.
 
 The way dh-exec works, is that the top-level sub-commands are compiled
 binaries, which assemble a pipeline of all of their scripts, and pass
 their argument as stdin to all of them in turn, in alphabetical order.
 
 Helper functions to assist with these tasks are contained in the
-_src/dh-exec.lib.c_ and _src/dh-exec.lib.h_ files.
+`src/dh-exec.lib.c` and `src/dh-exec.lib.h` files.
 
 The top-level sub-commands **must** set the *DH\_EXEC\_SOURCE*
 environment variable to the name of the input file. The scripts must
