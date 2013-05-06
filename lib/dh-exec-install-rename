@@ -10,7 +10,7 @@
 BEGIN {
         use File::Spec;
         use File::Temp qw/tempdir/;
-        use File::Copy;
+        use File::Copy qw/cp move/;
         use File::Path qw/make_path/;
 
         make_path("debian/tmp");
@@ -27,7 +27,7 @@ if (/(.*)\s+=>\s+(.*)/) {
 
         make_path($debpath);
 
-        copy ($src, File::Spec->catfile ($debpath, $dstfile)) or
+        cp ($src, File::Spec->catfile ($debpath, $dstfile)) or
                 move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
                                 die "Copy failed: $!";

@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 4
+tl_plan 5
 
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
@@ -61,6 +61,35 @@ dtmpdir=$(sed -n 's#\(debian/tmp/dh-exec\.[^/]*\).*#\1#gp' "${to}")
 
 # ...and it even copies the file
 find "${dtmpdir}" -name 'test-output' | \
+        tl_expect_match "Copying did happen" "test-output"
+rm -f "${t}" "${to}"
+rm -rf "${td}" "${dd}" "debian"
+
+tl_next
+
+# Check whether renaming preserves permissions
+t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
+td=$(mktemp -d --tmpdir=. tmpXXXXX)
+dd="debian/$(basename -- ${t} .install)"
+to=$(mktemp)
+
+install -d "${dd}/var/lib/dh-exec"
+
+cat >"${t}" <<EOF
+#! ${top_builddir}/src/dh-exec-install
+$(basename ${t}) => /var/lib/dh-exec/test-output
+# This is an empty line:
+
+
+EOF
+
+chmod +x "${t}"
+"${t}" >"${to}"
+
+dtmpdir=$(sed -n 's#\(debian/tmp/dh-exec\.[^/]*\).*#\1#gp' "${to}")
+
+# ...and it even copies the file, preserving permissions
+find "${dtmpdir}" -name 'test-output' -executable | \
         tl_expect_match "Copying did happen" "test-output"
 rm -f "${t}" "${to}"
 rm -rf "${td}" "${dd}" "debian"
