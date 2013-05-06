@@ -1,14 +1,14 @@
 dh-exec (0.7) unstable; urgency=medium
 
   * Preserve permissions when renaming files. Many thanks to Axel Beckert
-    for the report & help in tracking this down. (Closes #706939).
+    for the report & help in tracking this down. (Closes: #706939).
   * Since we're using File::Copy::cp, depend on perl-modules >= 5.14.2~,
     which is in wheezy (the File::Copy in Squeeze doesn't have cp). Also
     thanks to Axel Beckert for the note.
   * Urgency medium, because not preserving permissions is a serious
     regression.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 06 May 2013 13:59:17 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 06 May 2013 23:44:43 +0200
 
 dh-exec (0.6) unstable; urgency=low
 
