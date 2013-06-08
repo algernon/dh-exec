@@ -17,8 +17,6 @@ BEGIN {
         our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
 }
 
-$_ = "" if /^\#|^$/;
-
 if (/(.*)\s+=>\s+(.*)/) {
         my ($src, $dst) = ($1, $2);
         my (undef, $srcpath, undef) = File::Spec->splitpath ($src);

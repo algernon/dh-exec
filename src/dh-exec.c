@@ -359,6 +359,8 @@ main (int argc, char *argv[])
   if (pipeline_get_ncommands (p) == 0)
     pipeline_command_args (p, "cat", NULL);
 
+  dh_exec_pipeline_add (p, "dh-exec-strip");
+
   if (no_act)
     {
       pipeline_dump (p, stdout);

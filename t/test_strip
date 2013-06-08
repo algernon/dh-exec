@@ -1,0 +1,44 @@
+#! /bin/sh
+
+set -e
+
+. ${srcdir}/test.lib.sh
+
+tl_plan 3
+
+# The she-bang gets removed from the output
+(cat <<EOF
+#! ${top_builddir}/src/dh-exec
+# This is another comment.
+we add some stuff, such as \${DH_EXEC_SOURCE}
+
+# and some more comments
+and in the end, we quit
+EOF
+) | ${top_builddir}/src/dh-exec --without=install | \
+        tl_forbid "Comments get removed" "#"
+tl_next
+
+# Empty lines get removed from the output
+(cat <<EOF
+#! ${top_builddir}/src/dh-exec
+## This is another comment.
+some LINES
+
+and the final one
+EOF
+) | ${top_builddir}/src/dh-exec --without=install | \
+        tl_forbid "Empty lines get removed" "^$"
+tl_next
+
+# Whitespace-only lines get removed aswell
+(cat <<EOF
+#! ${top_builddir}/src/dh-exec
+## This is another comment.
+some LINES
+   	   
+and the final one
+EOF
+) | ${top_builddir}/src/dh-exec --without=install | \
+        tl_forbid "Whitespace-only lines get removed" "^[ 	]\{1,\}$"
+tl_next

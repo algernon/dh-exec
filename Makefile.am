@@ -2,7 +2,8 @@
 bin_PROGRAMS		= src/dh-exec
 pkglibexec_PROGRAMS	= src/dh-exec-subst \
 			  src/dh-exec-install \
-			  src/dh-exec-illiterate
+			  src/dh-exec-illiterate \
+			  src/dh-exec-strip
 man1_MANS		= src/dh-exec-subst.1 \
 			  src/dh-exec-install.1 \
 			  src/dh-exec-illiterate.1 \
@@ -11,7 +12,8 @@ man1_MANS		= src/dh-exec-subst.1 \
 pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-subst-multiarch \
 			  lib/dh-exec-install-rename \
-			  lib/dh-exec-illiterate-tangle
+			  lib/dh-exec-illiterate-tangle \
+			  lib/dh-exec-strip-output
 
 # --- Sources & flags ---
 AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}
@@ -43,6 +45,12 @@ src_dh_exec_illiterate_SOURCES	= \
 			src/dh-exec.lib.h
 src_dh_exec_illiterate_CFLAGS	= -DDH_EXEC_CMD=\"illiterate\"
 
+src_dh_exec_strip_SOURCES	= \
+			src/dh-exec.simple.c \
+			src/dh-exec.lib.c \
+			src/dh-exec.lib.h
+src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\"
+
 # --- Test suite ---
 
 TESTCASES_SUBST		= test_subst_syntax \
@@ -52,7 +60,7 @@ TESTCASES_INSTALL	= test_install_syntax \
 			  test_install_copy
 TESTCASES_ILLITERATE	= test_illiterate
 TESTCASES_DH		= test_dh
-TESTCASES_MISC		= test_combined test_help test_main
+TESTCASES_MISC		= test_combined test_help test_strip
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \

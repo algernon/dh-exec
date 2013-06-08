@@ -12,5 +12,4 @@ BEGIN {
         }
 }
 
-$_ = "" if /^#/;
 s#(\$\{(DEB_(HOST|BUILD)_[^\}]+)\})#qarch($2) || $1#eg;
