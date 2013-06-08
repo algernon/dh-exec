@@ -52,7 +52,7 @@ TESTCASES_INSTALL	= test_install_syntax \
 			  test_install_copy
 TESTCASES_ILLITERATE	= test_illiterate
 TESTCASES_DH		= test_dh
-TESTCASES_MISC		= test_combined test_help
+TESTCASES_MISC		= test_combined test_help test_main
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \
