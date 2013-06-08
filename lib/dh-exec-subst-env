@@ -4,4 +4,4 @@
 ## corresponding environment variable, or the original ${...} if the
 ## env. var does not exist.
 $_ = "" if /^#/;
-s/(\$\{([^\}]+)\})/$ENV{$2} || $1/eg;
+s/(\$\{([^\}]+)\})/exists $ENV{$2} ? $ENV{$2} : $1/eg;
