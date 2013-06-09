@@ -18,6 +18,7 @@ Makefile
 /src/dh-exec-subst
 /src/dh-exec-install
 /src/dh-exec-illiterate
+/src/dh-exec-strip
 core
 /debian/autoreconf.*
 *.substvars
