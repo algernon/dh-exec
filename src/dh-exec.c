@@ -149,7 +149,9 @@ static int
 dh_exec_list_filter (const struct dirent *entry)
 {
   if (strncmp (entry->d_name, DH_EXEC_CMD_PREFIX,
-               strlen (DH_EXEC_CMD_PREFIX)) != 0)
+               strlen (DH_EXEC_CMD_PREFIX)) != 0 ||
+      strncmp (entry->d_name + strlen (DH_EXEC_CMD_PREFIX), "strip",
+               strlen ("strip")) == 0)
     return 0;
   return 1;
 }

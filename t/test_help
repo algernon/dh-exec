@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 4
+tl_plan 5
 
 # Test that calling --help works
 ${top_builddir}/src/dh-exec --help | \
@@ -28,4 +28,10 @@ tl_next
 ${top_builddir}/src/dh-exec --list | \
         tl_expect_match "dh-exec --list works" \
                         "	illiterate-tangle"
+tl_next
+
+# Test that calling --list skips dh-exec-strip
+${top_builddir}/src/dh-exec --list | \
+        tl_forbid "dh-exec --list skips dh-exec-strip" \
+                  "strip"
 tl_next
