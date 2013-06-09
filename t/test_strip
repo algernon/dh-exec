@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 3
+tl_plan 4
 
 # The she-bang gets removed from the output
 (cat <<EOF
@@ -41,4 +41,17 @@ and the final one
 EOF
 ) | ${top_builddir}/src/dh-exec --without=install | \
         tl_forbid "Whitespace-only lines get removed" "^[ 	]\{1,\}$"
+tl_next
+
+# Calling with no sub-commands to run still works
+(cat <<EOF
+#! ${top_builddir}/src/dh-exec
+one line
+
+
+.
+EOF
+) | ${top_builddir}/src/dh-exec --no-act --with= | \
+        tl_expect_match "dh-exec without sub-commands still works" \
+                        "^[^\|]*/dh-exec-strip \[input: {0, NULL}, output: {0, NULL}\]\$"
 tl_next
