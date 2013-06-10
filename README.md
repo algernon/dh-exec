@@ -52,7 +52,7 @@ tricks:
   In most cases, it only needs a she-bang and an executable bit, and
   the former input file becomes a valid debhelper control file.
 
-  This in turn, makes the packaging simpler, as there is no
+  This, in turn, makes the packaging simpler, as there is no
   package-specific magic involved anymore.
 
 * Compared to the here-doc method, dh-exec provides consistency and
