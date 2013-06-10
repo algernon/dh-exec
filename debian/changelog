@@ -1,3 +1,13 @@
+dh-exec (0.9) unstable; urgency=low
+
+  * Strip the output of any comment or whitespace-only lines, because
+    debhelper does not do that for executable scripts. Thanks to Chow
+    Loong Jin for noticing!
+  * Removed the debian/watch file, it is fairly useless for a native
+    package. Thanks lintian & the PTS.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 10 Jun 2013 11:36:25 +0200
+
 dh-exec (0.8) unstable; urgency=low
 
   * Handle empty variables correctly in dh-exec-subst-env: use their empty
