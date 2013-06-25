@@ -1,3 +1,10 @@
+dh-exec (0.10) unstable; urgency=low
+
+  * Build-Depend on automake (>= 1:1.11), to force a suitable automake
+    version into unclean environments too.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Tue, 25 Jun 2013 12:50:39 +0200
+
 dh-exec (0.9) unstable; urgency=low
 
   * Strip the output of any comment or whitespace-only lines, because
