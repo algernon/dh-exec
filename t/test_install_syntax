@@ -4,7 +4,7 @@ set -e
 
 . ${srcdir}/test.lib.sh
 
-tl_plan 7
+tl_plan 8
 
 # Calling without arguments is invalid
 (${top_builddir}/src/dh-exec-install 2>&1 || true) | \
@@ -14,6 +14,7 @@ tl_next
 
 # Calling as a she-bang works
 t=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
+t2=$(mktemp --tmpdir=. tmpXXXXXXXX.install)
 td=$(mktemp -d --tmpdir=. tmpXXXXX)
 dd="debian/$(basename -- ${t} .install)"
 
@@ -29,10 +30,22 @@ baz/quux
 
 EOF
 
-chmod +x "${t}"
+cat >"${t2}" <<EOF
+#! ${top_builddir}/src/dh-exec-install
+$(basename ${t2})   =>   /var/lib/dh-exec/test-output-2  
+EOF
+
+chmod +x "${t}" "${t2}"
 
 "${t}" | tl_expect_match "Calling as a she-bang works" "debian/tmp/dh-exec\."
 rm -f "${t}"
+
+tl_next
+
+"${t2}" | tl_expect_match "Trailing whitespace gets correctly stripped" \
+                          "debian/tmp/dh-exec\..*/var/lib/dh-exec/test-output-2 /var/lib/dh-exec/$"
+rm -f "${t2}"
+
 rm -rf "${td}"
 rm -rf "${dd}"
 
