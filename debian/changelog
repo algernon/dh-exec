@@ -1,3 +1,13 @@
+dh-exec (0.11) unstable; urgency=low
+
+  * Do not allow spaces in neither source nor destination when renaming
+    files via dh-exec-install. That would make the syntax far more
+    complicated, and this way, we can just disallow whitespace and get rid
+    of the trailing ones too. Thanks to Chow Loong Jin
+    <hyperair@debian.org> for the patch.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 28 Jul 2013 22:53:00 +0200
+
 dh-exec (0.10) unstable; urgency=low
 
   * Build-Depend on automake (>= 1:1.11), to force a suitable automake
