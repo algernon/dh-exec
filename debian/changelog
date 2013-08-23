@@ -5,8 +5,12 @@ dh-exec (0.11) unstable; urgency=low
     complicated, and this way, we can just disallow whitespace and get rid
     of the trailing ones too. Thanks to Chow Loong Jin
     <hyperair@debian.org> for the patch.
+  * Strip the output of any comment or whitespace-only lines, even when
+    dh-exec was called with the --with-scripts option. Thanks to Dann
+    Frazier <dannf@debian.org> and Daniel Schepler <dschepler@gmail.com>
+    for reporting the issue. (Closes: #711937)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 28 Jul 2013 22:53:00 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 23 Aug 2013 17:28:00 +0200
 
 dh-exec (0.10) unstable; urgency=low
 
