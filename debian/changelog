@@ -10,7 +10,7 @@ dh-exec (0.11) unstable; urgency=low
     Frazier <dannf@debian.org> and Daniel Schepler <dschepler@gmail.com>
     for reporting the issue. (Closes: #711937)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 23 Aug 2013 17:28:00 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 25 Aug 2013 09:40:39 +0200
 
 dh-exec (0.10) unstable; urgency=low
 
