@@ -290,7 +290,7 @@ main (int argc, char *argv[])
   if (dhe_scripts)
     {
       int i = 0;
-      int size = strlen ("strip-output|"), pos = 0;
+      int size = 0, pos = 0;
       char *env;
 
       while (dhe_scripts[i])
@@ -326,8 +326,7 @@ main (int argc, char *argv[])
           env[pos++] = '|';
           i++;
         }
-      memcpy (env + pos, "strip-output|", strlen ("strip-output|"));
-      env[size] = '\0';
+      env[pos] = '\0';
 
       setenv ("DH_EXEC_SCRIPTS", env, 1);
 

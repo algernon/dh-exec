@@ -49,7 +49,8 @@ src_dh_exec_strip_SOURCES	= \
 			src/dh-exec.simple.c \
 			src/dh-exec.lib.c \
 			src/dh-exec.lib.h
-src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\"
+src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\" \
+				  -DDH_EXEC_CMD_ALWAYS=1
 
 # --- Test suite ---
 

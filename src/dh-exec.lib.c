@@ -31,6 +31,10 @@
 #define DH_EXEC_SCRIPTDIR "/usr/share/dh-exec"
 #define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
 
+#ifndef DH_EXEC_CMD_ALWAYS
+#define DH_EXEC_CMD_ALWAYS 0
+#endif
+
 static const char *DH_EXEC_CMD_PREFIX;
 
 const char *
@@ -82,6 +86,9 @@ dh_exec_script_allowed (const char *fn)
 {
   char *e;
   char *needle;
+
+  if (DH_EXEC_CMD_ALWAYS)
+    return 0;
 
   e = getenv ("DH_EXEC_SCRIPTS");
   if (!e)
