@@ -81,7 +81,7 @@ dh_exec_cmd_path (const char *dir, const char *cmd)
   return path;
 }
 
-int
+static int
 dh_exec_script_allowed (const char *fn)
 {
   char *e;
