@@ -48,8 +48,8 @@ teardown () {
 @test "dh-exec: calling with invalid DH_EXEC_SCRIPTDIR fails gracefully" {
         DH_EXEC_SCRIPTDIR=$(pwd)/non-existent run_dh_exec src/dh-exec --list
 
-        expect_error "subst:"
-        ! expect_error "install:"
+        expect_error "subst.*:"
+        ! expect_error "install.*:"
         expect_error "scandir(.*): No such file or directory"
 }
 
