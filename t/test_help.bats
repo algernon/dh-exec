@@ -29,3 +29,10 @@ load "test.lib"
         run_dh_exec src/dh-exec --list
         ! expect_output "strip"
 }
+
+@test "dh-exec: calling with invalid DH_EXEC_LIBDIR fails gracefully" {
+        DH_EXEC_LIBDIR=$(pwd)/non-existent run_dh_exec src/dh-exec --list
+
+        ! expect_error "subst:"
+        expect_error "scandir(.*): No such file or directory"
+}
