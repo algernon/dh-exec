@@ -6,6 +6,7 @@ Makefile
 *.in
 .dirstamp
 /aclocal.m4
+/compile
 /config.h
 /configure
 /depcomp
