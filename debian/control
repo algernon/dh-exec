@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9~), dh-autoreconf,
                fakeroot,
                libpipeline-dev, pkg-config,
                perl
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: https://github.com/algernon/dh-exec
 Vcs-Git: git://git.madhouse-project.org/debian/dh-exec.git
 Vcs-Browser: http://git.madhouse-project.org/debian/dh-exec/
