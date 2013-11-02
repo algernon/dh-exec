@@ -53,6 +53,13 @@ src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\" \
 				  -DDH_EXEC_CMD_ALWAYS=1
 
 # --- Test suite ---
+check_PROGRAMS		= t/lib_unit_tests
+
+t_lib_unit_tests_SOURCES	= \
+			t/lib_unit_tests.c \
+			src/dh-exec.lib.c \
+			src/dh-exec.lib.h
+t_lib_unit_tests_CFLAGS		= -I${top_srcdir}/src
 
 TESTCASES_SUBST		= test_subst_syntax.bats \
 			  test_subst_env.bats \
@@ -61,7 +68,10 @@ TESTCASES_INSTALL	= test_install_syntax.bats \
 			  test_install_copy.bats
 TESTCASES_ILLITERATE	= test_illiterate.bats
 TESTCASES_DH		= test_dh.bats
-TESTCASES_MISC		= test_combined.bats test_dh_exec.bats test_strip.bats
+TESTCASES_MISC		= test_combined.bats \
+			  test_dh_exec.bats \
+			  test_strip.bats \
+			  test_unit.bats
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \
