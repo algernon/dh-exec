@@ -35,7 +35,7 @@ preamble(int argc, char *argv[])
       fprintf (stderr,
                "%s: Need an input file argument, stdin not acceptable!\n",
                argv[0]);
-      exit (1);
+      return EXIT_FAILURE;
     }
 
   /* Handle cases where the source is not an .install file */
@@ -44,7 +44,7 @@ preamble(int argc, char *argv[])
     {
       /* Source is stdin, we're piped, ignore it. */
       if (argc < 2)
-        exit (dh_exec_ignore (NULL));
+        return (dh_exec_ignore (NULL));
       else
         {
           /* Source is from the command-line directly, raise an
@@ -52,7 +52,7 @@ preamble(int argc, char *argv[])
           fprintf (stderr,
                    "%s: Only .install filename extensions are allowed: %s\n",
                    argv[0], src);
-          exit (1);
+          return EXIT_FAILURE;
         }
     }
 
