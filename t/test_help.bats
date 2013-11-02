@@ -86,3 +86,11 @@ teardown () {
 
         expect_anything "dh-exec - Available sub-commands and scripts"
 }
+
+@test "dh-exec-subst: Running with an empty scriptdir fails" {
+        DH_EXEC_SCRIPTDIR=$(pwd)/non-existent run_dh_exec src/dh-exec-subst <<EOF
+${HOME}
+EOF
+
+        expect_error "scandir(.*): No such file or directory"
+}
