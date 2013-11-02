@@ -136,7 +136,7 @@ dh_exec_main (const char *cmd_prefix, int argc, char *argv[])
   int status, n;
   struct dirent **cmdlist;
 
-  if (argc < 1 || argc > 2)
+  if (argc > 2)
     {
       fprintf (stderr,
                "%s: Need an input file argument, or no argument at all!\n",
