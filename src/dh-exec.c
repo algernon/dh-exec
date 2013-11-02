@@ -183,7 +183,7 @@ dh_exec_list (char *argv[])
 
       sn = scandir (dh_exec_scriptdir (), &scriptlist, dh_exec_list_filter,
                     alphasort);
-      if (n < 0)
+      if (sn < 0)
         {
           fprintf (stderr, "%s: scandir(\"%s\"): %s", argv[0],
                    dh_exec_scriptdir (), strerror (errno));
