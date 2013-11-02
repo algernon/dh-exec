@@ -54,14 +54,14 @@ src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\" \
 
 # --- Test suite ---
 
-TESTCASES_SUBST		= test_subst_syntax \
-			  test_subst_env \
-			  test_subst_multiarch
-TESTCASES_INSTALL	= test_install_syntax \
-			  test_install_copy
-TESTCASES_ILLITERATE	= test_illiterate
-TESTCASES_DH		= test_dh
-TESTCASES_MISC		= test_combined test_help test_strip
+TESTCASES_SUBST		= test_subst_syntax.bats \
+			  test_subst_env.bats \
+			  test_subst_multiarch.bats
+TESTCASES_INSTALL	= test_install_syntax.bats \
+			  test_install_copy.bats
+TESTCASES_ILLITERATE	= test_illiterate.bats
+TESTCASES_DH		= test_dh.bats
+TESTCASES_MISC		= test_combined.bats test_help.bats test_strip.bats
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \
@@ -90,13 +90,21 @@ pkgtest_FILES		= t/pkg-test/data/bin-arch \
 			t/pkg-test/GNUMakefile
 
 check: all ${TESTS}
-	$(AM_V_GEN) ${TESTS_ENVIRONMENT} prove -e '' -f -o ${PROVE_OPTIONS} $(addprefix ${srcdir}/t/,${TESTCASES})
+	$(AM_V_GEN) ${TESTS_ENVIRONMENT} \
+		prove -e "${top_srcdir}/t/bats/libexec/bats --tap" -f \
+		      -o ${PROVE_OPTIONS} \
+		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
+
+bats: all ${TESTS}
+	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
+		    ${top_srcdir}/t/bats/libexec/bats ${top_srcdir}/t/
 
 # --- Extra files to distribute ---
 
 EXTRA_DIST		= README.md HACKING.md \
 			${man1_MANS} ${pkgdata_SCRIPTS} \
-			t/test.lib.sh \
+			t/test.lib.bash \
 			$(addprefix t/,${TESTCASES}) \
 			${pkgtest_FILES} \
-			${disabled_TESTCASES}
+			${disabled_TESTCASES} \
+			${top_srcdir}/t/bats

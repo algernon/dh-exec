@@ -1,14 +1,9 @@
-#! /bin/sh
+## -*- shell-script -*-
 
-set -e
+load "test.lib"
 
-. ${srcdir}/test.lib.sh
-
-tl_plan 4
-
-t=$(mktemp)
-
-cat >${t} <<EOF
+run_dh_exec_illiterate () {
+        run_dh_exec_with_input <<EOF
 #! ${top_builddir}/src/dh-exec-illiterate
 Greetings, my dear reader, and welcome to the awesome world of literate programming!
 
@@ -36,28 +31,28 @@ We're almost finished! One thing left to do, is to install a script
 named \`rename-me', to \`/usr/share/foo/new-name' - we renamed it in
 the process!
 EOF
+}
 
-chmod +x "${t}"
-"${t}" >"${t}.output"
+@test "illiterate: The literate text gets removed" {
+        run_dh_exec_illiterate
 
-# The literate text gets removed
-cat "${t}.output" | \
-        tl_forbid "Literate text gets removed" "Greetings, my dear reader"
-tl_next
+        ! expect_output "Greetings, my dear reader"
+}
 
-# The good stuff is left in
-cat "${t}.output" | \
-        tl_expect "usr/lib found in output" "usr/lib"
-tl_next
+@test "illiterate: the good stuff is left in" {
+        run_dh_exec_illiterate
 
-cat "${t}.output" | \
-        tl_expect "rename construct found in output" \
-                  "rename-me => /usr/share/foo/new-name"
-tl_next
+        expect_output "usr/lib"
+}
 
-cat "${t}.output" | \
-        tl_expect "normal file copy found in output" \
-                  "src/this-file /usr/lib/foo/\${DEB_HOST_MULTIARCH}/"
-tl_next
+@test "illiterate: rename construct is recognised" {
+        run_dh_exec_illiterate
 
-rm -f "${t}" "${t}.output"
+        expect_output "rename-me => /usr/share/foo/new-name"
+}
+
+@test "illiterate: normal file copy is recognised" {
+        run_dh_exec_illiterate
+
+        expect_output "src/this-file /usr/lib/foo/\${DEB_HOST_MULTIARCH}/"
+}
