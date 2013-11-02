@@ -71,3 +71,9 @@ teardown () {
 
         expect_error "script 'subst-something-else' is not valid"
 }
+
+@test "dh-exec: non-existing helper produces an error" {
+        run_dh_exec src/dh-exec --with=something
+
+        expect_error "can't execute .*/dh-exec-something"
+}
