@@ -2,6 +2,14 @@
 
 load "test.lib"
 
+setup () {
+        test_tmpdir=$(mktemp -d --tmpdir=.)
+}
+
+teardown () {
+        rm -rf "${test_tmpdir}"
+}
+
 @test "calling dh-exec --help works" {
         run_dh_exec src/dh-exec --help
         expect_output "Scripts to help with executable debhelper files"
@@ -49,4 +57,17 @@ load "test.lib"
         run_dh_exec src/dh-exec --invalid-option
 
         expect_error "unrecognized option '--invalid-option'"
+}
+
+@test "dh-exec: Non-executable scripts produce an error" {
+        touch "${test_tmpdir}/dh-exec-subst-foo"
+
+        DH_EXEC_SCRIPTDIR="${test_tmpdir}" run_dh_exec src/dh-exec --with-scripts=subst-foo
+        expect_error "script 'subst-foo' is not valid"
+}
+
+@test "dh-exec: Non-existing scripts produce an error" {
+        run_dh_exec src/dh-exec --with-scripts=subst-something-else
+
+        expect_error "script 'subst-something-else' is not valid"
 }
