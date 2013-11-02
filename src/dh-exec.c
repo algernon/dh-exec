@@ -169,7 +169,7 @@ dh_exec_list (char *argv[])
   n = scandir (dh_exec_libdir (), &cmdlist, dh_exec_list_filter, alphasort);
   if (n < 0)
     {
-      fprintf (stderr, "%s: scandir(\"%s\"):%s", argv[0],
+      fprintf (stderr, "%s: scandir(\"%s\"): %s", argv[0],
                dh_exec_libdir (), strerror (errno));
       return 1;
     }
@@ -185,7 +185,7 @@ dh_exec_list (char *argv[])
                     alphasort);
       if (n < 0)
         {
-          fprintf (stderr, "%s: scandir(\"%s\"):%s", argv[0],
+          fprintf (stderr, "%s: scandir(\"%s\"): %s", argv[0],
                    dh_exec_scriptdir (), strerror (errno));
           free (cmdlist);
           return 1;
