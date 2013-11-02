@@ -44,7 +44,7 @@ preamble(int argc, char *argv[])
     {
       /* Source is stdin, we're piped, ignore it. */
       if (argc < 2)
-        return (dh_exec_ignore (NULL));
+        return (dh_exec_ignore ());
       else
         {
           /* Source is from the command-line directly, raise an

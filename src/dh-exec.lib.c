@@ -182,14 +182,12 @@ dh_exec_main (const char *cmd_prefix, int argc, char *argv[])
 }
 
 int
-dh_exec_ignore (const char *src)
+dh_exec_ignore (void)
 {
   pipeline *p;
   int status;
 
   p = pipeline_new ();
-  if (src)
-    pipeline_want_infile (p, src);
   pipeline_command_args (p, "cat", NULL);
 
   pipeline_start (p);

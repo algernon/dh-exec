@@ -27,6 +27,6 @@ const char *dh_exec_source (int argc, int optind, char *argv[]);
 char *dh_exec_cmd_path (const char *dir, const char *cmd);
 int dh_exec_cmd_filter (const struct dirent *entry);
 int dh_exec_main (const char *cmd_prefix, int argc, char *argv[]);
-int dh_exec_ignore (const char *src);
+int dh_exec_ignore (void);
 
 #endif

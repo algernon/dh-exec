@@ -70,3 +70,11 @@ EOF
 
         expect_error "can't open --invalid-file--"
 }
+
+@test "install: piping passes through unchanged" {
+        DH_EXEC_SOURCE="some-file" run_dh_exec src/dh-exec-install <<EOF
+${nullfile}   =>   /var/lib/dh-exec/test-output-2
+EOF
+
+        expect_output "=>"
+}
