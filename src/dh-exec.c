@@ -254,8 +254,12 @@ main (int argc, char *argv[])
           dhe_scripts = dh_exec_with (dhe_scripts, optarg);
           break;
         case 'h':
+          dh_exec_cmdlist_free (dhe_commands);
+          dh_exec_cmdlist_free (dhe_scripts);
           return dh_exec_help ();
         case 'v':
+          dh_exec_cmdlist_free (dhe_commands);
+          dh_exec_cmdlist_free (dhe_scripts);
           return dh_exec_version ();
         case 'n':
           no_act = 1;
@@ -265,6 +269,8 @@ main (int argc, char *argv[])
           break;
         default:
           dh_exec_help ();
+          dh_exec_cmdlist_free (dhe_commands);
+          dh_exec_cmdlist_free (dhe_scripts);
           return (EXIT_FAILURE);
         }
     }
