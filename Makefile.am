@@ -107,7 +107,8 @@ check: all ${TESTS}
 
 bats: all ${TESTS}
 	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
-		    ${top_srcdir}/t/bats/libexec/bats ${top_srcdir}/t/
+		    ${top_srcdir}/t/bats/libexec/bats \
+		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
 # -- Custom targets --
 coverage: coverage.info.html
