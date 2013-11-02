@@ -77,3 +77,12 @@ teardown () {
 
         expect_error "can't execute .*/dh-exec-something"
 }
+
+@test "dh-exec: running bare works" {
+        unset DH_EXEC_SCRIPTDIR
+        unset DH_EXEC_LIBDIR
+
+        run_dh_exec src/dh-exec --list
+
+        expect_anything "dh-exec - Available sub-commands and scripts"
+}

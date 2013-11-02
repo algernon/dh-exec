@@ -40,14 +40,18 @@ run_dh_exec_with_input () {
         rm -f "${t}"
 }
 
+expect_anything () {
+        echo "${output}" | grep -q "$(echo $@)"
+}
+
 expect_output () {
         [ "$status" -eq 0 ]
-        echo "${output}" | grep -q "$(echo $@)"
+        expect_anything "$@"
 }
 
 expect_error () {
         [ "$status" -ne 0 ]
-        echo "${output}" | grep -q "$(echo $@)"
+        expect_anything "$@"
 }
 
 expect_file () {
