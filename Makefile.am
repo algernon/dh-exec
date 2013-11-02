@@ -99,6 +99,22 @@ bats: all ${TESTS}
 	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
 		    ${top_srcdir}/t/bats/libexec/bats ${top_srcdir}/t/
 
+# -- Custom targets --
+coverage: coverage.info.html
+
+coverage.info.html: coverage.info
+	$(AM_V_GEN)genhtml --quiet $^ --output-directory $@
+
+coverage.info: check
+	$(AM_V_GEN)lcov --quiet --capture --directory ${top_builddir}/src --output $@ -b ${top_builddir}
+
+.PHONY: coverage
+CLEANFILES		= coverage.info
+
+clean-local:
+	rm -rf coverage.info.html
+	find ${top_builddir} -name '*.gcda' -or -name '*.gcno' | xargs rm -f
+
 # --- Extra files to distribute ---
 
 EXTRA_DIST		= README.md HACKING.md \
