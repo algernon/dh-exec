@@ -61,7 +61,7 @@ TESTCASES_INSTALL	= test_install_syntax.bats \
 			  test_install_copy.bats
 TESTCASES_ILLITERATE	= test_illiterate.bats
 TESTCASES_DH		= test_dh.bats
-TESTCASES_MISC		= test_combined.bats test_help.bats test_strip.bats
+TESTCASES_MISC		= test_combined.bats test_dh_exec.bats test_strip.bats
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \
