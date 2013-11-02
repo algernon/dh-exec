@@ -44,3 +44,9 @@ load "test.lib"
         ! expect_error "install:"
         expect_error "scandir(.*): No such file or directory"
 }
+
+@test "dh-exec: An invalid option produces an error" {
+        run_dh_exec src/dh-exec --invalid-option
+
+        expect_error "unrecognized option '--invalid-option'"
+}

@@ -225,7 +225,7 @@ main (int argc, char *argv[])
     {"with",    required_argument, NULL, 'I'},
     {"with-scripts", required_argument, NULL, 'i'},
     {"without", required_argument, NULL, 'X'},
-    {"help",    no_argument      , NULL, '?'},
+    {"help",    no_argument      , NULL, 'h'},
     {"version", no_argument      , NULL, 'v'},
     {"no-act",  no_argument      , NULL, 'n'},
     {"list",    no_argument      , NULL, 'l'},
@@ -238,7 +238,7 @@ main (int argc, char *argv[])
     {
       int option_index, c;
 
-      c = getopt_long (argc, argv, "?I:i:X:vnl", dhe_options, &option_index);
+      c = getopt_long (argc, argv, "hI:i:X:vnl", dhe_options, &option_index);
       if (c == -1)
         break;
 
@@ -253,7 +253,7 @@ main (int argc, char *argv[])
         case 'i':
           dhe_scripts = dh_exec_with (dhe_scripts, optarg);
           break;
-        case '?':
+        case 'h':
           return dh_exec_help ();
         case 'v':
           return dh_exec_version ();
@@ -264,7 +264,6 @@ main (int argc, char *argv[])
           do_list = 1;
           break;
         default:
-          fprintf (stderr, "Unknown option code: %x\n", c);
           dh_exec_help ();
           return (EXIT_FAILURE);
         }
