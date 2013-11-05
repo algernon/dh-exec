@@ -1,3 +1,15 @@
+dh-exec (0.12) unstable; urgency=low
+
+  * The test suite was cleaned up and migrated from a custom solution to BATS.
+  * Fixed a possible crash when DH_EXEC_SCRIPTDIR pointed to a
+    non-existing directory.
+  * Handle --help and unknown arguments separately, for better error
+    reporting in the latter case.
+  * Depend on perl instead of perl-modules.
+  * Standards-Version bumped to 3.9.5 (no changes necessary).
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Tue, 05 Nov 2013 10:04:13 +0100
+
 dh-exec (0.11) unstable; urgency=low
 
   * Do not allow spaces in neither source nor destination when renaming
