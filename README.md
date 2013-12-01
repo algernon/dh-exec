@@ -4,7 +4,7 @@ dh-exec
 [![Build Status](https://secure.travis-ci.org/algernon/dh-exec.png?branch=master)](http://travis-ci.org/algernon/dh-exec)
 
 [Debhelper][1] (in compat level 9 and above) allows its config files
-to be executable, and uses the output of suchs scripts as if it was
+to be executable, and uses the output of such scripts as if it was
 the content of the config file.
 
 This is a collection of scripts and programs to help creating

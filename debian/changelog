@@ -1,3 +1,10 @@
+dh-exec (0.13) UNRELEASED; urgency=low
+
+  * Fix a typo in the package description. Thanks James Cowgill!
+    (Closes: #731078)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 01 Dec 2013 20:03:05 +0100
+
 dh-exec (0.12) unstable; urgency=low
 
   * The test suite was cleaned up and migrated from a custom solution to BATS.

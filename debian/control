@@ -19,7 +19,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
          ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 8.9.13~)
 Description: Scripts to help with executable debhelper files
  Debhelper (in compat level 9 and above) allows its config files to be
- executable, and uses the output of suchs scripts as if it was the
+ executable, and uses the output of such scripts as if it was the
  content of the config file.
  .
  To ease and standardize the most common tasks, this package provides
