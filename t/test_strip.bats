@@ -83,3 +83,18 @@ EOF
 EOF
         expect_error "arch filters cannot be mixed"
 }
+
+@test "dh-exec-strip: filtered and non-filtered lines work well together" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-strip
+[hurd-i386] hurd line to keep
+some random line to have, always
+[kfreebsd-any] kfreebsd!
+and in the end, we have another line.
+EOF
+        expect_output "hurd line to keep"
+        expect_output "some random line to have, always"
+        ! expect_output "kfreebsd!"
+        expect_output "and in the end, we have another line."
+}
