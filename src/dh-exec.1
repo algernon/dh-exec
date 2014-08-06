@@ -1,4 +1,4 @@
-.TH "DH\-EXEC" "1" "2012-05-03" "" "dh-exec"
+.TH "DH\-EXEC" "1" "2014-08-06" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -9,6 +9,8 @@ dh\-exec \- Debhelper executable file helpers
 src/libfoo-*.so.* debian/foo-plugins/usr/lib/foo/${DEB_HOST_MULTIARCH}/
 .br
 etc/example.conf => debian/foo/etc/foo/foo.conf
+.br
+[linux-any kfreebsd-any] some-arch-specific-file /usr/lib/foo/
 
 .SH "DESCRIPTION"
 dh\-exec is a simple program, meant to be used as the interpreter for
@@ -21,6 +23,13 @@ ordering that makes most sense in the vast majority of cases.
 The order as of now is \fIdh\-exec\-subst\fR gets run first, followed
 by \fIdh\-exec\-install\fR, so that variable expansion happens before
 files need to be copied.
+
+.SH "FILTERING"
+
+In all dh\-exec handled files, lines can be pre\- or post\-fixed with
+a list of architectures for which the rest of the line should apply
+to. All architectures and wildcards known by
+\fIdpkg\-architecture\fR(1) are recognised, even negated ones.
 
 .SH "ARCHITECTURE"
 
@@ -131,4 +140,4 @@ The various scripts ran by the sub\-commands.
 \fIdh\-exec\-install\fR(1)
 
 .SH "AUTHOR"
-dh\-exec is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec is copyright \(co 2011-2014 by Gergely Nagy <algernon@madhouse\-project.org>.

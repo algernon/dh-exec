@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-INSTALL" "1" "2012-05-03" "" "dh-exec"
+.TH "DH\-EXEC\-INSTALL" "1" "2014-08-06" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -9,6 +9,8 @@ dh\-exec\-install \- Install (and possibly rename) files.
 debian/default.conf => /etc/my\-package/start.conf
 .br
 usr/bin/*
+.br
+[linux-any kfreebsd-any] some-arch-specific-file /usr/lib/foo/
 
 .SH "DESCRIPTION"
 Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
@@ -30,7 +32,9 @@ be installed with the specified destination name.
 For obvious reasons, the source \fBmust not\fR be a wildcard, and the
 destination in this case \fBmust\fR be a file, and not a directory.
 
-All other non\-comment lines are left alone.
+See the \fBFILTERING\fR section of \fIdh\-exec\fR(1) for more
+information about how lines are filtered. Any non\-comment lines
+without a filter will be left alone.
 
 .SH "RESTRICTIONS"
 Due to the way executable scripts are called from \fIdebhelper\fR(1),

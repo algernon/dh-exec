@@ -1,0 +1,62 @@
+#! /usr/bin/perl -wnp
+##
+## This script removes lines that are for foreign architectures. If it
+## finds a line prefixed with [arch1 arch2 ...], it will check -
+## with dpkg-architecture - if we match any of the wildcards. If we
+## match any of it, the line will be kept, otherwise eliminated.
+
+BEGIN {
+        sub arch_filter {
+                my $arch = $_[0];
+                my $check_arch = $arch;
+
+                if ($arch =~ /^!/) {
+                        $check_arch =~ s/^!//;
+                }
+                `dpkg-architecture -i${check_arch} 2>/dev/null`;
+
+                if ($arch =~ /^!/) {
+                        return FALSE if $? == 0;
+                        return TRUE;
+                } else {
+                        return TRUE if $? == 0;
+                        return FALSE;
+                }
+        }
+
+        sub validate_arches {
+                my $p = 0;
+                my $n = 0;
+
+                foreach my $arch (@_) {
+                        if ($arch =~ /^!/) {
+                                $p++;
+                        } else {
+                                $n++;
+                        }
+                }
+                if ($n > 0 && $p > 0) {
+                        print STDERR "ERROR: Positive and negative arch ".
+                                "filters cannot be mixed!\n";
+                        exit (1);
+                }
+        }
+}
+
+if (/\[([^\]]*)\]/) {
+        my @archlist = split (/\s+/, $1);
+        my $valid = FALSE;
+
+        validate_arches(@archlist);
+
+        for my $arch (@archlist) {
+                $valid = TRUE if (arch_filter($arch) eq TRUE);
+        }
+
+        if ($valid eq TRUE) {
+                s/\s*\[([^\]]*)\]\s*//;
+                $_ .= "\n";
+        } else {
+                $_ = "";
+        }
+}

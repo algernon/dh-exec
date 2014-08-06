@@ -59,3 +59,27 @@ EOF
         expect_output "something"
         ! expect_output "#"
 }
+
+@test "dh-exec-strip: architecture filters work" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-strip
+[hurd-i386] this-is-hurd-i386-only
+[linux-any] this-is-linux-only
+[!kfreebsd-amd64] this-is-not-for-kfreebsd-amd64
+[any-i386 any-powerpc] this-is-complicated
+EOF
+        expect_output "this-is-hurd-i386-only"
+        ! expect_output "this-is-linux-only"
+        expect_output "this-is-not-for-kfreebsd-amd64"
+        expect_output "this-is-complicated"
+}
+
+@test "dh-exec-strip: architecture filters catch invalid syntax" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-strip
+[any-i386 !powerc] this-is-invalid
+EOF
+        expect_error "arch filters cannot be mixed"
+}
