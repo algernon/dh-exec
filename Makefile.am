@@ -3,7 +3,8 @@ bin_PROGRAMS		= src/dh-exec
 pkglibexec_PROGRAMS	= src/dh-exec-subst \
 			  src/dh-exec-install \
 			  src/dh-exec-illiterate \
-			  src/dh-exec-strip
+			  src/dh-exec-strip \
+			  src/dh-exec-filter
 man1_MANS		= src/dh-exec-subst.1 \
 			  src/dh-exec-install.1 \
 			  src/dh-exec-illiterate.1 \
@@ -14,7 +15,8 @@ pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-install-rename \
 			  lib/dh-exec-illiterate-tangle \
 			  lib/dh-exec-strip-output \
-			  lib/dh-exec-strip-arch-filter
+			  lib/dh-exec-filter-arch \
+			  lib/dh-exec-filter-comments
 
 # --- Sources & flags ---
 AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}
@@ -53,6 +55,13 @@ src_dh_exec_strip_SOURCES	= \
 src_dh_exec_strip_CFLAGS	= -DDH_EXEC_CMD=\"strip\" \
 				  -DDH_EXEC_CMD_ALWAYS=1
 
+src_dh_exec_filter_SOURCES	= \
+			src/dh-exec.simple.c \
+			src/dh-exec.lib.c \
+			src/dh-exec.lib.h
+src_dh_exec_filter_CFLAGS	= -DDH_EXEC_CMD=\"filter\" \
+				  -DDH_EXEC_CMD_ALWAYS=1
+
 # --- Test suite ---
 
 TESTCASES_SUBST		= test_subst_syntax.bats \
@@ -64,7 +73,8 @@ TESTCASES_ILLITERATE	= test_illiterate.bats
 TESTCASES_DH		= test_dh.bats
 TESTCASES_MISC		= test_combined.bats \
 			  test_dh_exec.bats \
-			  test_strip.bats
+			  test_strip.bats \
+			  test_filter.bats
 
 TESTCASES		= ${TESTCASES_SUBST} ${TESTCASES_INSTALL} \
 			${TESTCASES_MISC} ${TESTCASES_DH} \

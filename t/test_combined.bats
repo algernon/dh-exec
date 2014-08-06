@@ -19,6 +19,7 @@ ${pkgfile} /var/lib/dh-exec/
 ${pkgfile} => /var/lib/dh-exec/new-file
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/
 ${pkgfile} => /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/new-file
+[!hurd-i386] ${pkgfile} => /var/lib/dh-exec/not-hurd
 EOF
 
         chmod +x ${pkgfile}
@@ -88,4 +89,9 @@ EOF
 ${pkgfile} /usr/lib/dh-exec/\${DEB_HOST_MULTIARCH}/\${dh_subst_test_var}
 EOF
         expect_output "$(dpkg-architecture -qDEB_HOST_MULTIARCH)/\${dh_subst_test_var}"
+}
+
+@test "combined: dh-exec arch filters with install work" {
+        DEB_HOST_ARCH=hurd-i386 run_dh_exec ${td}/${pkgfile}
+        ! expect_file "/var/lib/dh-exec/not-hurd"
 }

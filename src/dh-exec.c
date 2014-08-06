@@ -1,5 +1,5 @@
 /* dh-exec.c -- Wrapper around dh-exec-* commands.
- * Copyright (C) 2011-2013  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011-2014  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -291,6 +291,8 @@ main (int argc, char *argv[])
       pipeline_want_infile (p, src);
       setenv ("DH_EXEC_SOURCE", src, 1);
     }
+
+  dh_exec_pipeline_add (p, "dh-exec-filter");
 
   if (dhe_scripts)
     {

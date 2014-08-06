@@ -23,7 +23,8 @@ teardown () {
 @test "dh-exec --no-act works" {
         run_dh_exec src/dh-exec --no-act random.install
         expect_output \
-                "^[^\|]*/dh-exec-subst | [^\|]*/dh-exec-install |" \
+                "^[^\|]*/dh-exec-filter | [^\|]*/dh-exec-subst |" \
+                "[^\|]*/dh-exec-install |" \
                 "[^\|]*/dh-exec-strip \[input: {0, random.install}," \
                 "output: {0, NULL}\]\$"
 }
@@ -73,7 +74,7 @@ teardown () {
 }
 
 @test "dh-exec: non-existing helper produces an error" {
-        run_dh_exec src/dh-exec --with=something
+        run_dh_exec src/dh-exec --with=something </dev/null
 
         expect_error "can't execute .*/dh-exec-something"
 }
