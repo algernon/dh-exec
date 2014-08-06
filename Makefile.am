@@ -13,7 +13,8 @@ pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-subst-multiarch \
 			  lib/dh-exec-install-rename \
 			  lib/dh-exec-illiterate-tangle \
-			  lib/dh-exec-strip-output
+			  lib/dh-exec-strip-output \
+			  lib/dh-exec-strip-arch-filter
 
 # --- Sources & flags ---
 AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}
