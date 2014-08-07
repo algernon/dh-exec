@@ -1,4 +1,4 @@
-dh-exec (0.13) UNRELEASED; urgency=medium
+dh-exec (0.13) unstable; urgency=medium
 
   * Fix a typo in the package description. Thanks James Cowgill!
     (Closes: #731078)
@@ -12,7 +12,7 @@ dh-exec (0.13) UNRELEASED; urgency=medium
   * Updated the package description, mentioning the new features.
   * Updated the copyright years in debian/copyright.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 07 Aug 2014 12:45:45 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 07 Aug 2014 13:43:51 +0200
 
 dh-exec (0.12) unstable; urgency=low
 
