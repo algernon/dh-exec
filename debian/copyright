@@ -2,11 +2,11 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dh-exec
 Upstream-Contact: Gergely Nagy <algernon@debian.org>
 Source: git://github.com/algernon/dh-exec.git
-Copyright: Copyright (C) 2011-2013 Gergely Nagy <algernon@debian.org>
+Copyright: Copyright (C) 2011-2014 Gergely Nagy <algernon@debian.org>
 License: GPL-3+
 
 Files: *
-Copyright: Copyright (C) 2011-2013 Gergely Nagy <algernon@debian.org>
+Copyright: Copyright (C) 2011-2014 Gergely Nagy <algernon@debian.org>
 License: GPL-3+
 
 Files: t/bats/*

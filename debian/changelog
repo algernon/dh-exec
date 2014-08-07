@@ -1,9 +1,18 @@
-dh-exec (0.13) UNRELEASED; urgency=low
+dh-exec (0.13) UNRELEASED; urgency=medium
 
   * Fix a typo in the package description. Thanks James Cowgill!
     (Closes: #731078)
+  * Add support for filtering based on architecture. Thanks Andreas
+    Henriksson for the suggestion and testing! (Closes: #757233)
+  * Remove empty  and commented lines before processing  too, allowing one
+    to disable  certain lines that  would normally get  translated. Thanks
+    Andreas Henriksson for spotting the issue. (Closes: #757273)
+  * Add support for renaming files in debian/$package.manpages too.
+    Requested by Andreas Henriksson. (Closes: #757270)
+  * Updated the package description, mentioning the new features.
+  * Updated the copyright years in debian/copyright.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Sun, 01 Dec 2013 20:03:05 +0100
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 07 Aug 2014 12:45:45 +0200
 
 dh-exec (0.12) unstable; urgency=low
 
