@@ -46,3 +46,13 @@ EOF
 
         expect_file -x "/var/lib/dh-exec/test-executable"
 }
+
+@test "install: renaming manpages gives dh_installmanpages-compatible output" {
+        run_dh_exec_with_input .manpages <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+
+        expect_file "/var/lib/dh-exec/foo.8"
+        ! expect_output " /var/lib/"
+}

@@ -15,6 +15,10 @@ BEGIN {
 
         make_path("debian/tmp");
         our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
+        our $append_destpath = TRUE;
+        if ($ENV{DH_EXEC_SOURCE} =~ /manpages$/) {
+                $append_destpath = FALSE;
+        }
 }
 
 if (/([^\s]*)\s+=>\s+([^\s]*)/) {
@@ -29,5 +33,6 @@ if (/([^\s]*)\s+=>\s+([^\s]*)/) {
                 move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
                                 die "Copy failed: $!";
-        $_ = File::Spec->catfile ($debpath, $dstfile) . " " . $dstpath . "\n";
+        $_ = File::Spec->catfile ($debpath, $dstfile);
+        $_ .= " " . $dstpath . "\n" if ($append_destpath eq TRUE);
 }
