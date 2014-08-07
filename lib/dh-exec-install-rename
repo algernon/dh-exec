@@ -34,5 +34,6 @@ if (/([^\s]*)\s+=>\s+([^\s]*)/) {
                       File::Spec->catfile ($debpath, $dstfile)) or
                                 die "Copy failed: $!";
         $_ = File::Spec->catfile ($debpath, $dstfile);
-        $_ .= " " . $dstpath . "\n" if ($append_destpath eq TRUE);
+        $_ .= " " . $dstpath if ($append_destpath eq TRUE);
+        $_ .= "\n";
 }
