@@ -45,6 +45,12 @@ EOF
         expect_error "No such file or directory"
 }
 
+@test "install: calling with a manpages file works" {
+        run_dh_exec src/dh-exec-install debian/manpages
+
+        expect_error "No such file or directory"
+}
+
 @test "install: calling with an unqualified install works" {
         run_dh_exec src/dh-exec-install install
 
@@ -56,7 +62,7 @@ EOF
 #! ${top_builddir}/src/dh-exec-install
 EOF
 
-        expect_error "Only \.install filename extensions are allowed"
+        expect_error "Unsupported filename extension"
 }
 
 @test "install: calling with too many arguments fails" {

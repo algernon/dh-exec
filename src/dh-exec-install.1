@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-INSTALL" "1" "2014-08-06" "" "dh-exec"
+.TH "DH\-EXEC\-INSTALL" "1" "2014-08-07" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -18,9 +18,10 @@ ran directly, but through \fIdh\-exec\fR, which automatically runs all
 available sub\-commands if run bare; or explicitly with \fBdh\-exec
 \-\-with=install\fR.
 
-It is meant to be used for \fIdh_install\fR(1) files, and those
-alone. If it finds that its input is not such a file, it will do
-nothing, but echo back the contents.
+It is meant to be used for the \fIdh_install\fR(1) family of files,
+and those alone. If it finds that its input is not such a file, it
+will do nothing, but echo back the contents. For a ful list of
+recognised files, see the \fBFILE TYPES\fR section of this manual.
 
 The purpose of the program is to extend \fIdh_install\fR(1)'s
 functionality, by allowing to specify a destination filename.
@@ -42,6 +43,11 @@ there is no way to know what options were used for the original
 \fIdh_install\fR(1). This means, that the \fB\-\-sourcedir\fR option
 of \fIdh_install\fR(1) will not work correctly when
 \fIdh\-exec\-install\fR is in use.
+
+.SH "FILE TYPES"
+
+The program supports \fIdh_install\fR(1) and
+\fIdh_installmanpages\fR(1) files only.
 
 .SH "IMPLEMENTATION"
 Internally, the renaming happens by creating a temporary directory

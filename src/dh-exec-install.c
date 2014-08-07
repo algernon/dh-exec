@@ -1,5 +1,5 @@
 /* dh-exec-install.c -- Wrapper around dh-exec-install-magic.
- * Copyright (C) 2011, 2013  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011, 2013, 2014  Gergely Nagy <algernon@debian.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,22 @@
 #include "dh-exec.lib.h"
 
 static int
+_match_extension (const char *src, const char *ext)
+{
+  char *glob;
+
+  glob = malloc (strlen (ext) + 6);
+  memcpy (glob, "*[./]", 5);
+  memcpy (glob + 5, ext, strlen (ext) + 1);
+
+  if (strcmp (src, ext) != 0 &&
+      fnmatch (glob, src, 0) != 0)
+    return 0;
+
+  return 1;
+}
+
+static int
 preamble(int argc, char *argv[])
 {
   const char *src = dh_exec_source (argc, 1, argv);
@@ -39,8 +55,8 @@ preamble(int argc, char *argv[])
     }
 
   /* Handle cases where the source is not an .install file */
-  if (strcmp (src, "install") != 0 &&
-      fnmatch ("*[./]install", src, 0) != 0)
+  if (!_match_extension (src, "install") &&
+      !_match_extension (src, "manpages"))
     {
       /* Source is stdin, we're piped, ignore it. */
       if (argc < 2)
@@ -50,7 +66,7 @@ preamble(int argc, char *argv[])
           /* Source is from the command-line directly, raise an
              error. */
           fprintf (stderr,
-                   "%s: Only .install filename extensions are allowed: %s\n",
+                   "%s: Unsupported filename extension: %s\n",
                    argv[0], src);
           return EXIT_FAILURE;
         }
