@@ -53,3 +53,13 @@ EOF
         ! expect_output "kfreebsd!"
         expect_output "and in the end, we have another line."
 }
+
+@test "dh-exec-filter: postfix filters work too" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+foo [hurd-i386]
+bar
+EOF
+        expect_output "^bar"
+}
