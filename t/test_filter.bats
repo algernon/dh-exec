@@ -15,7 +15,7 @@ EOF
                       "output: {0, NULL}\]\$"
 }
 
-@test "dh-exec-strip: architecture filters work" {
+@test "dh-exec-filter: architecture filters work" {
         DEB_HOST_ARCH="hurd-i386" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -30,7 +30,7 @@ EOF
         expect_output "this-is-complicated"
 }
 
-@test "dh-exec-strip: architecture filters catch invalid syntax" {
+@test "dh-exec-filter: architecture filters catch invalid syntax" {
         DEB_HOST_ARCH="hurd-i386" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -39,7 +39,7 @@ EOF
         expect_error "arch filters cannot be mixed"
 }
 
-@test "dh-exec-strip: filtered and non-filtered lines work well together" {
+@test "dh-exec-filter: filtered and non-filtered lines work well together" {
         DEB_HOST_ARCH="hurd-i386" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
