@@ -17,6 +17,8 @@
 
 #define _GNU_SOURCE
 
+#include "config.h"
+
 #include <pipeline.h>
 
 #include <errno.h>

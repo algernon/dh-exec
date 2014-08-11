@@ -17,6 +17,8 @@
 
 #define _GNU_SOURCE
 
+#include "config.h"
+
 #include <fnmatch.h>
 #include <string.h>
 #include <stdlib.h>

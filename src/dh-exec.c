@@ -17,6 +17,8 @@
 
 #define _GNU_SOURCE
 
+#include "config.h"
+
 #include <pipeline.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,7 +27,6 @@
 #include <dirent.h>
 #include <errno.h>
 
-#include "config.h"
 #include "dh-exec.lib.h"
 
 const char *DH_EXEC_CMD_PREFIX = "dh-exec-";

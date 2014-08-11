@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
+
 #include "dh-exec.lib.h"
 
 #ifndef dh_exec_simple_preamble
