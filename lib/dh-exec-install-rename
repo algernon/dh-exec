@@ -32,7 +32,7 @@ if (/([^\s]*)\s+=>\s+([^\s]*)/) {
         cp ($src, File::Spec->catfile ($debpath, $dstfile)) or
                 move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
-                                die "Copy failed: $!";
+                                die "Failed to copy '$src': $!";
         $_ = File::Spec->catfile ($debpath, $dstfile);
         $_ .= " " . $dstpath if ($append_destpath eq TRUE);
         $_ .= "\n";
