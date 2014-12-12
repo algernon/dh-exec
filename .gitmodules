@@ -1,3 +1,0 @@
-[submodule "t/bats"]
-	path = t/bats
-	url = https://github.com/sstephenson/bats.git

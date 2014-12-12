@@ -104,13 +104,13 @@ pkgtest_FILES		= t/pkg-test/data/bin-arch \
 
 check: all ${TESTS}
 	$(AM_V_GEN) ${TESTS_ENVIRONMENT} \
-		prove -e "${top_srcdir}/t/bats/libexec/bats --tap" -f \
+		prove -e "bats --tap" -f \
 		      -o ${PROVE_OPTIONS} \
 		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
 bats: all ${TESTS}
 	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
-		    ${top_srcdir}/t/bats/libexec/bats \
+		    bats \
 		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
 # -- Custom targets --
@@ -136,5 +136,4 @@ EXTRA_DIST		= README.md HACKING.md \
 			t/test.lib.bash \
 			$(addprefix t/,${TESTCASES}) \
 			${pkgtest_FILES} \
-			${disabled_TESTCASES} \
-			${top_srcdir}/t/bats
+			${disabled_TESTCASES}
