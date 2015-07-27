@@ -104,13 +104,13 @@ pkgtest_FILES		= t/pkg-test/data/bin-arch \
 			t/pkg-test/debian/source/format \
 			t/pkg-test/GNUMakefile
 
-check: all ${TESTS}
+check: all $(addprefix ${top_srcdir}/t/,${TESTCASES})
 	$(AM_V_GEN) ${TESTS_ENVIRONMENT} \
 		prove -e "bats --tap" -f \
 		      -o ${PROVE_OPTIONS} \
 		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
-bats: all ${TESTS}
+bats: all $(addprefix ${top_srcdir}/t/,${TESTCASES})
 	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
 		    bats \
 		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
