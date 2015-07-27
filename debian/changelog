@@ -3,8 +3,11 @@ dh-exec (0.15) unstable; urgency=medium
   * Now that bats is packaged, build-depend on it, and use it instead of
     shipping our own.
   * Bump Standards-Version to 3.9.6 (no changes necessary).
+  * Added a manual page for dh-exec-filter(1).
+  * Adjusted the Vcs-* URLs, to point at github.
+  * Added support for build profiles. (Closes: #793736).
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 12 Dec 2014 14:13:12 +0100
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 27 Jul 2015 14:57:41 +0200
 
 dh-exec (0.14) unstable; urgency=medium
 
