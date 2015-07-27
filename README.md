@@ -1,7 +1,7 @@
 dh-exec
 =======
 
-[![Build Status](https://secure.travis-ci.org/algernon/dh-exec.png?branch=master)](http://travis-ci.org/algernon/dh-exec)
+[![Build Status](https://img.shields.io/travis/algernon/dh-exec/master.svg?style=flat-square)](https://travis-ci.org/algernon/dh-exec)
 
 [Debhelper][1] (in compat level 9 and above) allows its config files
 to be executable, and uses the output of such scripts as if it was
