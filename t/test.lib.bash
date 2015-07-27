@@ -25,6 +25,9 @@ export DH_EXEC_BINDIR="${BINDIR}"
 export DH_EXEC_SCRIPTDIR="${SCRIPTDIR}"
 export DH_EXEC_LIBDIR="${LIBDIR}"
 
+IFS="
+"
+
 run_dh_exec () {
         script=$1
         shift
