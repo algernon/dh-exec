@@ -9,7 +9,7 @@ before_script:
 script:
   - ./configure --enable-silent-rules --disable-dependency-tracking
   - make all
-  - make check PROVE_OPTIONS=-j4
+  - make bats
 compiler:
   - gcc
   - clang
