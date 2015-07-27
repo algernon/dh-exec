@@ -8,6 +8,7 @@ pkglibexec_PROGRAMS	= src/dh-exec-subst \
 man1_MANS		= src/dh-exec-subst.1 \
 			  src/dh-exec-install.1 \
 			  src/dh-exec-illiterate.1 \
+			  src/dh-exec-filter.1 \
 			  src/dh-exec.1
 
 pkgdata_SCRIPTS		= lib/dh-exec-subst-env \

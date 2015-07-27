@@ -1,0 +1,56 @@
+.TH "DH\-EXEC\-FILTER" "1" "2015-07-27" "" "dh-exec"
+.ad l
+.nh
+.SH "NAME"
+dh\-exec\-filter \- Debhelper executable file filtering scripts
+.SH "SYNOPSIS"
+\fB#! /usr/bin/dh\-exec\fR
+.br
+[hurd-i386 kfreebsd-any] debian/non-linux/some-file /usr/lib/my-package
+
+.SH "DESCRIPTION"
+Being a sub\-command of \fIdh\-exec\fR(1), this program must not be
+ran directly, but through \fIdh\-exec\fR, which automatically runs all
+available sub\-commands if run bare; or explicitly with \fBdh\-exec
+\-\-with=subst\fR.
+
+It is a wrapper around the various other filtering helpers, and will
+pipe the input file through all the available filtering helpers. It is
+up to these scripts to do the actual work.
+
+.SH "SCRIPTS"
+
+.TP
+.B dh\-exec\-filter\-arch
+Filters out lines that are not for the current architecture. A line
+can be pre\- or post\-fixed with a bracketed list of architectures,
+and it will be kept only if building on one of the architectures.
+
+The filter supports negation and wildcards, with the same syntax as
+dpkg-architecture(1).
+
+.TP
+.B dh\-exec\-filter\-comments
+Removes commented and empty lines.
+
+.SH "ENVIRONMENT"
+.PP
+\fIDH_EXEC_SCRIPTDIR\fR
+.RS 4
+Indicates which directory the command\-specific scripts should be
+sought for. If not specified, scripts will be searched for in
+\fI/usr/share/dh\-exec/\fR.
+.RE
+
+.SH "FILES"
+.PP
+\fI$DH_EXEC_SCRIPTDIR/dh\-exec\-filter\-*\fR
+.RS 4
+The various scripts for the higher\-level program.
+.RE
+
+.SH "SEE ALSO"
+\fIdebhelper\fR(1), \fIdh\-exec\fR(1)
+
+.SH "AUTHOR"
+dh\-exec\-filter is copyright \(co 2011-2015 by Gergely Nagy <algernon@madhouse\-project.org>.
