@@ -63,3 +63,75 @@ bar
 EOF
         expect_output "^bar"
 }
+
+@test "dh-exec-filter: simple build-profiles work" {
+        DEB_BUILD_PROFILES="stage1 stage2" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+<stage1> stage-1-is-ok
+<stage2> stage-2-is-ok
+<stage3> stage-3-is-not-enabled
+<!cross> non-cross
+EOF
+        expect_output "^stage-1-is-ok"
+        ! expect_output "<stage1>"
+        expect_output "^stage-2-is-ok"
+        ! expect_output "<stage2>"
+        ! expect_output "stage-3"
+        ! expect_output "<stage3>"
+        expect_output "non-cross"
+        ! expect_output "<!cross>"
+}
+
+@test "dh-exec-filter: build-profiles OR'd work" {
+        DEB_BUILD_PROFILES="stage1 stage2" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+<stage1> <stage2> <stage3> stage-1-and-2-are-ok
+<stage3> <stage4> stage-3-and-4-are-disabled
+EOF
+        expect_output "stage-1-and-2-are-ok"
+        ! expect_output "stage-3-and-4-are-disabled"
+}
+
+@test "dh-exec-filter: build-profiles AND'd work" {
+        DEB_BUILD_PROFILES="stage1 stage2" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+<stage1 stage2> stage-1-and-2
+<stage1 stage3> stage-1-and-3
+EOF
+        expect_output "stage-1-and-2"
+        ! expect_output "stage-1-and-3"
+}
+
+@test "dh-exec-filter: complex build profiles work" {
+        DEB_BUILD_PROFILES="stage1 stage2 stage3" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+<stage1 stage2> <stage2 stage3> <stage4> works!
+<stage1 stage4> <stage5> disabled
+<stage1 !cross> stage-1-non-cross
+EOF
+        expect_output "works!"
+        expect_output "stage-1-non-cross"
+        ! expect_output "disabled"
+}
+
+@test "dh-exec-filter: DEB_BUILD_PROFILES without stanzas works" {
+        DEB_BUILD_PROFILES="stage1 stage2 stage3" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+this-should-do
+EOF
+        expect_output "this-should-do"
+}
+
+@test "dh-exec-filter: Build Profiles handles errors" {
+        DEB_BUILD_PROFILES="" \
+                          run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+<stage1> stage-1
+EOF
+        expect_error "BuildProfiles stanza found, but DEB_BUILD_PROFILES unset"
+}

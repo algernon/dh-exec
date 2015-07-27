@@ -30,6 +30,16 @@ The filter supports negation and wildcards, with the same syntax as
 dpkg-architecture(1).
 
 .TP
+.B dh\-exec\-filter\-build\-profiles
+Filters out lines that do not match the build profiles in effect. One
+can use the same syntax as in \fIdebian/control\fR files. If any of
+the profiles match, the line will be kept, otherwise it gets filtered
+out.
+
+If a profile is specified, but \fBDEB_BUILD_PROFILES\fR is unset, an
+error will be thrown.
+
+.TP
 .B dh\-exec\-filter\-comments
 Removes commented and empty lines.
 

@@ -17,7 +17,8 @@ pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-illiterate-tangle \
 			  lib/dh-exec-strip-output \
 			  lib/dh-exec-filter-arch \
-			  lib/dh-exec-filter-comments
+			  lib/dh-exec-filter-comments \
+			  lib/dh-exec-filter-build-profiles
 
 # --- Sources & flags ---
 AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}

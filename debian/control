@@ -16,7 +16,8 @@ Package: dh-exec
 Multi-Arch: foreign
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
-         ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 8.9.13~)
+         ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 8.9.13~),
+         libdpkg-perl (>= 1.17.14)
 Description: Scripts to help with executable debhelper files
  Debhelper (in compat level 9 and above) allows its config files to be
  executable, and uses the output of such scripts as if it was the
@@ -27,7 +28,7 @@ Description: Scripts to help with executable debhelper files
  .
   * A way to ease variable substitution, from environment variables or
     dpkg-architecture.
-  * Ability to filter files by architecture, within a single debhelper
-    control file.
+  * Ability to filter files by architecture or build profile, within a
+    single debhelper control file.
   * An extension to dh_install and dh_installman, with the ability to
     rename files.

@@ -1,0 +1,46 @@
+#! /usr/bin/perl -wnp
+##
+## This script implements support for Build Profiles.
+use strict;
+require Dpkg::BuildProfiles;
+
+my @profiles;
+
+BEGIN {
+    sub profile_concerned {
+        my $profile = shift;
+        my $profile_is_concerned = 0;
+
+        my @restrictions = Dpkg::BuildProfiles::parse_build_profiles ($profile);
+        if (@restrictions) {
+            $profile_is_concerned = Dpkg::BuildProfiles::evaluate_restriction_formula
+                (\@restrictions, \@profiles);
+        }
+
+        return $profile_is_concerned;
+    }
+}
+
+if ($ENV{'DEB_BUILD_PROFILES'} || /<([^>]*)>/) {
+    if (!$ENV{'DEB_BUILD_PROFILES'}) {
+        die "BuildProfiles stanza found, but DEB_BUILD_PROFILES unset";
+    }
+
+    @profiles = split /\s+/, $ENV{'DEB_BUILD_PROFILES'};
+
+    my $line_concerned = 0;
+    if (!/<([^>]*)>/) {
+        $line_concerned = 1;
+    }
+    while (/<([^>]*)>/) {
+        $line_concerned |= profile_concerned ($1, $_);
+        s/<([^>]*)>//;
+    }
+
+    s/(^\s+|\s+$)//;
+    $_ .= "\n";
+
+    if (!$line_concerned) {
+        $_ = "";
+    }
+}
