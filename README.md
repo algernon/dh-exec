@@ -17,6 +17,8 @@ This collection provides solutions for the following tasks:
   including multi-arch ones)
 * An extension to dh_install, that supports renaming files during the
   copy process, using an extended syntax.
+* Ability to filter files by architecture, within a single debhelper
+  control file.
 
  [1]: http://kitenet.net/~joey/code/debhelper/
 
