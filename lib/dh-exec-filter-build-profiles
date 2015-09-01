@@ -2,15 +2,17 @@
 ##
 ## This script implements support for Build Profiles.
 use strict;
-require Dpkg::BuildProfiles;
 
 my @profiles;
 
 BEGIN {
     sub profile_concerned {
         my $profile = shift;
-        my $profile_is_concerned = 0;
 
+        eval 'require Dpkg::BuildProfiles' or return 0;
+        return 0 if (!defined (&Dpkg::BuildProfiles::parse_build_profiles));
+
+        my $profile_is_concerned = 0;
         my @restrictions = Dpkg::BuildProfiles::parse_build_profiles ($profile);
         if (@restrictions) {
             $profile_is_concerned = Dpkg::BuildProfiles::evaluate_restriction_formula

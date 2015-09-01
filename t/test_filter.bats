@@ -2,6 +2,11 @@
 
 load "test.lib"
 
+build_profile_support () {
+        perl -MDpkg::BuildProfiles \
+             -e 'exit !defined(&Dpkg::BuildProfiles::parse_build_profiles)'
+}
+
 @test "dh-exec-filter: calling with no sub-commands to run still works" {
         run_dh_exec src/dh-exec --no-act --with= <<EOF
 #! ${top_builddir}/src/dh-exec
@@ -65,6 +70,10 @@ EOF
 }
 
 @test "dh-exec-filter: simple build-profiles work" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="stage1 stage2" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -84,6 +93,10 @@ EOF
 }
 
 @test "dh-exec-filter: build-profiles OR'd work" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="stage1 stage2" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -95,6 +108,10 @@ EOF
 }
 
 @test "dh-exec-filter: build-profiles AND'd work" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="stage1 stage2" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -106,6 +123,10 @@ EOF
 }
 
 @test "dh-exec-filter: complex build profiles work" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="stage1 stage2 stage3" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -119,6 +140,10 @@ EOF
 }
 
 @test "dh-exec-filter: DEB_BUILD_PROFILES without stanzas works" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="stage1 stage2 stage3" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
@@ -128,6 +153,10 @@ EOF
 }
 
 @test "dh-exec-filter: Build Profiles handles errors" {
+        if ! build_profile_support; then
+                skip "Build profiles not supported, libdpkg-perl too old"
+        fi
+
         DEB_BUILD_PROFILES="" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
