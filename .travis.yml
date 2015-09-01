@@ -1,10 +1,17 @@
 language: c
-install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq debhelper fakeroot libpipeline-dev pkg-config perl
-  - git clone https://github.com/sstephenson/bats.git
-  - cd bats && sudo ./install.sh /usr/local && cd ..
+sudo: false
+addons:
+  apt:
+    packages:
+      - debhelper
+      - fakeroot
+      - libpipeline-dev
+      - pkg-config
+      - perl
 before_script:
+  - git clone https://github.com/sstephenson/bats.git
+  - cd bats && ./install.sh $HOME/bats && cd ..
+  - export PATH=$PATH:$HOME/bats/bin
   - autoreconf -i
 script:
   - ./configure --enable-silent-rules --disable-dependency-tracking
