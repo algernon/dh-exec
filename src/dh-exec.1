@@ -1,4 +1,4 @@
-.TH "DH\-EXEC" "1" "2014-08-06" "" "dh-exec"
+.TH "DH\-EXEC" "1" "2015-09-02" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -37,10 +37,10 @@ dh\-exec is built up from three layers: there is the \fBdh-exec\fR
 utility, its single entry point, the only thing one will need to call.
 
 Below that, there are the various \fIsub\-commands\fR, such as
-\fIdh\-exec\-subst\fR, \fIdh\-exec\-installs\fR and
-\fIdh\-exec\-illiterate\fR, which are thin wrappers around the various
-dh\-exec scripts, that make sure they only run those that need to be
-run.
+\fIdh\-exec\-subst\fR, \fIdh\-exec\-filter\fR, \fIdh\-exec\-install\fR
+and \fIdh\-exec\-illiterate\fR, which are thin wrappers around the
+various dh\-exec scripts, that make sure they only run those that need
+to be run.
 
 And the lowest layer are the various scripts that do the actual work.
 
@@ -100,6 +100,11 @@ Substitutes various variables (either from the environment, or from
 \fIdpkg\-architecture\fR(1)).
 
 .TP
+.B dh\-exec\-filter
+Filters the input in various ways (architecture restrictions, build
+profiles, and so on).
+
+.TP
 .B dh\-exec\-install
 An extension to \fIdh_install\fR(1), that supports renaming files
 during the copy process, using a special syntax.
@@ -137,7 +142,8 @@ The various scripts ran by the sub\-commands.
 .SH "SEE ALSO"
 \fIdebhelper\fR(1),
 \fIdh\-exec\-subst\fR(1),
+\fIdh\-exec\-filter\fR(1),
 \fIdh\-exec\-install\fR(1)
 
 .SH "AUTHOR"
-dh\-exec is copyright \(co 2011-2014 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec is copyright \(co 2011-2015 by Gergely Nagy <algernon@madhouse\-project.org>.
