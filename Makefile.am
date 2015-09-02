@@ -1,3 +1,7 @@
+# --- Default paths ---
+DH_EXEC_SCRIPTDIR	?= ${pkgdatadir}
+DH_EXEC_LIBDIR		?= ${pkglibexecdir}
+
 # --- Programs & scripts ---
 bin_PROGRAMS		= src/dh-exec
 pkglibexec_PROGRAMS	= src/dh-exec-subst \
@@ -21,7 +25,9 @@ pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-filter-build-profiles
 
 # --- Sources & flags ---
-AM_CFLAGS		= ${LIBPIPELINE_CFLAGS}
+AM_CFLAGS		= ${LIBPIPELINE_CFLAGS} \
+			-DDH_EXEC_SCRIPTDIR="\"${DH_EXEC_SCRIPTDIR}\"" \
+			-DDH_EXEC_LIBDIR="\"${DH_EXEC_LIBDIR}\""
 AM_MAKEFLAGS		= --no-print-directory
 
 LDADD			= ${LIBPIPELINE_LIBS}

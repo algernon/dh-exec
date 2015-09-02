@@ -30,8 +30,13 @@
 
 #include "dh-exec.lib.h"
 
+#ifndef DH_EXEC_SCRIPTDIR
 #define DH_EXEC_SCRIPTDIR "/usr/share/dh-exec"
+#endif
+
+#ifndef DH_EXEC_LIBDIR
 #define DH_EXEC_LIBDIR "/usr/lib/dh-exec"
+#endif
 
 #ifndef DH_EXEC_CMD_ALWAYS
 #define DH_EXEC_CMD_ALWAYS 0
