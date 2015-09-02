@@ -114,5 +114,13 @@ everything else dh-exec might try:
     #! /usr/bin/dh-exec --with-scripts=subst-multiarch,install-rename
     configs/config-${DEB_HOST_GNU_TYPE}.h => /usr/include/${DEB_HOST_MULTIARCH}/package/config.h
 
+But wait, there's more! You can restrict lines based on architecture,
+or build profile:
+
+    #! /usr/bin/dh-exec
+    [linux-any] usr/bin/linux-*
+    [!freebsd-any] lib/systemd/system/*
+    <stage1> usr/bin/compiler1
+
 -- 
 Gergely Nagy <algernon@debian.org>
