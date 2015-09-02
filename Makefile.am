@@ -133,7 +133,7 @@ clean-local:
 
 # --- Extra files to distribute ---
 
-EXTRA_DIST		= README.md HACKING.md \
+EXTRA_DIST		= README.md CONTRIBUTING.md \
 			${man1_MANS} ${pkgdata_SCRIPTS} \
 			t/test.lib.bash \
 			$(addprefix t/,${TESTCASES}) \
