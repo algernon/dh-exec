@@ -20,7 +20,7 @@ This collection provides solutions for the following tasks:
 * Ability to filter files by architecture or build profile, within a
   single debhelper control file.
 
- [1]: http://kitenet.net/~joey/code/debhelper/
+ [1]: https://tracker.debian.org/pkg/debhelper
 
 Usage
 =====
