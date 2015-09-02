@@ -39,7 +39,7 @@ EOF
         DEB_HOST_ARCH="hurd-i386" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
-[any-i386 !powerc] this-is-invalid
+[any-i386 !powerpc] this-is-invalid
 EOF
         expect_error "arch filters cannot be mixed"
 }
