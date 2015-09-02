@@ -30,6 +30,8 @@ and it will be kept only if building on one of the architectures.
 The filter supports negation and wildcards, with the same syntax as
 \fIdpkg\-architecture\fR(1).
 
+Introduced in version \fI0.13\fR.
+
 .TP
 .B dh\-exec\-filter\-build\-profiles
 Filters out lines that do not match the build profiles in effect. One
@@ -40,9 +42,13 @@ out.
 If a profile is specified, but \fBDEB_BUILD_PROFILES\fR is unset, an
 error will be thrown.
 
+Introduced in version \fI0.13\fR.
+
 .TP
 .B dh\-exec\-filter\-comments
 Removes commented and empty lines.
+
+Introduced in version \fI0.13\fR.
 
 .SH "ENVIRONMENT"
 .PP
@@ -59,6 +65,10 @@ sought for. If not specified, scripts will be searched for in
 .RS 4
 The various scripts for the higher\-level program.
 .RE
+
+.SH "VERSIONS"
+
+The sub\-command was introduced in dh\-exec version \fI0.13\fR.
 
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1)

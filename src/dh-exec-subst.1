@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-SUBST" "1" "2012-05-03" "" "dh-exec"
+.TH "DH\-EXEC\-SUBST" "1" "2015-09-02" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -31,6 +31,8 @@ its input. It does not do any kind of filtering: whatever is available
 in the environment, will be available for substitution, however unsafe
 that may be.
 
+Introduced in version \fI0.1\fR.
+
 .TP
 .B dh\-exec\-subst\-multiarch
 Attempts to expand any of the variables known to
@@ -39,6 +41,8 @@ Attempts to expand any of the variables known to
 The command will query \fIdpkg\-architecture\fR(1) directly, and does
 not rely on environment variables set (as the called program will
 prefer already set environment variables anyway).
+
+Introduced in version \fI0.1\fR.
 
 .SH "ENVIRONMENT"
 .PP
@@ -56,8 +60,12 @@ sought for. If not specified, scripts will be searched for in
 The various scripts for the higher\-level program.
 .RE
 
+.SH "VERSIONS"
+
+The sub\-command was introduced in dh\-exec version \fI0.1\fR.
+
 .SH "SEE ALSO"
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1)
 
 .SH "AUTHOR"
-dh\-exec\-subst is copyright \(co 2011-2012 by Gergely Nagy <algernon@madhouse\-project.org>.
+dh\-exec\-subst is copyright \(co 2011-2015 by Gergely Nagy <algernon@madhouse\-project.org>.
