@@ -47,49 +47,24 @@ good for.
 A few major advantages dh-exec has over custom here-doc or sed magic
 tricks:
 
-* Compared to using sed or similar to generate debhelper control
-  files, dh-exec does not require any changes in `debian/rules`, nor
-  anywhere else but the scripts themselves.
+* A declarative syntax, familiar to everyone who used debhelper and
+  other debian tools.
 
-  In most cases, it only needs a she-bang and an executable bit, and
-  the former input file becomes a valid debhelper control file.
+  One can employ architecture or build profile restrictions in
+  executable scripts just as one does in `debian/control`.
 
-  This, in turn, makes the packaging simpler, as there is no
-  package-specific magic involved anymore.
+* A single tool that does the heavy lifting for you, just like
+  debhelper does.
 
-* Compared to the here-doc method, dh-exec provides consistency and
-  safety.
+  Instead of repeating similar code across a number of packages, a
+  simple build-dependency on a helper tool gets you a lot more, for a
+  fraction of the price.
 
-  The most useful part of dh-exec (apart from adding rename support to
-  .install files) is probably its support for expanding multiarch
-  variables.
+* It is reliable, stable and in active use.
 
-  dh-exec does this so that even if said variables are not set in the
-  environment, it will query **dpkg-architecture**(1), so one can test
-  the scripts without further setup.
-
-  Of course, that is also doable with here-docs, but using variables
-  seems more natural.
-
-  dh-exec can also be asked to only substitute multiarch variables,
-  not every environment variable, which makes it somewhat safer. It
-  can't execute random shell commands either, which is another safety
-  guard.
-
-* dh-exec is one controlled tool in one place, as opposed to any
-  number of diverse, package-specific hacks.
-
-  Even if one does not need much from what dh-exec provides, using it
-  instead of inventing one's own still has the advantage of being
-  consistent accross packages.
-
-  While it may be less powerful than a complete shell at ones command,
-  it is also safer, and being a separate solution, not a
-  package-specific hack, it does help overall, archive-wide
-  consistency: if one knows what to expect from dh-exec, one will
-  understand all dh-exec using packages. Package-specific hacks will
-  always need a little bit extra work to understand and verify, while
-  one only needs to understand dh-exec once.
+  As of this writing, there are over a hundred packages
+  build-depending on `dh-exec`, and using parts of its feature sets,
+  and the number keeps growing.
 
 Examples
 ========
