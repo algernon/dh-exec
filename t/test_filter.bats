@@ -152,7 +152,7 @@ EOF
         expect_output "this-should-do"
 }
 
-@test "dh-exec-filter: Build Profiles handles errors" {
+@test "dh-exec-filter: Build Profiles hanles the normal build case" {
         if ! build_profile_support; then
                 skip "Build profiles not supported, libdpkg-perl too old"
         fi
@@ -160,7 +160,9 @@ EOF
         DEB_BUILD_PROFILES="" \
                           run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
-<stage1> stage-1
+<stage1> only-stage-1
+<!stage1> not-stage-1
 EOF
-        expect_error "BuildProfiles stanza found, but DEB_BUILD_PROFILES unset"
+        expect_output "not-stage-1"
+        ! expect_output "only-stage-1"
 }

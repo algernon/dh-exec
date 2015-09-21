@@ -25,10 +25,10 @@ BEGIN {
 
 if ($ENV{'DEB_BUILD_PROFILES'} || /<([^>]*)>/) {
     if (!$ENV{'DEB_BUILD_PROFILES'}) {
-        die "BuildProfiles stanza found, but DEB_BUILD_PROFILES unset";
+        @profiles = [];
+    } else {
+        @profiles = split /\s+/, $ENV{'DEB_BUILD_PROFILES'};
     }
-
-    @profiles = split /\s+/, $ENV{'DEB_BUILD_PROFILES'};
 
     my $line_concerned = 0;
     if (!/<([^>]*)>/) {

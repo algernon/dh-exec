@@ -1,3 +1,12 @@
+dh-exec (0.17) unstable; urgency=medium
+
+  * Do not error out when build profile stanzas are found, but
+    DEB_BUILD_PROFILES is empty: let Dpkg::BuildProfiles handle that
+    instead. Thanks Samuel Thibault <sthibault@debian.org> for the report!
+    (Closes: #799552)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 21 Sep 2015 09:35:59 +0200
+
 dh-exec (0.16) unstable; urgency=medium
 
   * Adjusted the build-dependencies to allow a backported libdpkg-perl to
