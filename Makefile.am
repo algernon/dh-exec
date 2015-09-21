@@ -118,7 +118,7 @@ check: all $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
 bats: all $(addprefix ${top_srcdir}/t/,${TESTCASES})
 	${AM_V_GEN} ${TESTS_ENVIRONMENT} \
-		    bats \
+		    bats ${BATS_OPTIONS} \
 		      $(addprefix ${top_srcdir}/t/,${TESTCASES})
 
 # -- Custom targets --
