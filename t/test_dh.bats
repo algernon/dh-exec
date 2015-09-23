@@ -83,8 +83,8 @@ teardown () {
                         ;;
         esac
 
-        if ! grep -q "_DH_DO_PACKAGES" /usr/share/perl5/Debian/Debhelper/Dh_Lib.pm; then
-                skip "debhelper does not support _DH_DO_PACKAGES"
+        if ! grep -q "DH_CONFIG_ACT_ON_PACKAGES" /usr/share/perl5/Debian/Debhelper/Dh_Lib.pm; then
+                skip "debhelper does not support DH_CONFIG_ACT_ON_PACKAGES"
         fi
 
         ln -sf ${BINDIR}/dh-exec .
