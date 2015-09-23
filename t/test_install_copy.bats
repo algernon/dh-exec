@@ -56,3 +56,13 @@ EOF
         expect_file "/var/lib/dh-exec/foo.8"
         ! expect_output " /var/lib/"
 }
+
+@test "install: DH_CONFIG_ACT_ON_PACKAGE is honored" {
+        DH_CONFIG_ACT_ON_PACKAGES=another-package \
+                                 run_dh_exec_with_input package.install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+        ! expect_file "/var/lib/dh-exec/foo.8"
+        expect_output "/var/lib/dh-exec/foo.8 /var/lib/dh-exec/"
+}
