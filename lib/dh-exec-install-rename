@@ -36,8 +36,6 @@ if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
     $noop = 0;
 }
 
-close ($dbg);
-
 if (/([^\s]*)\s+=>\s+([^\s]*)/) {
         my ($src, $dst) = ($1, $2);
         my (undef, $srcpath, undef) = File::Spec->splitpath ($src);
