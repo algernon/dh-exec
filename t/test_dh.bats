@@ -73,3 +73,30 @@ teardown () {
 @test "dh: kfreebsd-i386 cross-build" {
         run_dh_exec_dh_tests kfreebsd-i386
 }
+
+@test "dh: Noop when package not built" {
+        case $(dpkg-query -f '${Version}' --show debhelper) in
+                9*)
+                        ;;
+                *)
+                        skip "debhelper is too old"
+                        ;;
+        esac
+
+        if ! grep -q "_DH_DO_PACKAGES" /usr/share/perl5/Debian/Debhelper/Dh_Lib.pm; then
+                skip "debhelper does not support _DH_DO_PACKAGES"
+        fi
+
+        ln -sf ${BINDIR}/dh-exec .
+
+        DEB_HOST_MULTIARCH=$(dpkg-architecture ${arch} -f -qDEB_HOST_MULTIARCH 2>/dev/null)
+
+        PATH=${BINDIR}:${PATH} \
+                dpkg-buildpackage -us -uc -b -d ${arch} 2>/dev/null
+        debian/rules clean
+        rm -f dh-exec
+
+        run dpkg-deb -c ../pkg-test-no-install_0_all.deb >/tmp/blah
+        expect_output "./usr/share/doc/pkg-test-no-install/copyright\$"
+        ! expect_output "./usr/bin/not-going-to-happen"
+}

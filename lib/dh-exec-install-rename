@@ -19,7 +19,24 @@ BEGIN {
         if ($ENV{DH_EXEC_SOURCE} =~ /manpages$/) {
                 $append_destpath = FALSE;
         }
+
+        our $noop = 1;
 }
+
+if (defined ($ENV{"_DH_DO_PACKAGES"}) &&
+    defined ($ENV{"DH_EXEC_SOURCE"})) {
+    my @packages = split(/,/, $ENV{"_DH_DO_PACKAGES"});
+    my (undef, undef, $currpkg) = File::Spec->splitpath ($ENV{"DH_EXEC_SOURCE"});
+    $currpkg =~ s/\.[^\.]+//;
+
+    foreach my $pkg (@packages) {
+        $noop = 0 if ($pkg =~ /^$currpkg$/);
+    }
+} else {
+    $noop = 0;
+}
+
+close ($dbg);
 
 if (/([^\s]*)\s+=>\s+([^\s]*)/) {
         my ($src, $dst) = ($1, $2);
@@ -27,12 +44,15 @@ if (/([^\s]*)\s+=>\s+([^\s]*)/) {
         my (undef, $dstpath, $dstfile) = File::Spec->splitpath ($dst);
         my $debpath = File::Spec->catdir ($tempdir, $dstpath);
 
-        make_path($debpath);
+        unless ($noop) {
+            make_path($debpath);
 
-        cp ($src, File::Spec->catfile ($debpath, $dstfile)) or
+            cp ($src, File::Spec->catfile ($debpath, $dstfile)) or
                 move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
-                                die "Failed to copy '$src': $!";
+                      die "Failed to copy '$src': $!";
+        }
+
         $_ = File::Spec->catfile ($debpath, $dstfile);
         $_ .= " " . $dstpath if ($append_destpath eq TRUE);
         $_ .= "\n";

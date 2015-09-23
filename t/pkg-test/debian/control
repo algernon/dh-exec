@@ -21,3 +21,10 @@ Description: A test package, for dh-exec testing (illiterate)
  .
  The illiterate tool is a solution to allow one to write debhelper
  config files in a literate manner.
+
+Package: pkg-test-no-install
+Architecture: all
+Description: A test package, for dh-exec testing.
+ This package has no use at all, does nothing, contains nothing, and
+ the single purpose of its existence is to test the behaviour of
+ dh-exec's noop.

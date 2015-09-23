@@ -1,0 +1,2 @@
+#! /usr/bin/env dh-exec
+data/bin-foo => /usr/bin/not-going-to-happen
