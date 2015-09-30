@@ -1,8 +1,9 @@
 dh-exec (0.18) UNRELEASED; urgency=medium
 
   * Add support for DH_CONFIG_ACT_ON_PACKAGES, see #698054 for details.
+  * Copyright updated, to reflect copyright being assigned to the SFC.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 30 Sep 2015 10:21:37 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 30 Sep 2015 10:22:53 +0200
 
 dh-exec (0.17) unstable; urgency=medium
 
