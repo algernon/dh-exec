@@ -1,3 +1,9 @@
+dh-exec (0.18) UNRELEASED; urgency=medium
+
+  * Add support for DH_CONFIG_ACT_ON_PACKAGES, see #698054 for details.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 30 Sep 2015 10:21:37 +0200
+
 dh-exec (0.17) unstable; urgency=medium
 
   * Do not error out when build profile stanzas are found, but
