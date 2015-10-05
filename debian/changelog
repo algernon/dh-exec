@@ -1,9 +1,10 @@
-dh-exec (0.18) UNRELEASED; urgency=medium
+dh-exec (0.18) unstable; urgency=medium
 
   * Add support for DH_CONFIG_ACT_ON_PACKAGES, see #698054 for details.
+    As a consequence, recommend debhelper (>= 9.20151004~).
   * Copyright updated, to reflect copyright being assigned to the SFC.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 30 Sep 2015 10:22:53 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 05 Oct 2015 11:40:28 +0200
 
 dh-exec (0.17) unstable; urgency=medium
 
