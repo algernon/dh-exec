@@ -2,7 +2,7 @@ Source: dh-exec
 Section: devel
 Priority: extra
 Maintainer: Gergely Nagy <algernon@madhouse-project.org>
-Build-Depends: debhelper (>= 9~), dh-autoreconf,
+Build-Depends: debhelper (>= 9.20151004~), dh-autoreconf,
                automake (>= 1:1.11),
                fakeroot,
                libpipeline-dev, pkg-config,
@@ -18,9 +18,8 @@ Package: dh-exec
 Multi-Arch: foreign
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
-         ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 8.9.13~),
+         ${perl:Depends}, perl (>= 5.14.2~), debhelper (>= 9.20151004~),
          libdpkg-perl (>= 1.17.14~)
-Recommends: debhelper (>= 9.20151004~)
 Description: Scripts to help with executable debhelper files
  Debhelper (in compat level 9 and above) allows its config files to be
  executable, and uses the output of such scripts as if it was the
