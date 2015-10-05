@@ -1,5 +1,5 @@
 /* dh-exec.simple.c -- Simple wrapper around dh-exec-* commands.
- * Copyright (C) 2011, 2013  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011, 2013, 2015  Software Freedom Conservancy, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

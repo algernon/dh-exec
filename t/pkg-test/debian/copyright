@@ -4,7 +4,7 @@ Upstream-Contact: Gergely Nagy <algernon@debian.org>
 Source: This is part of dh-exec. Duh.
 
 Files: *
-Copyright: Copyright (C) 2011 Gergely Nagy <algernon@debian.org>
+Copyright: Copyright (C) 2011-2015 Software Freedom Conservancy, Inc.
 License: GPL-3+
 
 License: GPL-3+

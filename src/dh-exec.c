@@ -1,5 +1,5 @@
 /* dh-exec.c -- Wrapper around dh-exec-* commands.
- * Copyright (C) 2011-2014  Gergely Nagy <algernon@debian.org>
+ * Copyright (C) 2011-2015  Software Freedom Conservancy, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -138,7 +138,7 @@ dh_exec_version (void)
 {
   printf ("dh-exec " PACKAGE_VERSION "\n"
           "\n"
-          "Copyright (C) 2011-2013 Gergely Nagy <algernon@debian.org>\n"
+          "Copyright (C) 2011-2015 Software Freedom Conservancy, Inc.\n"
           "This is free software; see the source for copying conditions.  There is NO\n"
           "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
           "\n"
