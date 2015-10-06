@@ -1,3 +1,13 @@
+dh-exec (0.19) unstable; urgency=medium
+
+  * Fix the DH_CONFIG_ACT_ON_PACKAGES support, so it will work with
+    packages with regexp specials in their name, such as g++. Thanks to
+    Niels Thykier for the report!
+  * Updated the copyrights in the source files too, not only in
+    debian/copyright.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Tue, 06 Oct 2015 08:40:46 +0200
+
 dh-exec (0.18) unstable; urgency=medium
 
   * Add support for DH_CONFIG_ACT_ON_PACKAGES, see #698054 for details.
