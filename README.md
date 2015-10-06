@@ -87,19 +87,6 @@ multi-arch expansion shall be done:
 In this second case, the *${HOME}* variable will not be expanded, even
 if such an environment variable is present when dh-exec runs.
 
-Do note that dh-exec is not required at all if all you want to do is
-mark a multi-arch path as belonging to a package: debhelper itself
-supports wildcards! So if your install script would look like the
-following:
-
-    #! /usr/bin/dh-exec
-    /usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
-
-Then most likely, you do not need dh-exec, and you can replace the
-above with this simple line:
-
-    /usr/lib/*/libsomething.so.*
-
 But variable expansion is not all that dh-exec is able to perform!
 Suppose we want to install a file, under a different name: with
 dh-exec, that is also possible:
@@ -121,6 +108,30 @@ or build profile:
     [linux-any] usr/bin/linux-*
     [!freebsd-any] lib/systemd/system/*
     <stage1> usr/bin/compiler1
+
+When not to use dh-exec
+=======================
+
+Do note that dh-exec is not required at all if all you want to do is
+mark a multi-arch path as belonging to a package: debhelper itself
+supports wildcards! So if your install script would look like the
+following:
+
+    #! /usr/bin/dh-exec
+    usr/lib/${DEB_HOST_MULTIARCH}/libsomething.so.*
+
+Then most likely, you do not need dh-exec, and you can replace the
+above with this simple line:
+
+    usr/lib/*/libsomething.so.*
+
+Similarly, all of the following can be simplified to using wildcards,
+unless there's another directory under `/usr/lib` which one doesn't
+want to install:
+
+    #! /usr/bin/dh-exec
+    usr/lib/${DEB_HOST_MULTIARCH}
+    usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig/*.pc usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig
 
 -- 
 Gergely Nagy <algernon@debian.org>
