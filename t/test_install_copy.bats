@@ -66,3 +66,12 @@ EOF
         ! expect_file "/var/lib/dh-exec/foo.8"
         expect_output "/var/lib/dh-exec/foo.8 /var/lib/dh-exec/"
 }
+
+@test "install: DH_CONFIG_ACT_ON_PACKAGE works on regexp-y packages too" {
+        DH_CONFIG_ACT_ON_PACKAGES=package++ \
+                                 run_dh_exec_with_input package++.install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+        expect_file "/var/lib/dh-exec/foo.8"
+}

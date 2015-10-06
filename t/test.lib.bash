@@ -36,11 +36,21 @@ run_dh_exec () {
 }
 
 run_dh_exec_with_input () {
-        t=$(mktemp --tmpdir=. tmpXXXXXXXX${1})
+        case "${1}" in
+                ".*" | "")
+                        t=$(mktemp --tmpdir=. tmpXXXXXXXX${1})
+                        tdir=""
+                        ;;
+                *)
+                        tdir=$(mktemp -d)
+                        t="${tdir}/${1}"
+                        ;;
+        esac
         cat >"${t}"
         chmod +x "${t}"
         run "${t}"
         rm -f "${t}"
+        [ -z "${tdir}" ] || rmdir "${tdir}"
 }
 
 expect_anything () {

@@ -30,7 +30,7 @@ if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
     $currpkg =~ s/\.[^\.]+//;
 
     foreach my $pkg (@packages) {
-        $noop = 0 if ($pkg =~ /^$currpkg$/);
+        $noop = 0 if ($pkg eq $currpkg);
     }
 } else {
     $noop = 0;
