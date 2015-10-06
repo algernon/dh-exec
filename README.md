@@ -112,7 +112,7 @@ multiarch substitution and install-time renaming only, skipping
 everything else dh-exec might try:
 
     #! /usr/bin/dh-exec --with-scripts=subst-multiarch,install-rename
-    configs/config-${DEB_HOST_GNU_TYPE}.h => /usr/include/${DEB_HOST_MULTIARCH}/package/config.h
+    cfgs/cfg-${DEB_HOST_GNU_TYPE}.h => /usr/include/${DEB_HOST_MULTIARCH}/package/config.h
 
 But wait, there's more! You can restrict lines based on architecture,
 or build profile:
