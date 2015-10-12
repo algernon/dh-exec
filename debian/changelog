@@ -2,6 +2,7 @@ dh-exec (0.20) UNRELEASED; urgency=medium
 
   * dh-exec-filter(1) will only match architecture wildcards now, and will
     keep shell globs intact. Thanks Evgeni Golov for the report!
+    (Closes: #801516)
 
  -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 12 Oct 2015 08:36:53 +0200
 
