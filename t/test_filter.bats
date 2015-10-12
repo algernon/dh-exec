@@ -66,6 +66,7 @@ EOF
 foo [hurd-i386]
 bar
 EOF
+        expect_output "^foo"
         expect_output "^bar"
 }
 
