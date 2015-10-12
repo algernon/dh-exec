@@ -70,6 +70,25 @@ EOF
         expect_output "^bar"
 }
 
+@test "dh-exec-filter: arch filters and shell wildcards do mix" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+foo [any-i386]
+bar[a-z]*
+baz[linux]
+quux[linux-any]
+foobar [linux]
+barba[a-z]* [hurd-i386]
+EOF
+        expect_output "^foo"
+        expect_output "^bar\[a-z\]\*"
+        expect_output "^baz\[linux\]"
+        expect_output "^quux\[linux-any\]"
+        expect_output "^foobar \[linux\]"
+        expect_output "^barba\[a-z\]\*"
+}
+
 @test "dh-exec-filter: simple build-profiles work" {
         if ! build_profile_support; then
                 skip "Build profiles not supported, libdpkg-perl too old"
