@@ -1,4 +1,4 @@
-dh-exec (0.20) UNRELEASED; urgency=medium
+dh-exec (0.20) unstable; urgency=medium
 
   * dh-exec-filter(1) will only match architecture wildcards now, and will
     keep shell globs intact. Thanks Evgeni Golov for the report!
@@ -6,7 +6,7 @@ dh-exec (0.20) UNRELEASED; urgency=medium
   * Fix a formatting error on the dh-exec-filter(1) man page.
   * Add a "When not to use dh-exec" section to README.md.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 12 Oct 2015 08:42:59 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 12 Oct 2015 08:47:35 +0200
 
 dh-exec (0.19) unstable; urgency=medium
 
