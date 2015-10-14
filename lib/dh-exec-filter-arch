@@ -43,11 +43,8 @@ BEGIN {
         }
 }
 
-# Try to match arch wildcards only, and not shell globs like
-# foo[a-c]*. We require whitespace before or after the arch wildcard,
-# and it must contain a dash.
-if (/\s+\[([^\^-]+-[^\^-]+)\]/ || /\[([^\^-]+-[^\^-]+)\][ \t]+/) {
-        my @archlist = split (/\s+/, $1);
+if (/(\s+\[([^\]]*)\])$/ || /^(\[([^\]]*)\][ \t]+)/) {
+        my @archlist = split (/\s+/, $2);
         my $valid = FALSE;
 
         validate_arches(@archlist);
@@ -57,12 +54,7 @@ if (/\s+\[([^\^-]+-[^\^-]+)\]/ || /\[([^\^-]+-[^\^-]+)\][ \t]+/) {
         }
 
         if ($valid eq TRUE) {
-                # When removing the arch wildcard from the output,
-                # only remove the arch filters, and keep anything
-                # else, even if it may look like an arch filter.
-                for my $arch (@archlist) {
-                        s/[ \t]*\[$arch\][ \t]*//;
-                }
+                s/\Q$1\E//;
         } else {
                 $_ = "";
         }

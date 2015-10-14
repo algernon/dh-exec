@@ -71,22 +71,31 @@ EOF
 }
 
 @test "dh-exec-filter: arch filters and shell wildcards do mix" {
-        DEB_HOST_ARCH="hurd-i386" \
+        DEB_HOST_ARCH="linux-i386" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
 foo [any-i386]
 bar[a-z]*
 baz[linux]
 quux[linux-any]
-foobar [linux]
-barba[a-z]* [hurd-i386]
+foobar [i386]
+barba[a-z]* [linux-i386]
 EOF
         expect_output "^foo"
         expect_output "^bar\[a-z\]\*"
         expect_output "^baz\[linux\]"
         expect_output "^quux\[linux-any\]"
-        expect_output "^foobar \[linux\]"
+        expect_output "^foobar"
         expect_output "^barba\[a-z\]\*"
+}
+
+@test "dh-exec-filter: multiple filters work together" {
+        DEB_HOST_ARCH="hurd-i386" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+[hurd-i386 kfreebsd-any] some-hurd-or-kfreebsd-stuff
+EOF
+        expect_output "^some-hurd-or-kfreebsd-stuff"
 }
 
 @test "dh-exec-filter: simple build-profiles work" {
