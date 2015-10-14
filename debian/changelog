@@ -1,3 +1,11 @@
+dh-exec (0.21) unstable; urgency=medium
+
+  * Fix a regression in dh-exec-filter(1), which made multiple arch
+    wildcards on the same line fail to parse. Thanks Paul Gevers for the
+    report! (Closes: #801716)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 14 Oct 2015 11:23:16 +0200
+
 dh-exec (0.20) unstable; urgency=medium
 
   * dh-exec-filter(1) will only match architecture wildcards now, and will
