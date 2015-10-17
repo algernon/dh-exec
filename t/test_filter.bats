@@ -98,6 +98,18 @@ EOF
         expect_output "^some-hurd-or-kfreebsd-stuff"
 }
 
+@test "dh-exec-filter: multiple stanzas work too" {
+        DEB_HOST_ARCH="linux-powerpc" \
+                     run_dh_exec_with_input .install <<EOF
+#! ${top_builddir}/src/dh-exec-filter
+no-armed-powerpc [!linux-armel] [!linux-powerpc]
+[!linux-armel] no-armed-powerpc [!linux-powerpc]
+rest-of-the-world
+EOF
+        expect_output "rest-of-the-world"
+        ! expect_output "no-armed-powerpc"
+}
+
 @test "dh-exec-filter: simple build-profiles work" {
         if ! build_profile_support; then
                 skip "Build profiles not supported, libdpkg-perl too old"
