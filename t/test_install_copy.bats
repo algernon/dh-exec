@@ -75,3 +75,21 @@ ${nullfile} => /var/lib/dh-exec/foo.8
 EOF
         expect_file "/var/lib/dh-exec/foo.8"
 }
+
+@test "install: debian/install works in presence of DH_CONFIG_ACT_ON_PACKAGE" {
+        DH_CONFIG_ACT_ON_PACKAGES=package \
+                                 run_dh_exec_with_input install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+        expect_file "/var/lib/dh-exec/foo.8"
+}
+
+@test "install: debian/manpages works in presence of DH_CONFIG_ACT_ON_PACKAGE" {
+        DH_CONFIG_ACT_ON_PACKAGES=package \
+                                 run_dh_exec_with_input manpages <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+        expect_file "/var/lib/dh-exec/foo.8"
+}

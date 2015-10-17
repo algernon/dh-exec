@@ -29,6 +29,8 @@ if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
     my (undef, undef, $currpkg) = File::Spec->splitpath ($ENV{"DH_EXEC_SOURCE"});
     $currpkg =~ s/\.[^\.]+//;
 
+    $noop = 0 if ($currpkg eq "install" || $currpkg eq "manpages");
+
     foreach my $pkg (@packages) {
         $noop = 0 if ($pkg eq $currpkg);
     }
