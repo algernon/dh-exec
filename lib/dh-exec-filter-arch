@@ -15,13 +15,8 @@ BEGIN {
                 }
                 `dpkg-architecture -i${check_arch} 2>/dev/null`;
 
-                if ($arch =~ /^!/) {
-                        return FALSE if $? == 0;
-                        return TRUE;
-                } else {
-                        return TRUE if $? == 0;
-                        return FALSE;
-                }
+                return TRUE if $? == 0;
+                return FALSE;
         }
 
         sub validate_arches {
@@ -43,8 +38,9 @@ BEGIN {
         }
 }
 
-while (/(\s+\[([^\]]*)\])$/ || /^(\[([^\]]*)\][ \t]+)/) {
-        my @archlist = split (/\s+/, $2);
+if (/(\s+\[([^\]]*)\])$/ || /^(\[([^\]]*)\][ \t]+)/) {
+        my ($spec, $inner) = ($1, $2);
+        my @archlist = split (/\s+/, $inner);
         my $valid = FALSE;
 
         validate_arches(@archlist);
@@ -53,8 +49,10 @@ while (/(\s+\[([^\]]*)\])$/ || /^(\[([^\]]*)\][ \t]+)/) {
                 $valid = TRUE if (arch_filter($arch) eq TRUE);
         }
 
+        $valid = ($valid eq TRUE) ? FALSE : TRUE if ($inner =~ /!/);
+
         if ($valid eq TRUE) {
-                s/\Q$1\E//;
+                s/\Q$spec\E//;
         } else {
                 $_ = "";
         }

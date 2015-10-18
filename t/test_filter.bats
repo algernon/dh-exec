@@ -102,8 +102,7 @@ EOF
         DEB_HOST_ARCH="linux-powerpc" \
                      run_dh_exec_with_input .install <<EOF
 #! ${top_builddir}/src/dh-exec-filter
-no-armed-powerpc [!linux-armel] [!linux-powerpc]
-[!linux-armel] no-armed-powerpc [!linux-powerpc]
+no-armed-powerpc [!linux-armel !linux-powerpc]
 rest-of-the-world
 EOF
         expect_output "rest-of-the-world"
