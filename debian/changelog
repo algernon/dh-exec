@@ -1,3 +1,13 @@
+dh-exec (0.22) unstable; urgency=low
+
+  * dh-exec-filter(1): Correctly support multiple negated arches. Thanks
+    to Paul Gevers and Edmund Grimley Evans for the report and testing.
+    (Closes: #801809)
+  * dh-exec-install-rename(1): Restore d/install support. Thanks to all
+    the people reporting the issue! (Closes: #802034)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Wed, 28 Oct 2015 11:30:42 +0100
+
 dh-exec (0.21) unstable; urgency=medium
 
   * Fix a regression in dh-exec-filter(1), which made multiple arch
