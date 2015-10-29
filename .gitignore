@@ -9,6 +9,7 @@ Makefile
 /compile
 /config.h
 /configure
+/configure.scan
 /depcomp
 /install-sh
 /missing
