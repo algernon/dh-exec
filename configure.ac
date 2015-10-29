@@ -1,7 +1,6 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
 AC_INIT([dh-exec], [0.22], [algernon@debian.org])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([no])])
