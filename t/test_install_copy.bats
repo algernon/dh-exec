@@ -93,3 +93,12 @@ ${nullfile} => /var/lib/dh-exec/foo.8
 EOF
         expect_file "/var/lib/dh-exec/foo.8"
 }
+
+@test "install: DH_CONFIG_ACT_ON_PACKAGE works on packages with dots in their name too" {
+    DH_CONFIG_ACT_ON_PACKAGES=libfoo1.0 \
+                             run_dh_exec_with_input libfoo1.0.install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /var/lib/dh-exec/foo.8
+EOF
+    expect_file "/var/lib/dh-exec/foo.8"
+}

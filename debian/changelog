@@ -1,3 +1,14 @@
+dh-exec (0.23) unstable; urgency=high
+
+  * Fix the DH_CONFIG_ACT_ON_PACKAGES support so that it works on packages
+    with dots in their name too. Thanks to Chris Lamb, Luca Bruno, Niels
+    Thykier, and Mattia Rizzolo for the report and help in tracking down
+    the issue. (Closes: #809283)
+  * Urgency set to high, because the above regression causes other
+    packages to FTBFS.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Sat, 02 Jan 2016 18:05:04 +0100
+
 dh-exec (0.22) unstable; urgency=low
 
   * dh-exec-filter(1): Correctly support multiple negated arches. Thanks

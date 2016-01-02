@@ -4,7 +4,7 @@ Upstream-Contact: Gergely Nagy <algernon@debian.org>
 Source: git://github.com/algernon/dh-exec.git
 
 Files: *
-Copyright: Copyright (C) 2011-2015 Software Freedom Conservancy, Inc.
+Copyright: Copyright (C) 2011-2016 Software Freedom Conservancy, Inc.
 License: GPL-3+
 
 License: GPL-3+
