@@ -1,4 +1,4 @@
-.TH "DH\-EXEC\-INSTALL" "1" "2015-10-05" "" "dh-exec"
+.TH "DH\-EXEC\-INSTALL" "1" "2016-01-11" "" "dh-exec"
 .ad l
 .nh
 .SH "NAME"
@@ -7,6 +7,8 @@ dh\-exec\-install \- Install (and possibly rename) files.
 \fB#! /usr/bin/dh\-exec\fR
 .br
 debian/default.conf => /etc/my\-package/start.conf
+.br
+=> /usr/bin/runme
 .br
 usr/bin/*
 .br
@@ -23,15 +25,21 @@ and those alone. If it finds that its input is not such a file, it
 will do nothing, but echo back the contents. For a ful list of
 recognised files, see the \fBFILE TYPES\fR section of this manual.
 
-The purpose of the program is to extend \fIdh_install\fR(1)'s
-functionality, by allowing to specify a destination filename.
+The purpose of the program is to extend \fIdh_install\fR(1)'s functionality, by
+allowing to specify a destination filename, and a way to move (instead of copy)
+a file to a single package.
 
-This can be accomplished by a special syntax: the \fI" => "\fR mark
-between a source and a destination means that the source file should
-be installed with the specified destination name.
+The first can be accomplished by a special syntax: the \fI" => "\fR mark between
+a source and a destination means that the source file should be installed with
+the specified destination name.
 
 For obvious reasons, the source \fBmust not\fR be a wildcard, and the
 destination in this case \fBmust\fR be a file, and not a directory.
+
+The second extension follows a simpler syntax: any filename prefixed with
+\fI"=>"\fR will be moved instead of copied to the package. This allows one to
+move a file out of a directory to a package, and install the rest of the files
+in the same dir into another package.
 
 See the \fBFILTERING\fR section of \fIdh\-exec\fR(1) for more
 information about how lines are filtered. Any non\-comment lines
@@ -90,5 +98,5 @@ for \fIdh_installmanpages\fR(1) files were added in version
 \fIdebhelper\fR(1), \fIdh\-exec\fR(1), \fIdh_install\fR(1)
 
 .SH "AUTHOR"
-dh\-exec\-install is copyright \(co 2011-2015 by Software Freedom
+dh\-exec\-install is copyright \(co 2011-2016 by Software Freedom
 Conservancy, Inc.

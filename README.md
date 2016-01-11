@@ -17,6 +17,8 @@ This collection provides solutions for the following tasks:
   including multi-arch ones)
 * An extension to dh_install, that supports renaming files during the
   copy process, using an extended syntax.
+* Another extension to dh_install, allowing one to move a file to one package,
+  and copy the rest to another.
 * Ability to filter files by architecture or build profile, within a
   single debhelper control file.
 
@@ -100,6 +102,17 @@ everything else dh-exec might try:
 
     #! /usr/bin/dh-exec --with-scripts=subst-multiarch,install-rename
     cfgs/cfg-${DEB_HOST_GNU_TYPE}.h => /usr/include/${DEB_HOST_MULTIARCH}/package/config.h
+
+Additionally, assuming we have two binary packages: `foo-gtk` and `foo-utils`,
+and we want to include `/usr/bin/foo-gtk` in the former package, the rest of
+`/usr/bin` in the latter. Our install files would look like these, for `foo-gtk`
+and `foo-utils` respectively:
+
+    #! /usr/bin/dh-exec
+    => /usr/bin/foo-gtk
+    
+    #! /usr/bin/dh-exec
+    /usr/bin/*
 
 But wait, there's more! You can restrict lines based on architecture,
 or build profile:

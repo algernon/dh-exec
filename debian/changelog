@@ -1,3 +1,11 @@
+dh-exec (0.24) unstable; urgency=medium
+
+  * Add support for moving files to a package, instead of copying. Thanks
+    to Barak A. Pearlmutter and Niels Thykier for the report and bringing
+    the request to my attention. (Closes: #498067)
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 11 Jan 2016 10:19:23 +0100
+
 dh-exec (0.23) unstable; urgency=high
 
   * Fix the DH_CONFIG_ACT_ON_PACKAGES support so that it works on packages

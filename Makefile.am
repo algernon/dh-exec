@@ -18,6 +18,7 @@ man1_MANS		= src/dh-exec-subst.1 \
 pkgdata_SCRIPTS		= lib/dh-exec-subst-env \
 			  lib/dh-exec-subst-multiarch \
 			  lib/dh-exec-install-rename \
+        lib/dh-exec-install-move \
 			  lib/dh-exec-illiterate-tangle \
 			  lib/dh-exec-strip-output \
 			  lib/dh-exec-filter-arch \
@@ -76,7 +77,8 @@ TESTCASES_SUBST		= test_subst_syntax.bats \
 			  test_subst_env.bats \
 			  test_subst_multiarch.bats
 TESTCASES_INSTALL	= test_install_syntax.bats \
-			  test_install_copy.bats
+			  test_install_copy.bats \
+        test_install_move.bats
 TESTCASES_ILLITERATE	= test_illiterate.bats
 TESTCASES_DH		= test_dh.bats
 TESTCASES_MISC		= test_combined.bats \

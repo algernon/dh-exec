@@ -1,27 +1,30 @@
 #! /usr/bin/perl -wnp
 ##
-## This script looks for SOURCE => DEST lines in its input, and copies
-## SOURCE to a temporary directory under debian/tmp, with the desired
-## DEST name. It will create directories appropriately.
+## This script looks for SOURCE => DEST lines in its input, and copies SOURCE to
+## a temporary directory under debian/tmp, with the desired DEST name. It will
+## create directories appropriately. If called as dh-exec-install-move, will
+## move files instead of copying, and also accept the => DEST form.
 ##
 ## It is done this way, so that we leave the boring work to
 ## dh_install, and all of its options will continue to work. And we
 ## put this under debian/tmp, because that gets cleaned up by dh_prep.
 BEGIN {
-        use File::Spec;
-        use File::Basename qw/basename/;
-        use File::Temp qw/tempdir/;
-        use File::Copy qw/cp move/;
-        use File::Path qw/make_path/;
+    use File::Spec;
+    use File::Basename qw/basename/;
+    use File::Temp qw/tempdir/;
+    use File::Copy qw/cp move/;
+    use File::Path qw/make_path/;
 
-        make_path("debian/tmp");
-        our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
-        our $append_destpath = TRUE;
-        if ($ENV{DH_EXEC_SOURCE} =~ /manpages$/) {
-                $append_destpath = FALSE;
-        }
+    make_path("debian/tmp");
+    our $tempdir = tempdir ("debian/tmp/dh-exec.XXXXXXXX");
+    our $append_destpath = TRUE;
+    if ($ENV{DH_EXEC_SOURCE} =~ /manpages$/) {
+        $append_destpath = FALSE;
+    }
 
-        our $noop = 1;
+    our $noop = 1;
+    our $move = 0;
+    $move = 1 if ($0 =~ /dh-exec-install-move$/);
 }
 
 if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
@@ -39,22 +42,32 @@ if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
     $noop = 0;
 }
 
-if (/([^\s]*)\s+=>\s+([^\s]*)/) {
-        my ($src, $dst) = ($1, $2);
-        my (undef, $srcpath, undef) = File::Spec->splitpath ($src);
-        my (undef, $dstpath, $dstfile) = File::Spec->splitpath ($dst);
-        my $debpath = File::Spec->catdir ($tempdir, $dstpath);
+if (/([^\s]*)\s+=>\s+([^\s]*)/ || /^=>\s+([^\s]*)/) {
+    my ($src, $dst, $move_this);
+    if (defined ($2)) {
+        ($src, $dst, $move_this) = ($1, $2, $move);
+    } else {
+        ($src, $dst, $move_this) = ($1, $1, 1);
+    }
+    my (undef, $srcpath, undef) = File::Spec->splitpath ($src);
+    my (undef, $dstpath, $dstfile) = File::Spec->splitpath ($dst);
+    my $debpath = File::Spec->catdir ($tempdir, $dstpath);
 
-        unless ($noop) {
-            make_path($debpath);
+    unless ($noop) {
+        make_path($debpath);
 
+        if ($move_this) {
+            move ($src, File::Spec->catfile ($debpath, $dstfile)) or
+                die "Failed to move '$src': $!";
+        } else {
             cp ($src, File::Spec->catfile ($debpath, $dstfile)) or
                 move (File::Spec->catfile ("debian/tmp", $src),
                       File::Spec->catfile ($debpath, $dstfile)) or
                       die "Failed to copy '$src': $!";
         }
+    }
 
-        $_ = File::Spec->catfile ($debpath, $dstfile);
-        $_ .= " " . $dstpath if ($append_destpath eq TRUE);
-        $_ .= "\n";
+    $_ = File::Spec->catfile ($debpath, $dstfile);
+    $_ .= " " . $dstpath if ($append_destpath eq TRUE);
+    $_ .= "\n";
 }
