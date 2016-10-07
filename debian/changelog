@@ -6,8 +6,9 @@ dh-exec (0.24) unstable; urgency=medium
   * Fix the combination of dh_install --fail-missing, dh-exec and
     arch-only/arch-indep builds. Thanks to Ferenc Wágner for the report.
     (Closes: #831786)
+  * Bump Standards-Version to 3.9.8, no changes required.
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 07 Oct 2016 10:41:52 +0200
+ -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 07 Oct 2016 11:30:20 +0200
 
 dh-exec (0.23) unstable; urgency=high
 

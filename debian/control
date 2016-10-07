@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9.20151004~), dh-autoreconf,
                perl (>= 5.14.2~),
                libdpkg-perl (>= 1.17.14~),
                bats
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: https://github.com/algernon/dh-exec
 Vcs-Git: https://github.com/algernon/dh-exec.git
 Vcs-Browser: https://github.com/algernon/dh-exec
