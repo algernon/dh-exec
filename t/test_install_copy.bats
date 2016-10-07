@@ -116,3 +116,25 @@ EOF
     [ -f "${nullfile}" ]
     expect_file "/var/lib/dh-exec/foo.8"
 }
+
+@test "install: --fail-missing and binary-indep works" {
+    DH_INTERNAL_OPTIONS=-i DH_CONFIG_ACT_ON_PACKAGES=foo-data \
+                       run_dh_exec_with_input foo-tools.install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /usr/bin/foo
+EOF
+
+    [ -f "${nullfile}" ]
+    expect_file "/usr/bin/foo"
+}
+
+@test "install: --fail-missing and binary-arch works" {
+    DH_INTERNAL_OPTIONS=-a DH_CONFIG_ACT_ON_PACKAGES=foo-tools \
+                       run_dh_exec_with_input foo-data.install <<EOF
+#! ${top_builddir}/src/dh-exec-install
+${nullfile} => /usr/share/foo-data/datafile
+EOF
+
+    [ -f "${nullfile}" ]
+    expect_file "/usr/share/foo-data/datafile"
+}

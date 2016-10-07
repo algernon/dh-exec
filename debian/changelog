@@ -3,8 +3,11 @@ dh-exec (0.24) unstable; urgency=medium
   * Add support for moving files to a package, instead of copying. Thanks
     to Barak A. Pearlmutter and Niels Thykier for the report and bringing
     the request to my attention. (Closes: #498067)
+  * Fix the combination of dh_install --fail-missing, dh-exec and
+    arch-only/arch-indep builds. Thanks to Ferenc Wágner for the report.
+    (Closes: #831786)
 
- -- Gergely Nagy <algernon@madhouse-project.org>  Mon, 11 Jan 2016 10:19:23 +0100
+ -- Gergely Nagy <algernon@madhouse-project.org>  Fri, 07 Oct 2016 10:41:52 +0200
 
 dh-exec (0.23) unstable; urgency=high
 

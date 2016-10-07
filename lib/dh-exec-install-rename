@@ -42,6 +42,11 @@ if (defined ($ENV{"DH_CONFIG_ACT_ON_PACKAGES"}) &&
     $noop = 0;
 }
 
+if (defined ($ENV{"DH_INTERNAL_OPTIONS"}) &&
+    $ENV{"DH_INTERNAL_OPTIONS"} =~ /-[ai]/) {
+    $noop = 0;
+}
+
 if (/([^\s]*)\s+=>\s+([^\s]*)/ || /^=>\s+([^\s]*)/) {
     my ($src, $dst, $move_this);
     if (defined ($2)) {
