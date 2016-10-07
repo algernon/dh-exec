@@ -33,3 +33,4 @@ core
 /t/pkg-test/debian/files
 /debian/build-tree/
 /t/tmp*
+/debian/debhelper-build-stamp
