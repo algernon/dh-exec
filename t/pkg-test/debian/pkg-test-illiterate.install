@@ -6,7 +6,7 @@ written in a literate manner. there is no code examples here, as we
 have no code to run at all. We just want to install a few files from
 here and there.
 
-For example, we want to install everyting from `data/bin-*' to
+For example, we want to install everything from `data/bin-*' to
 `/usr/bin/' - so lets just do that, ok?
 
 But alas, that's not enough. We need more stuff in the package,
