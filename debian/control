@@ -1,7 +1,7 @@
 Source: dh-exec
 Section: devel
 Priority: extra
-Maintainer: Gergely Nagy <algernon@madhouse-project.org>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 Build-Depends: debhelper (>= 9.20151004~), dh-autoreconf,
                automake (>= 1:1.11),
                fakeroot,

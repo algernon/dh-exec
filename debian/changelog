@@ -1,3 +1,9 @@
+dh-exec (0.23.1) unstable; urgency=medium
+
+  * Orphaning the package.
+
+ -- Gergely Nagy <algernon@madhouse-project.org>  Thu, 03 Jan 2019 18:00:53 +0100
+
 dh-exec (0.23) unstable; urgency=high
 
   * Fix the DH_CONFIG_ACT_ON_PACKAGES support so that it works on packages
