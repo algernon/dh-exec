@@ -3,6 +3,7 @@ dh-exec (0.25) UNRELEASED; urgency=medium
   * Use secure copyright file specification URI.
   * Bump debhelper from old 9 to 12.
   * Change priority extra to priority optional.
+  * Drop unnecessary dependency on dh-autoconf.
 
  -- Debian Janitor <janitor@jelmer.uk>  Fri, 25 Oct 2019 20:16:58 +0000
 

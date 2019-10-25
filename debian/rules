@@ -6,4 +6,4 @@ override_dh_auto_configure:
 	dh_auto_configure -- --libexecdir=/usr/lib
 
 %:
-	dh $@ --with autoreconf
+	dh $@
