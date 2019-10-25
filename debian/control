@@ -1,6 +1,6 @@
 Source: dh-exec
 Section: devel
-Priority: extra
+Priority: optional
 Maintainer: Gergely Nagy <algernon@madhouse-project.org>
 Build-Depends: debhelper-compat (= 12), dh-autoreconf,
                automake (>= 1:1.11),
