@@ -1,3 +1,9 @@
+dh-exec (0.25) UNRELEASED; urgency=medium
+
+  * Use secure copyright file specification URI.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Fri, 25 Oct 2019 20:16:58 +0000
+
 dh-exec (0.24) unstable; urgency=medium
 
   * Add support for moving files to a package, instead of copying. Thanks
